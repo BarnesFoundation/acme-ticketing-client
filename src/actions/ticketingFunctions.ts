@@ -1,6 +1,6 @@
 import { performRequest } from './acmeRequestor';
 import { WILLCALL_CHECKIN_EXTERNAL, ORDER_FOR_ORDER_ID, CHECK_IN_TICKETS } from '../utils/acmeEndpoints';
-import { CheckInExternalPayload, OrderPayload, Ticket } from '../interfaces/acmePayloads';
+import { CheckInExternalPayload, OrderPayload, Ticket } from '../interfaces/acmeTicketingPayloads';
 
 /** Retrieves the id of the order associated with a ticket. Can also return the entire order information for the ticket
  * @param ticketUUID - The UUID of the ticket to grab the order for
