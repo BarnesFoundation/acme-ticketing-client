@@ -2,7 +2,7 @@ import axios, { Method } from 'axios';
 import { clientConfig } from '../index';
 
 
-export const performRequest = async (url: string, method: Method, additionalHeaders?: {}, data?: any): Promise<any> => {
+export const performRequest = async (url: string, method: Method, additionalHeaders?: {}, data?: any, params?: { }): Promise<any> => {
 
 	const baseURL = clientConfig.apiRootUrl;
 	const defaultHeaders = { 'x-acme-api-key': clientConfig.apiKey };
@@ -15,7 +15,7 @@ export const performRequest = async (url: string, method: Method, additionalHead
 	}
 
 	try {
-		const response = (await axios({ baseURL, headers, url, method, data })).data;
+		const response = (await axios({ baseURL, headers, url, method, data, params })).data;
 		return response;
 	}
 
