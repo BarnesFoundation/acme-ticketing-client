@@ -1,5 +1,6 @@
 import { ACMEConfig } from './interfaces/interfaces';
 export { TicketingFunctions } from './actions/ticketingFunctions';
+export { EventFunctions } from './actions/eventFunctions';
 
 export let clientConfig: ACMEConfig;
 
