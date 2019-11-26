@@ -7,9 +7,11 @@
 		"rootDir": ".",
 		"outDir": "./dist",
 		"moduleResolution": "node",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"declaration": true
 	},
 	"include": [
-		"**/*.ts"
-	]
+		"src"
+	],
+	"exclude": ["node_modules"]
 }
