@@ -34,7 +34,7 @@ async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInfo
  * Checking-in an already checked-in ticket will result in an empty payload returned for that ticket check-in
  * @param ticketUUIDs - A list of ticket UUIDs to check in
  */
-async function checkInTickets(ticketUUIDs: string[]): Promise<Ticket[]> {
+const checkInTickets = async (ticketUUIDs: string[]): Promise<Ticket[]> => {
 
 	const checkedInTickets = await performRequest(CHECK_IN_TICKETS, 'post', null, { ticketUUIDs }) as Ticket[];
 	return checkedInTickets;
