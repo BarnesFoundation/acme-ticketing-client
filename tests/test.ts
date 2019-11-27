@@ -1,7 +1,7 @@
-import { ACMETicketingClient, TicketingFunctions } from '../src/index';
+import { ACMETicketingClient, TicketingFunctions, EventFunctions } from '../src/index';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: '../../.env '});
+dotenv.config();
 
 const main = async () => {
 
@@ -12,8 +12,6 @@ const main = async () => {
 
 	// Setup client
 	const ac = new ACMETicketingClient({ b2cTenantId, apiKey, apiRootUrl });
-
-
 }
 
 main(); 
