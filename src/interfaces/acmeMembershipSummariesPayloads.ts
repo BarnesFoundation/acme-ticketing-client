@@ -1,4 +1,4 @@
-export interface GetMembershipSummariesPayload {
+export interface MembershipSummariesPayload {
 	list: MembershipSummary[]
 }
 
