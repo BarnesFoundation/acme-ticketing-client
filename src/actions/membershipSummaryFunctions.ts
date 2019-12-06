@@ -1,6 +1,6 @@
 import { performRequest } from './acmeRequestor';
 import { GET_MEMBERSHIP_SUMMARIES } from '../utils/acmeEndpoints';
-import { GetMembershipSummariesPayload } from '../interfaces/acmeMembershipSummariesPayloads';
+import { MembershipSummariesPayload } from '../interfaces/acmeMembershipSummariesPayloads';
 
 interface MembershipSummaryInput {
 
@@ -48,14 +48,32 @@ interface MembershipSummaryInput {
  *  If no input is provided, all membership summary objects available will be returned.
  * @param input - Object containing input criteria (optional)
  */
-const getMembershipSummaries = async (input?: MembershipSummaryInput): Promise<GetMembershipSummariesPayload> => {
+const getMembershipSummaries = async (input?: MembershipSummaryInput): Promise<MembershipSummariesPayload> => {
 
 	const url = `${GET_MEMBERSHIP_SUMMARIES}`;
-	const payload = await performRequest(url, 'get', null, null, input) as GetMembershipSummariesPayload;
+	const payload = await performRequest(url, 'get', null, null, input) as MembershipSummariesPayload;
+
+	return payload;
+}
+
+/** Returns a list of membership summary objects matching the provided search term. This is not a pubicly/well-documented route within the Membership Summary API
+ * 
+ * Seems to use the provided term to search on these fields: Name, First Name, Last Name, Phone Number. 
+ * 
+ * So can (potentially) be used to search for a member via phone number. Phone number must be an exact match for the value stored in ACME (meaning exact formatting must be included in the term string)
+ * 
+ *  If no term is provided, all membership summary objects available will be returned.
+ * @param term - Value to search for (optional)
+ */
+const searchMembershipSummaries = async (term: string): Promise<MembershipSummariesPayload> => {
+
+	const url = `${GET_MEMBERSHIP_SUMMARIES}/search?search=${term}`;
+	const payload = await performRequest(url, 'get') as MembershipSummariesPayload;
 
 	return payload;
 }
 
 export const MembershipSummaryFunctions = {
-	getMembershipSummaries
+	getMembershipSummaries,
+	searchMembershipSummaries
 }
