@@ -1,6 +1,8 @@
 import { ACMEConfig } from './interfaces/interfaces';
 export { TicketingFunctions } from './actions/ticketingFunctions';
 export { EventFunctions } from './actions/eventFunctions';
+export { MembershipFunctions } from './actions/membershipFunctions';
+export { MembershipSummaryFunctions } from './actions/membershipSummaryFunctions';
 
 export let clientConfig: ACMEConfig;
 

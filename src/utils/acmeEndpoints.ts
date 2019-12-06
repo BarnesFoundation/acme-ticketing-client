@@ -9,3 +9,6 @@ export const LIST_EVENT_SUMMARIES="/v2/b2b/event/instances/summaries";
 
 // Membership endpoints
 export const GET_MEMBERSHIP="/v2/b2b/memberships";
+
+// Membership Summary endpoints
+export const GET_MEMBERSHIP_SUMMARIES="/v2/b2b/membership/summaries";
