@@ -13,3 +13,6 @@ export const GET_MEMBERSHIP="/v2/b2b/memberships";
 
 // Membership Summary endpoints
 export const GET_MEMBERSHIP_SUMMARIES="/v2/b2b/membership/summaries";
+
+// Orders Management - Orders endpoints
+export const GET_ORDER="/v2/b2c/orders";
