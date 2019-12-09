@@ -58,7 +58,11 @@ const getMembershipSummaries = async (input?: MembershipSummaryInput): Promise<M
 
 /** Returns a list of membership summary objects matching the provided search term. This is not a pubicly/well-documented route within the Membership Summary API
  * 
- * Seems to use the provided term to search on these fields: Name, First Name, Last Name, Phone Number. 
+ * Seems to use the provided term to search on these fields: 
+ * - Name
+ * - First Name 
+ * - Last Name
+ * - Phone Number
  * 
  * So can (potentially) be used to search for a member via phone number. Phone number must be an exact match for the value stored in ACME (meaning exact formatting must be included in the term string)
  * 
