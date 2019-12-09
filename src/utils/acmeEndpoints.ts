@@ -6,6 +6,7 @@ export const CHECK_IN_TICKETS="/v2/b2b/willcall/checkintickets";
 // Event endpoints
 export const LIST_EVENTS="/v2/b2b/event/instances";
 export const LIST_EVENT_SUMMARIES="/v2/b2b/event/instances/summaries";
+export const GET_EVENT="/v2/b2b/event/instances";
 
 // Membership endpoints
 export const GET_MEMBERSHIP="/v2/b2b/memberships";
