@@ -3,6 +3,7 @@ export { TicketingFunctions } from './actions/ticketingFunctions';
 export { EventFunctions } from './actions/eventFunctions';
 export { MembershipFunctions } from './actions/membershipFunctions';
 export { MembershipSummaryFunctions } from './actions/membershipSummaryFunctions';
+export { OrderFunctions } from './actions/orderFunctions';
 
 export let clientConfig: ACMEConfig;
 
