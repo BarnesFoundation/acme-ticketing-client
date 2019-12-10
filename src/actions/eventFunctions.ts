@@ -2,45 +2,54 @@ import { performRequest } from './acmeRequestor';
 import { LIST_EVENTS, LIST_EVENT_SUMMARIES, GET_EVENT } from '../utils/acmeEndpoints';
 import { ListEventSummariesPayload, Event, ListEventsPayload } from '../interfaces/acmeEventPayloads';
 
+/** Object for the Event input parameters to provide. Optional */
+interface EventParameters {
+	/** ISO8601 date of events you want after this time (optional) */
+	startTime?: string,
+
+	/** ISO8601 date of events you want before this time (optional) */
+	endTime?: string,
+
+	/** Limit events to those that support the specified sale channel */
+	saleChannel?: string,
+
+	/** The id of the event template you want the events for.Only used if there is a startTime(optional) */
+	templateId?: string,
+
+	/** One of private, standard or all. If left off or standard then will not return events that were made for private event templates (optional) */
+	type?: string
+}
+
 /** Returns a list of events that match the applied filters
- * @param startTime - ISO8601 date of events you want after this time (optional)
- * @param endTime - ISO8601 date of events you want before this time (optional)
- * @param saleChannel - Limit events to those that support the specified sale channel
- * @param templateId - The id of the event template you want the events for.  Only used if there is a startTime (optional)
- * @param type - One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional)
+ @params input - Object containing the input parameters the events should match
  */
-async function listEvents(startTime?: string, endTime?: string, saleChannel?: string, templateId?: string, type?: string): Promise<ListEventsPayload> {
+async function listEvents(input?: EventParameters): Promise<ListEventsPayload> {
 
-	let params = {};
-
-	// Add params as necessary
-	startTime && (params = { ...params, startTime });
-	endTime && (params = { ...params, endTime });
-	saleChannel && (params = { ...params, saleChannel });
-	templateId && (params = { ...params, templateId });
-	type && (params = { ...params, type });
-
-	const payload = await performRequest(LIST_EVENTS, 'get', null, null, params) as ListEventsPayload;
+	const payload = await performRequest(LIST_EVENTS, 'get', null, null, input) as ListEventsPayload;
 	return payload;
 }
 
+/** Object for the Event Summary input parameters to provide. Optional */
+interface EventSummaryParameters {
+	/** ISO8601 date of events you want after this time (optional) */
+	startTime?: string,
+
+	/** ISO8601 date of events you want before this time (optional) */
+	endTime?: string,
+
+	/** Limit events to those that support the specified sale channel */
+	saleChannel?: string,
+
+	/** One of private, standard or all. If left off or standard then will not return events that were made for private event templates (optional) */
+	type?: string
+}
+
 /** Returns a list of event summaries that match the applied filters
- * @param startTime - ISO8601 date of events you want after this time (optional)
- * @param endTime - ISO8601 date of events you want before this time (optional)
- * @param saleChannel - Limit events to those that support the specified sale channel
- * @param type - One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional)
+ * @param input - Object containing the input parameters the event summaries should match
  */
-async function listEventSummaries(startTime?: string, endTime?: string, saleChannel?: string, type?: string): Promise<any> {
+async function listEventSummaries(input?: EventSummaryParameters): Promise<any> {
 
-	let params = {};
-
-	// Add params as necessary
-	startTime && (params = { ...params, startTime });
-	endTime && (params = { ...params, endTime });
-	saleChannel && (params = { ...params, saleChannel });
-	type && (params = { ...params, type });
-
-	const payload = await performRequest(LIST_EVENT_SUMMARIES, 'get', null, null, params) as ListEventSummariesPayload;
+	const payload = await performRequest(LIST_EVENT_SUMMARIES, 'get', null, null, input) as ListEventSummariesPayload;
 	return payload;
 }
 

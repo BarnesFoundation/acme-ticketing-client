@@ -15,7 +15,7 @@ async function getOrder(orderId: string): Promise<Order> {
 }
 
 /** Object for the input parameters to provide. Optional */
-interface InputParameters {
+interface OrderParameters {
 	/** The id of the visitor you want the list of orders for (optional) */
 	visitorId?: string, 
 	/** The id of the visitor you want the list of orders for (optional) */
@@ -29,7 +29,7 @@ interface InputParameters {
 /** Returns a list of order objects that match the specified input parameters. 
  * @param inputParameters - Object containing the input parameters the order should match
  */
-async function listOrders(inputParameters?: InputParameters): Promise<Order[]> {
+async function listOrders(inputParameters?: OrderParameters): Promise<Order[]> {
 
 	const payload = await performRequest(GET_ORDER, 'get', null, null, inputParameters) as Order[];
 	return payload;

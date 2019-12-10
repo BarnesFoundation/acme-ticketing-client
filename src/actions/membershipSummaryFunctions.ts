@@ -2,7 +2,7 @@ import { performRequest } from './acmeRequestor';
 import { GET_MEMBERSHIP_SUMMARIES } from '../utils/acmeEndpoints';
 import { MembershipSummariesPayload } from '../interfaces/acmeMembershipSummariesPayloads';
 
-interface MembershipSummaryInput {
+interface MembershipParameters {
 
 	// Only return membership summaries updated after this start time (optional) 
 	updatedStartTime?: string,
@@ -48,7 +48,7 @@ interface MembershipSummaryInput {
  *  If no input is provided, all membership summary objects available will be returned.
  * @param input - Object containing input criteria (optional)
  */
-const getMembershipSummaries = async (input?: MembershipSummaryInput): Promise<MembershipSummariesPayload> => {
+const getMembershipSummaries = async (input?: MembershipParameters): Promise<MembershipSummariesPayload> => {
 
 	const url = `${GET_MEMBERSHIP_SUMMARIES}`;
 	const payload = await performRequest(url, 'get', null, null, input) as MembershipSummariesPayload;
