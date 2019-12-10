@@ -47,7 +47,7 @@ async function listOrdersForEvent(eventId: string): Promise<Order[]> {
 }
 
 /** Module for the Orders Management - Orders endpoints. 
- * When utilizing this module, your ACME client config object must have the `b2cTenantId` value set. Otherwise, calls to methods belonging to this module will fail */
+ * When utilizing this module, your ACME client config object **must** have the `b2cTenantId` value set. Otherwise, calls to methods belonging to this module will fail */
 export const OrderFunctions = {
 	getOrder,
 	listOrders,
