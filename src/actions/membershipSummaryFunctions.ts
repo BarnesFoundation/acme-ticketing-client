@@ -66,7 +66,6 @@ const getMembershipSummaries = async (input?: MembershipSummaryInput): Promise<M
  * 
  * So can (potentially) be used to search for a member via phone number. Phone number must be an exact match for the value stored in ACME (meaning exact formatting must be included in the term string)
  * 
- *  If no term is provided, all membership summary objects available will be returned.
  * @param term - Value to search for (optional)
  */
 const searchMembershipSummaries = async (term: string): Promise<MembershipSummariesPayload> => {
