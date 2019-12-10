@@ -7,9 +7,11 @@ export interface Order {
     contactFirstName: string,
     contactLastName: string,
     billingFirstName: string,
-    billingLastName: string,
+	billingLastName: string,
+	billingAddress1: string,
     billingCountry: string,
-    billingState: string,
+	billingState: string,
+	address1: string,
     country: string,
     state: string,
     phoneNumber: string,
@@ -35,7 +37,13 @@ export interface Order {
     hideEventDate: boolean,
     invoiceAfter: boolean,
     customerId: number,
-    obfuscated: boolean
+	obfuscated: boolean,
+
+	membershipId?: number,
+	ccLastFourDigits?: string,
+	notes?: string,
+	ticketDelivery?: string
+
 }
 
 interface OrderItem {
