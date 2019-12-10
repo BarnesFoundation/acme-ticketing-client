@@ -14,14 +14,14 @@ async function retrieveAssociatedOrderForTicket(ticketUUID: string): Promise<num
 async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInformation: true): Promise<OrderPayload>;
 async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInformation?: true) {
 
-	const { orderId } = await performRequest(WILLCALL_CHECKIN_EXTERNAL, 'post', null, { ticketUUID }) as CheckInExternalPayload;
+	const { orderId } = await performRequest({ url: WILLCALL_CHECKIN_EXTERNAL, method: 'post', data: { ticketUUID } }) as CheckInExternalPayload;
 
 	// Retrieve the additional order information if requested
 	if (getOrderInformation) {
 
 		// Retrieve the entire order so that we have access to all tickets in it
-		const orderUrl = `${ORDER_FOR_ORDER_ID}/${orderId}`;
-		const order = await performRequest(orderUrl, 'get') as OrderPayload;
+		const url = `${ORDER_FOR_ORDER_ID}/${orderId}`;
+		const order = await performRequest({ url, method: 'get' }) as OrderPayload;
 
 		return order;
 	}
