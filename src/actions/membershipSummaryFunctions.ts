@@ -4,43 +4,43 @@ import { MembershipSummariesPayload } from '../interfaces/acmeMembershipSummarie
 
 interface MembershipParameters {
 
-	// Only return membership summaries updated after this start time (optional) 
+	/** Only return membership summaries updated after this start time (optional) */
 	updatedStartTime?: string,
 
-	// Only return membership summaries updated after this time (optional)
+	/** Only return membership summaries updated after this time (optional) */
 	updatedEndTime?: string,
 
-	// Only return membership summaries of this program type (optional)
+	/** Only return membership summaries of this program type (optional) */
 	program?: string,
 
-	// Only return membership summaries of this category (optional)
+	/** Only return membership summaries of this category (optional) */
 	category?: string,
 
-	// Only return membership summaries of this sub category (optional)
+	/** Only return membership summaries of this sub category (optional) */
 	subCategory?: string,
 
-	// Only return the membership summaries that have barcode or acmeBarcodes that begin with this text.  Useful for auto complete (optional)
+	/** Only return the membership summaries that have barcode or acmeBarcodes that begin with this text.  Useful for auto complete (optional) */
 	barcode?: string,
 
-	// nly return membership summaries that have membership ids that begin with this text. Useful for auto complete (optional)
+	/** Only return membership summaries that have membership ids that begin with this text. Useful for auto complete (optional) */
 	membershipId?: number,
 
-	// Only return membership summaries that have first names that begin with this text. Useful for auto complete (optional)
+	/** Only return membership summaries that have first names that begin with this text. Useful for auto complete (optional) */
 	firstName?: string,
 
-	// Only return membership summaries that have last names that begin with this text. Useful for auto complete (optional)
+	/** Only return membership summaries that have last names that begin with this text. Useful for auto complete (optional) */
 	lastName?: string,
 
-	// Only return membership summaries that have cities that begin with this text. Useful for auto complete (optional)
+	/** Only return membership summaries that have cities that begin with this text. Useful for auto complete (optional) */
 	city?: string,
 
-	// Only return membership summaries that have zip codes that begin with this text. Useful for auto complete (optional)
+	/** Only return membership summaries that have zip codes that begin with this text. Useful for auto complete (optional) */
 	zip?: string,
 
-	// String.ISO8601 format. Returns only the memberships that expire after this date. (in sandbox) (optional)
+	/** String.ISO8601 format. Returns only the memberships that expire after this date. (in sandbox) (optional) */
 	expiresAfter?: string,
 
-	// String.ISO8601 format. Returns only the memberships that expired before this date. (in sandbox) (optional)
+	/** String.ISO8601 format. Returns only the memberships that expired before this date. (in sandbox) (optional) */
 	expiresBefore?: string
 }
 
@@ -66,7 +66,7 @@ const getMembershipSummaries = async (input?: MembershipParameters): Promise<Mem
  * 
  * So can (potentially) be used to search for a member via phone number. Phone number must be an exact match for the value stored in ACME (meaning exact formatting must be included in the term string)
  * 
- * @param term - Value to search for (optional)
+ * @param term - Value to search for
  */
 const searchMembershipSummaries = async (term: string): Promise<MembershipSummariesPayload> => {
 
