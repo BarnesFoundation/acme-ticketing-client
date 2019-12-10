@@ -1,6 +1,6 @@
-import { performRequest } from './acmeRequestor';
-import { GET_MEMBERSHIP_SUMMARIES } from '../utils/acmeEndpoints';
-import { MembershipSummariesPayload } from '../interfaces/acmeMembershipSummariesPayloads';
+import { performRequest } from '../../acmeRequestor';
+import { GET_MEMBERSHIP_SUMMARIES } from '../../../utils/acmeEndpoints';
+import { MembershipSummariesPayload } from '../../../interfaces/acmeMembershipSummariesPayloads';
 
 interface MembershipParameters {
 
@@ -46,12 +46,12 @@ interface MembershipParameters {
 
 /** Returns a list of membership summary objects matching the provided input criteria.
  *  If no input is provided, all membership summary objects available will be returned.
- * @param input - Object containing input criteria (optional)
+ * @param params - Object containing input criteria (optional)
  */
-const getMembershipSummaries = async (input?: MembershipParameters): Promise<MembershipSummariesPayload> => {
+const getMembershipSummaries = async (params?: MembershipParameters): Promise<MembershipSummariesPayload> => {
 
 	const url = `${GET_MEMBERSHIP_SUMMARIES}`;
-	const payload = await performRequest(url, 'get', null, null, input) as MembershipSummariesPayload;
+	const payload = await performRequest({ url, method: 'get', params }) as MembershipSummariesPayload;
 
 	return payload;
 }
@@ -71,7 +71,7 @@ const getMembershipSummaries = async (input?: MembershipParameters): Promise<Mem
 const searchMembershipSummaries = async (term: string): Promise<MembershipSummariesPayload> => {
 
 	const url = `${GET_MEMBERSHIP_SUMMARIES}/search?search=${term}`;
-	const payload = await performRequest(url, 'get') as MembershipSummariesPayload;
+	const payload = await performRequest({ url, method: 'get' }) as MembershipSummariesPayload;
 
 	return payload;
 }

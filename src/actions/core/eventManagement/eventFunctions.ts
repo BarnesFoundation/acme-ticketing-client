@@ -1,6 +1,6 @@
-import { performRequest } from './acmeRequestor';
-import { LIST_EVENTS, LIST_EVENT_SUMMARIES, GET_EVENT } from '../utils/acmeEndpoints';
-import { ListEventSummariesPayload, Event, ListEventsPayload } from '../interfaces/acmeEventPayloads';
+import { performRequest } from '../../acmeRequestor';
+import { LIST_EVENTS, LIST_EVENT_SUMMARIES, GET_EVENT } from '../../../utils/acmeEndpoints';
+import { ListEventSummariesPayload, Event, ListEventsPayload } from '../../../interfaces/acmeEventPayloads';
 
 /** Object for the Event input parameters to provide. Optional */
 interface EventParameters {
@@ -21,11 +21,11 @@ interface EventParameters {
 }
 
 /** Returns a list of events that match the applied filters
- @params input - Object containing the input parameters the events should match
+ @params params - Object containing the input parameters the events should match
  */
-async function listEvents(input?: EventParameters): Promise<ListEventsPayload> {
+async function listEvents(params?: EventParameters): Promise<ListEventsPayload> {
 
-	const payload = await performRequest(LIST_EVENTS, 'get', null, null, input) as ListEventsPayload;
+	const payload = await performRequest({ url: LIST_EVENTS, method: 'get', params }) as ListEventsPayload;
 	return payload;
 }
 
@@ -45,11 +45,11 @@ interface EventSummaryParameters {
 }
 
 /** Returns a list of event summaries that match the applied filters
- * @param input - Object containing the input parameters the event summaries should match
+ * @param params - Object containing the input parameters the event summaries should match
  */
-async function listEventSummaries(input?: EventSummaryParameters): Promise<any> {
+async function listEventSummaries(params?: EventSummaryParameters): Promise<any> {
 
-	const payload = await performRequest(LIST_EVENT_SUMMARIES, 'get', null, null, input) as ListEventSummariesPayload;
+	const payload = await performRequest({ url: LIST_EVENT_SUMMARIES, method: 'get', params }) as ListEventSummariesPayload;
 	return payload;
 }
 
@@ -60,7 +60,7 @@ async function getEvent(eventId: string): Promise<Event> {
 
 	const url = `${GET_EVENT}/${eventId}`;
 
-	const payload = await performRequest(url, 'get') as Event;
+	const payload = await performRequest({ url, method: 'get' }) as Event;
 	return payload;
 }
 
