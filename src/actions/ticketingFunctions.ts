@@ -36,7 +36,7 @@ async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInfo
  */
 const checkInTickets = async (ticketUUIDs: string[]): Promise<Ticket[]> => {
 
-	const checkedInTickets = await performRequest(CHECK_IN_TICKETS, 'post', null, { ticketUUIDs }) as Ticket[];
+	const checkedInTickets = await performRequest({ url: CHECK_IN_TICKETS, method: 'post', data: { ticketUUIDs } }) as Ticket[];
 	return checkedInTickets;
 }
 
