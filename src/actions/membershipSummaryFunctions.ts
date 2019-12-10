@@ -76,6 +76,7 @@ const searchMembershipSummaries = async (term: string): Promise<MembershipSummar
 	return payload;
 }
 
+/** Module for the Membership - Membership Summary API endpoints. */
 export const MembershipSummaryFunctions = {
 	getMembershipSummaries,
 	searchMembershipSummaries

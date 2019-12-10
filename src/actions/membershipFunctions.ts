@@ -14,6 +14,7 @@ const getMembership = async (membershipId: string): Promise<GetMembershipPayload
 	return membership;
 }
 
+/** Module for the Membership endpoints. */
 export const MembershipFunctions = {
 	getMembership,
 }

@@ -55,6 +55,7 @@ async function getEvent(eventId: string): Promise<Event> {
 	return payload;
 }
 
+/** Module for the Event Management - Event Instances endpoints. */
 export const EventFunctions = {
 	listEvents,
 	listEventSummaries,
