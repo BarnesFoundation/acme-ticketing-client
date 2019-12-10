@@ -1,5 +1,5 @@
 import { performRequest } from './acmeRequestor';
-import { GET_ORDER } from '../utils/acmeEndpoints';
+import { GET_ORDER, GET_ORDERS_FOR_EVENT } from '../utils/acmeEndpoints';
 import { Order } from '../interfaces/acmeOrderPayloads';
 
 
@@ -35,9 +35,21 @@ async function listOrders(inputParameters?: InputParameters): Promise<Order[]> {
 	return payload;
 }
 
+/** Returns a list of orders object associated with the specified event. 
+ * @param eventId - The id of the event you want the list of orders for
+ */
+async function listOrdersForEvent(eventId: string): Promise<Order[]> {
+
+	const url = `${GET_ORDERS_FOR_EVENT}/${eventId}`;
+
+	const payload = await performRequest(url, 'get') as Order[];
+	return payload;
+}
+
 /** Module for the Orders Management - Orders endpoints. 
  * When utilizing this module, your ACME client config object must have the `b2cTenantId` value set. Otherwise, calls to methods belonging to this module will fail */
 export const OrderFunctions = {
 	getOrder,
-	listOrders
+	listOrders,
+	listOrdersForEvent
 }
