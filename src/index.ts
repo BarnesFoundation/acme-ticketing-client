@@ -1,5 +1,5 @@
 import { ACMEConfig } from './interfaces/interfaces';
-export { TicketingFunctions } from './actions/ticketingFunctions';
+export { TicketingFunctions } from './actions/convenience/ticketingFunctions';
 export { EventFunctions } from './actions/core/eventManagement/eventFunctions';
 export { MembershipFunctions } from './actions/core/membership/membershipFunctions';
 export { MembershipSummaryFunctions } from './actions/core/membership/membershipSummaryFunctions';
