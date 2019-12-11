@@ -10,10 +10,11 @@ interface RequestConfig {
 	params?: {},
 }
 
-const baseURL = clientConfig.apiRootUrl;
-const defaultHeaders: {} = { 'x-acme-api-key': clientConfig.apiKey };
-
 export const performRequest = async (config: RequestConfig): Promise<any> => {
+
+	// Setup request
+	const baseURL = clientConfig.apiRootUrl;
+	const defaultHeaders: {} = { 'x-acme-api-key': clientConfig.apiKey };
 
 	let headers = { ...defaultHeaders };
 
