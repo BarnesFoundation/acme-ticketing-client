@@ -8,13 +8,11 @@ import { GetMembershipPayload } from '../../../interfaces/acmeMembershipPayloads
  */
 const getMembership = async (membershipId: string): Promise<GetMembershipPayload> => {
 	
-	const membershipUrl = `${GET_MEMBERSHIP}/${membershipId}`;
-	const membership = await performRequest(membershipUrl, 'get') as GetMembershipPayload;
+	const url = `${GET_MEMBERSHIP}/${membershipId}`;
+	const payload = await performRequest( { url, method: 'get' }) as GetMembershipPayload;
 
-	return membership;
+	return payload;
 }
 
 /** Module for the Membership endpoints. */
-export const MembershipFunctions = {
-	getMembership,
-}
+export { getMembership }

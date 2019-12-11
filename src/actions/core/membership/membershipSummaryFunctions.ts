@@ -22,7 +22,7 @@ interface MembershipParameters {
 	/** Only return the membership summaries that have barcode or acmeBarcodes that begin with this text.  Useful for auto complete (optional) */
 	barcode?: string,
 
-	/** Only return membership summaries that have membership ids that begin with this text. Useful for auto complete (optional) */
+	/** Only return membership summaries that have membership ids that begin with this text. Useful for auto complete. May correspond to the external membership id (optional) */
 	membershipId?: number,
 
 	/** Only return membership summaries that have first names that begin with this text. Useful for auto complete (optional) */
@@ -63,6 +63,7 @@ const getMembershipSummaries = async (params?: MembershipParameters): Promise<Me
  * - First Name 
  * - Last Name
  * - Phone Number
+ * - Email
  * 
  * So can (potentially) be used to search for a member via phone number. Phone number must be an exact match for the value stored in ACME (meaning exact formatting must be included in the term string)
  * 
@@ -76,8 +77,4 @@ const searchMembershipSummaries = async (term: string): Promise<MembershipSummar
 	return payload;
 }
 
-/** Module for the Membership - Membership Summary API endpoints. */
-export const MembershipSummaryFunctions = {
-	getMembershipSummaries,
-	searchMembershipSummaries
-}
+export { getMembershipSummaries, searchMembershipSummaries }
