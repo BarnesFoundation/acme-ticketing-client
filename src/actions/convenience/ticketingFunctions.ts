@@ -36,7 +36,7 @@ const getTicketsForMembershipCard = async (cardId: string): Promise<TicketingInf
 
 			const { email: oEmail, membershipId: oMembershipId, id: orderId, orderNumber } = orders[j];
 
-			if (oEmail && membershipId) {
+			if (oEmail && oMembershipId) {
 
 				// If the email listed in the order matches this one, and the membership id's match
 				if (email.toLowerCase() === oEmail.toLowerCase() && membershipId === oMembershipId) {
