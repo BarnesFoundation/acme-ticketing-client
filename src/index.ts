@@ -6,6 +6,8 @@ import * as OrderFunctions from './actions/core/ordersManagement/orderFunctions'
 import * as MembershipCardFunctions from './actions/core/membership/membershipCardFunctions';
 import * as MembershipSummaryFunctions from './actions/core/membership/membershipSummaryFunctions';
 import * as MembershipFunctions from './actions/core/membership/membershipFunctions';
+import * as WillCallFunctions from './actions/core/willCallFunctions';
+
 
 export let clientConfig: ACMEConfig;
 
@@ -19,7 +21,7 @@ export class ACMETicketingClient {
 
 		// If no root url for the API was provided, set the production API url
 		if (configuration.apiRootUrl == undefined) {
-			configuration.apiRootUrl = `https://api.acmeticketing.net`;
+			configuration.apiRootUrl = `https://api.acmeticketing.com`;
 		}
 
 		clientConfig = configuration;
@@ -31,5 +33,6 @@ export {
 	MembershipSummaryFunctions,
 	MembershipCardFunctions,
 	MembershipFunctions,
-	OrderFunctions
+	OrderFunctions,
+	WillCallFunctions
 };
