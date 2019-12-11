@@ -11,6 +11,9 @@ export const GET_EVENT="/v2/b2b/event/instances";
 // Membership endpoints
 export const GET_MEMBERSHIP="/v2/b2b/memberships";
 
+// Membership Card endpoints
+export const LIST_MEMBERSHIP_CARDS="/v2/b2b/membership/cards";
+
 // Membership Summary endpoints
 export const GET_MEMBERSHIP_SUMMARIES="/v2/b2b/membership/summaries";
 
