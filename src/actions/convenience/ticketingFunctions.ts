@@ -1,6 +1,8 @@
 import { EventFunctions, MembershipCardFunctions, OrderFunctions, WillCallFunctions } from '../../index';
-import { Item, OrderPayload } from '../../interfaces/acmeWillCallPayloads';
+import { OrderPayload } from '../../interfaces/acmeWillCallPayloads';
 import { Order } from '../../interfaces/acmeOrderPayloads';
+import { TicketingInformation } from '../../interfaces/convenience/ticketingFunctionsPayloads';
+
 
 /** Retrieves the list of todays tickets for a provided membership card id
  * 
@@ -61,16 +63,4 @@ const ordersListsFilter = async (oe: Order[][]) => {
 	return await Promise.all<OrderPayload>(orderPayloadRequests);
 }
 
-interface TicketingInformation {
-	orderId: string,
-	orderNumber: string,
-	eventName: string,
-	eventId: string,
-	eventDate: string,
-	items: Item[]
-}
-
-
-export const TicketingFunctions = {
-	getTicketsForMembershipCard
-}
+export { getTicketsForMembershipCard }
