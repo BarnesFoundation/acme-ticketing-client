@@ -11,8 +11,7 @@
 		"declaration": true
 	},
 	"include": [
-		"src", 
-		"tests"
+		"src", "tests", "tests", "convenience.ts", "index.ts"
 	],
 	"exclude": ["node_modules"]
 }

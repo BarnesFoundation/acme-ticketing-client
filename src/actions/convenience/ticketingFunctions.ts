@@ -1,4 +1,4 @@
-import { EventFunctions, MembershipCardFunctions, OrderFunctions, WillCallFunctions } from '../../index';
+import { EventFunctions, MembershipCardFunctions, OrderFunctions, WillCallFunctions } from '../../../index';
 import { OrderPayload } from '../../interfaces/acmeWillCallPayloads';
 import { Order } from '../../interfaces/acmeOrderPayloads';
 import { TicketingInformation } from '../../interfaces/convenience/ticketingFunctionsPayloads';

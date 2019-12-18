@@ -1,5 +1,5 @@
 import axios, { Method } from 'axios';
-import { clientConfig } from '../index';
+import { clientConfig } from '../../index';
 
 
 interface RequestConfig {
