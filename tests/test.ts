@@ -1,4 +1,4 @@
-import { ACMETicketingClient, TicketingFunctions, EventFunctions, MembershipSummaryFunctions, OrderFunctions, MembershipCardFunctions } from '../src/index';
+import { ACMETicketingClient, EventFunctions, MembershipSummaryFunctions, OrderFunctions, MembershipCardFunctions } from '../src/index';
 import { TicketingFunctions as tfc } from '../src/convenience';
 import * as dotenv from 'dotenv';
 
