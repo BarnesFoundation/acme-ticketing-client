@@ -47,7 +47,7 @@ interface EventSummaryParameters {
 /** Returns a list of event summaries that match the applied filters
  * @param params - Object containing the input parameters the event summaries should match
  */
-async function listEventSummaries(params?: EventSummaryParameters): Promise<any> {
+async function listEventSummaries(params?: EventSummaryParameters): Promise<ListEventSummariesPayload> {
 
 	const payload = await performRequest({ url: LIST_EVENT_SUMMARIES, method: 'get', params }) as ListEventSummariesPayload;
 	return payload;
