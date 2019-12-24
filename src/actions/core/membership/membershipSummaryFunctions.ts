@@ -64,6 +64,7 @@ const getMembershipSummaries = async (params?: MembershipParameters): Promise<Me
  * - Last Name
  * - Phone Number
  * - Email
+ * - External Membership Id/ ACME Barcode
  * 
  * So can (potentially) be used to search for a member via phone number. Phone number must be an exact match for the value stored in ACME (meaning exact formatting must be included in the term string)
  * 
