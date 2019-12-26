@@ -2,7 +2,7 @@ export interface MembershipSummariesPayload {
 	list: MembershipSummary[]
 }
 
-interface MembershipSummary {
+export interface MembershipSummary {
 	id: number,
 	membershipId: number,
 	cardType: string,
