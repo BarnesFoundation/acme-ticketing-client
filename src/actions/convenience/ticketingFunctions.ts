@@ -46,7 +46,10 @@ const getTicketsForMembership = async (membershipId: string, startDate?: string,
 
 	// Get the orders for the events that are for this member
 	const ordersForEventsForMember = (await Promise.all<Order[]>(ordersForEventsRequests)).filter((orders) => {
-		return orders.filter((order) => { return order.membershipId.toString() === membershipId }).length > 0;
+		return orders.filter((order) => {
+			if (order.membershipId) { return order.membershipId.toString() === membershipId }
+
+		}).length > 0;
 	});
 
 	const ticketInformation = (await (ordersListsFilter(ordersForEventsForMember))).reduce((acc: TicketingInformation[], op) => {
