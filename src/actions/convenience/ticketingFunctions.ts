@@ -1,7 +1,6 @@
 import { EventFunctions, MembershipCardFunctions, OrderFunctions, WillCallFunctions } from '../../../index';
 import { OrderPayload } from '../../interfaces/acmeWillCallPayloads';
 import { Order } from '../../interfaces/acmeOrderPayloads';
-import { TicketingInformation } from '../../interfaces/convenience/ticketingFunctionsPayloads';
 
 
 /** Retrieves the list of tickets for a provided membership card id within the provided date range
@@ -10,7 +9,7 @@ import { TicketingInformation } from '../../interfaces/convenience/ticketingFunc
  * @param startDate - The starting date for the range. Defaults to previous midnight if no value is provided (optional)
  * @param endDate - The ending date for the range. Defaults to today's midnight if no value is provided (optional)
  */
-const getTicketsForMembership = async (membershipId: string, startDate?: string, endDate?: string): Promise<TicketingInformation[]> => {
+const getTicketsForMembership = async (membershipId: string, startDate?: string, endDate?: string): Promise<OrderPayload[]> => {
 
 	let startTime = startDate;
 	let endTime = endDate;
@@ -52,17 +51,12 @@ const getTicketsForMembership = async (membershipId: string, startDate?: string,
 		}).length > 0;
 	});
 
-	const ticketInformation = (await (ordersListsFilter(ordersForEventsForMember))).reduce((acc: TicketingInformation[], op) => {
-
-		const { orderId, orderNumber, eventItems } = op;
-		eventItems.map((eventItem) => {
-			const { eventId, eventName, eventDate, items } = eventItem;
-			acc.push({ orderId, orderNumber, eventId, eventName, eventDate, items });
-		});
+	const orderPayloads = (await (ordersListsFilter(ordersForEventsForMember))).reduce((acc: OrderPayload[], op) => {
+		acc.push(op);
 		return acc;
 	}, []);
 
-	return ticketInformation;
+	return orderPayloads;
 }
 
 const ordersListsFilter = async (oe: Order[][]) => {
