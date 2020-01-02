@@ -3,7 +3,7 @@ import { OrderPayload } from '../../interfaces/acmeWillCallPayloads';
 import { Order } from '../../interfaces/acmeOrderPayloads';
 
 
-/** Retrieves the list of tickets for a provided membership card id within the provided date range
+/** Retrieves the list of orders that have events within the provided date range for a provided membership id 
  * 
  * @param membershipId - The id of the membership to search tickets for
  * @param startDate - The starting date for the range. Defaults to previous midnight if no value is provided (optional)
