@@ -20,3 +20,6 @@ export const GET_MEMBERSHIP_SUMMARIES="/v2/b2b/membership/summaries";
 // Orders Management - Orders endpoints
 export const GET_ORDER="/v2/b2c/orders";
 export const GET_ORDERS_FOR_EVENT="/v2/b2c/orders/event"
+
+// Analytics - Reports endpoints
+export const LIST_REPORTS="/v2/b2b/analytics/report/definitions";
