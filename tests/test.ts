@@ -14,7 +14,7 @@ const main = async () => {
 	// Setup client
 	const ac = new ACMETicketingClient({ b2cTenantId, apiKey });
 
-	const r = await tfc.getTicketsForMembershipCard('3320311');
+	const r = await tfc.getTicketsForMembership('886074');
 	console.log(r);
 
 }

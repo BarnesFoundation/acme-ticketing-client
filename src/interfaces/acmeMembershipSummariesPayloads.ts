@@ -2,15 +2,27 @@ export interface MembershipSummariesPayload {
 	list: MembershipSummary[]
 }
 
-interface MembershipSummary {
+export interface MembershipSummary {
 	id: number,
+	visitorId: number,
 	membershipId: number,
+	constituentImportId: string,
+	constituentId: string,
 	cardType: string,
 	categoryId: string,
 	offeringId: string,
 	name: string,
 	barcode: string,
 	acmeBarcode: string,
+	email: string,
+	firstName: string,
+	lastName: string,
+	phoneNumber: string,
+	streetAddress1: string,
+	city: string,
+	state: string,
+	zipCode: string,
+	country: string,
 	primaryCard: boolean,
 	program: string,
 	category: string,
@@ -26,5 +38,6 @@ interface MembershipSummary {
 	cardStartDate: string,
 	cardExpirationDate: string,
 	cardStanding: string,
-	auxiliary: boolean
+	auxiliary: boolean,
+	customerId: number,
 }
