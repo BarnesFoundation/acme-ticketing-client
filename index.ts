@@ -19,6 +19,7 @@ export class ACMETicketingClient {
 }
 
 // Import our core function modules
+import * as ReportFunctions from './src/actions/core/analytics/reportsFunctions';
 import * as EventFunctions from './src/actions/core/eventManagement/eventFunctions';
 import * as OrderFunctions from './src/actions/core/ordersManagement/orderFunctions';
 import * as MembershipCardFunctions from './src/actions/core/membership/membershipCardFunctions';
@@ -27,7 +28,7 @@ import * as MembershipFunctions from './src/actions/core/membership/membershipFu
 import * as WillCallFunctions from './src/actions/core/willCallFunctions';
 
 // Export the core function modules
-export { EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions, MembershipFunctions, OrderFunctions, WillCallFunctions };
+export { ReportFunctions, EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions, MembershipFunctions, OrderFunctions, WillCallFunctions };
 
 // Export our core payload types
 export * from './src/interfaces/acmeEventPayloads';
@@ -36,5 +37,5 @@ export * from './src/interfaces/acmeMembershipPayloads';
 export * from './src/interfaces/acmeMembershipSummariesPayloads';
 export * from './src/interfaces/acmeOrderPayloads';
 export * from './src/interfaces/acmeWillCallPayloads';
+export * from './src/interfaces/acmeAnalyticsPayloads'
 export * from './src/interfaces/interfaces';
-
