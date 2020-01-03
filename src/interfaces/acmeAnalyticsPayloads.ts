@@ -26,9 +26,9 @@ export interface ReportDefinition {
 	updatedOn: string,
 	updatedBy: string,
 
-	dateSettings: any,
+	dateSettings: DateSettings,
 	isCurrentUserReportOwner: boolean,
-	lastRun: any,
+	lastRun: LastRun,
 	acmeDefault: boolean
 }
 
@@ -69,4 +69,25 @@ export interface SummaryField {
 export interface CountField {
 	fieldName: string,
 	countFunction: string
+}
+
+interface DateSettings {
+	dateRangeField: string,
+	datePreset: string
+}
+
+interface LastRun {
+	id: number,
+	tenantId: number,
+	reportUuid: string,
+	status: string,
+	queryExpression: QueryExpression,
+	dateRangeField: string,
+	startDate: string,
+	endDate: string,
+	filterByOwner: boolean,
+	createdOn: number,
+	createdBy: string,
+	updatedOn: number,
+	reportName: string,
 }
