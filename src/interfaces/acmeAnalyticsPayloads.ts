@@ -1,6 +1,6 @@
-export interface ListReportsPayload {
+export interface ListReportDefinitionsPayload {
 
-	list: Report[],
+	list: ReportDefinition[],
 
 	pagination: {
 		page: number,
@@ -11,7 +11,7 @@ export interface ListReportsPayload {
 	}
 }
 
-export interface Report {
+export interface ReportDefinition {
 
 	id: string,
 	name: string,
@@ -35,23 +35,38 @@ export interface Report {
 export interface QueryExpression {
 
 	collectionName: string,
-	findQueries: FindQueries[],
-	findFields: FindFields[],
-	groupFields: GroupFields[],
-	summaryFields: SummaryFields[],
-	countFields: CountFields[],
+	findQueries: FindQuery[],
+	findFields: FindField[],
+	groupFields: GroupField[],
+	summaryFields: SummaryField[],
+	countFields: CountField[],
 	limit: number
 
 
 }
 
-export interface FindQueries {
+export interface FindQuery {
 	fieldName: string,
 	fieldValue: string,
-	operator: string,
+	operator: "equals" |"less than" | "greater than" | "contains",
 }
 
-export interface FindFields {
+export interface FindField {
 	fieldName: string,
 	include: boolean
+}
+
+export interface GroupField {
+	fieldName: string,
+	groupFunction: "day" | "week" | "month" | "year"
+}
+
+export interface SummaryField {
+	fieldName: string,
+	summaryFunction: "sum" | "average" | "maximum" | "minimum"
+}
+
+export interface CountField {
+	fieldName: string,
+	countFunction: string
 }
