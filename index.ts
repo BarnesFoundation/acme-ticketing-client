@@ -25,9 +25,10 @@ import * as MembershipCardFunctions from './src/actions/core/membership/membersh
 import * as MembershipSummaryFunctions from './src/actions/core/membership/membershipSummaryFunctions';
 import * as MembershipFunctions from './src/actions/core/membership/membershipFunctions';
 import * as WillCallFunctions from './src/actions/core/willCallFunctions';
+import * as SessionFunctions from './src/actions/core/authentication/sessionFunctions';
 
 // Export the core function modules
-export { EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions, MembershipFunctions, OrderFunctions, WillCallFunctions };
+export { EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions, MembershipFunctions, OrderFunctions, WillCallFunctions, SessionFunctions };
 
 // Export our core payload types
 export * from './src/interfaces/acmeEventPayloads';
