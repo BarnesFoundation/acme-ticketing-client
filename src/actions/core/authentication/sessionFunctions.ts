@@ -2,12 +2,12 @@ import { performRequest } from '../../acmeRequestor';
 import { CREATE_SESSION } from '../../../utils/acmeEndpoints';
 import { CreateSessionPayload } from '../../../interfaces/acmeAuthenticationPayloads';
 
-export interface EmailUser {
+interface EmailUser {
 	"x-acme-email": string,
 	"x-acme-password": string
 }
 
-export interface UsernameOnlyUser {
+interface UsernameOnlyUser {
 	"x-acme-user-name": string,
 	"x-acme-password": string,
 	"x-acme-tenantId": number
