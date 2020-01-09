@@ -26,7 +26,7 @@ async function retrieveAssociatedOrderForTicket(ticketUUID: string): Promise<num
  * @param getOrderInformation - Whether or not the entire order information should be returned (optional)
  */
 async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInformation: true): Promise<OrderPayload>;
-async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInformation?: true) {
+async function retrieveAssociatedOrderForTicket(ticketUUID: string, getOrderInformation?: boolean) {
 
 	const { orderId } = await performRequest({ url: WILLCALL_CHECKIN_EXTERNAL, method: 'post', data: { ticketUUID } }) as CheckInExternalPayload;
 

@@ -23,3 +23,10 @@ export const GET_ORDERS_FOR_EVENT="/v2/b2c/orders/event";
 
 // Session endpoints
 export const CREATE_SESSION="/v2/b2b/customer/session";
+
+// Analytics - Reports endpoints
+export const LIST_REPORTS="/v2/b2b/analytics/report/definitions";
+export const GET_REPORT="/v2/b2b/analytics/report/definitions";
+export const EXECUTE_REPORT="/v2/b2b/async/report";
+export const POLL_REPORT_STATUS="/v2/b2b/async/report/";
+export const EXECUTE_ADHOC_REPORT="/v2/b2b/analytics/report/execute"
