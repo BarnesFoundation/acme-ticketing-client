@@ -4,9 +4,10 @@
   "description": "NodeJS client for the functionality provided by the ACME Ticketing platform.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./dist/tests/test.js",
     "build": "tsc -p .",
-    "prepare": "npm run build"
+	"prepare": "npm run build",
+	"watch": "tsc -w -p ."
   },
   "repository": {
     "type": "git",
