@@ -35,14 +35,12 @@ export interface ReportDefinition {
 export interface QueryExpression {
 
 	collectionName: string,
-	findQueries: FindQuery[],
-	findFields: FindField[],
-	groupFields: GroupField[],
-	summaryFields: SummaryField[],
-	countFields: CountField[],
+	findQueries?: FindQuery[],
+	findFields?: FindField[],
+	groupFields?: GroupField[],
+	summaryFields?: SummaryField[],
+	countFields?: CountField[],
 	limit: number
-
-
 }
 
 export interface FindQuery {
@@ -90,4 +88,20 @@ interface LastRun {
 	createdBy: string,
 	updatedOn: number,
 	reportName: string,
+}
+
+export interface ReportExecution {
+	id: number,
+    tenantId: number,
+    reportUuid: string,
+	status: "Pending" | "Completed",
+	queryExpression: QueryExpression,
+	dateRangeField: string,
+    startDate: string,
+    endDate: string,
+    filterByOwner: boolean,
+    createdOn: number,
+    createdBy: string,
+    updatedOn: number,
+    reportName: string
 }
