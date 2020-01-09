@@ -28,7 +28,7 @@ export interface ReportDefinition {
 
 	dateSettings: DateSettings,
 	isCurrentUserReportOwner: boolean,
-	lastRun: LastRun,
+	lastRun: ReportRun,
 	acmeDefault: boolean
 }
 
@@ -74,7 +74,7 @@ interface DateSettings {
 	datePreset: string
 }
 
-interface LastRun {
+export interface ReportRun {
 	id: number,
 	tenantId: number,
 	reportUuid: string,
