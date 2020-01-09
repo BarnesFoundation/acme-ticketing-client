@@ -46,7 +46,7 @@ export interface QueryExpression {
 export interface FindQuery {
 	fieldName: string,
 	fieldValue: string,
-	operator: "equals" |"less than" | "greater than" | "contains",
+	operator: "equals" | "less than" | "greater than" | "contains",
 }
 
 export interface FindField {
@@ -92,16 +92,30 @@ export interface ReportRun {
 
 export interface ReportExecution {
 	id: number,
-    tenantId: number,
-    reportUuid: string,
+	tenantId: number,
+	reportUuid: string,
 	status: "Pending" | "Completed",
 	queryExpression: QueryExpression,
 	dateRangeField: string,
-    startDate: string,
-    endDate: string,
-    filterByOwner: boolean,
-    createdOn: number,
-    createdBy: string,
-    updatedOn: number,
-    reportName: string
+	startDate: string,
+	endDate: string,
+	filterByOwner: boolean,
+	createdOn: number,
+	createdBy: string,
+	updatedOn: number,
+	reportName: string
+}
+
+export interface ReportJSON {
+	collectionName: string,
+	recordCount: number,
+	skippedRecordCount: number,
+	resultFieldList: ResultField[]
+}
+
+interface ResultField {
+	fieldName: string,
+	analyticsDataType: "STRING" | "DATE" | "INTEGER",
+	values: string | number []
+
 }

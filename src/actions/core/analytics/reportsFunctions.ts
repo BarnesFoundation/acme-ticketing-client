@@ -1,6 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
 import { LIST_REPORTS, GET_REPORT, EXECUTE_REPORT, POLL_REPORT_STATUS } from '../../../utils/acmeEndpoints';
-import { ListReportDefinitionsPayload, ReportDefinition, QueryExpression, ReportExecution, ReportRun } from '../../../interfaces/acmeAnalyticsPayloads';
+import { ListReportDefinitionsPayload, ReportDefinition, QueryExpression, ReportExecution, ReportRun, ReportJSON } from '../../../interfaces/acmeAnalyticsPayloads';
 
 interface ReportParameters {
 	/** Id of the report to be run */
@@ -57,5 +57,29 @@ async function pollForReportStatus(id: number): Promise<ReportRun> {
 	return payload;
 }
 
+/** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
+ * @param id - The id for the report instance to retrieve the results for
+ * @param type - The format the results should be returned in 
+ */
+async function retrieveReportResults(id: number, type: "json"): Promise<ReportJSON>;
 
-export { listReportDefinitions, getReportDefinition, executeReport, pollForReportStatus };
+/** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
+ * @param id - The id for the report instance to retrieve the results for
+ * @param type - The format the results should be returned in 
+ */
+async function retrieveReportResults(id: number, type: "csv"): Promise<string>;
+
+/** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
+ * @param id - The id for the report instance to retrieve the results for
+ * @param type - The format the results should be returned in 
+ */
+async function retrieveReportResults(id: number, type: "json" | "csv") {
+
+	const url = `${EXECUTE_REPORT}/${id}/${type.toLocaleUpperCase()}`;
+
+	const payload = await performRequest({ url, method: 'get' });
+	return payload;
+}
+
+
+export { listReportDefinitions, getReportDefinition, executeReport, pollForReportStatus, retrieveReportResults };
