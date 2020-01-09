@@ -93,7 +93,8 @@ async function retrieveReportResults(id: number, type: "json" | "csv"): Promise<
 	return payload;
 }
 
-/** Executes an ad-hoc report (as in no prior definition for the report is required) and returns the JSON output of the results
+/** Executes an ad-hoc report (as in no prior definition for the report is required) and returns the JSON output of the results.
+ * Not a publicy documented endpoint, and report doesn't have to be polled for. 
  * @param reportParams - The params with which to run the ad-hoc report 
  */
 async function executeAdhocReport(reportParams: AdhocReportParameters): Promise<ReportJSON> {

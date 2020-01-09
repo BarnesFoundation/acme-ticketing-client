@@ -71,6 +71,10 @@ export interface CountField {
 
 interface DateSettings {
 	dateRangeField: string,
+	startDate: string,
+	endDate: string,
+	startDateTime: string,
+	endDateTime: string,
 	datePreset: string
 }
 
@@ -78,7 +82,7 @@ export interface ReportRun {
 	id: number,
 	tenantId: number,
 	reportUuid: string,
-	status: string,
+	status: "Pending" | "Processing" | "Completed",
 	queryExpression: QueryExpression,
 	dateRangeField: string,
 	startDate: string,
@@ -94,7 +98,7 @@ export interface ReportExecution {
 	id: number,
 	tenantId: number,
 	reportUuid: string,
-	status: "Pending" | "Completed",
+	status: "Pending" | "Processing" | "Completed",
 	queryExpression: QueryExpression,
 	dateRangeField: string,
 	startDate: string,
