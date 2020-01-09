@@ -40,7 +40,7 @@ export interface QueryExpression {
 	groupFields?: GroupField[],
 	summaryFields?: SummaryField[],
 	countFields?: CountField[],
-	limit: number
+	limit?: number
 }
 
 export interface FindQuery {

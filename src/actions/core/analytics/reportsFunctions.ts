@@ -1,16 +1,29 @@
 import { performRequest } from '../../acmeRequestor';
-import { LIST_REPORTS, GET_REPORT, EXECUTE_REPORT, POLL_REPORT_STATUS } from '../../../utils/acmeEndpoints';
-import { ListReportDefinitionsPayload, ReportDefinition, QueryExpression, ReportExecution, ReportRun, ReportJSON } from '../../../interfaces/acmeAnalyticsPayloads';
+import { LIST_REPORTS, GET_REPORT, EXECUTE_REPORT, POLL_REPORT_STATUS, EXECUTE_ADHOC_REPORT } from '../../../utils/acmeEndpoints';
+import { ListReportDefinitionsPayload, ReportDefinition, QueryExpression, ReportExecution, ReportRun, ReportJSON, FindQuery, FindField, GroupField, SummaryField, CountField } from '../../../interfaces/acmeAnalyticsPayloads';
 
 interface ReportParameters {
-	/** Id of the report to be run */
-	reportUuid: string,
 	endDate: string,
 	startDate: string,
 	endDateTime: string,
 	startDateTime: string,
 	dateRangeField: string,
+}
+
+interface DefinedReportParameters extends ReportParameters {
+	/** Id of the report to be run */
+	reportUuid: string,
 	queryExpression: QueryExpression,
+}
+
+interface AdhocReportParameters extends ReportParameters {
+	collectionName: string,
+	findQueries?: FindQuery[],
+	findFields?: FindField[],
+	groupFields?: GroupField[],
+	summaryFields?: SummaryField[],
+	countFields?: CountField[],
+	limit?: number
 }
 
 /** Returns a list of all report JSON objects for this user */
@@ -38,7 +51,7 @@ async function getReportDefinition(id: string): Promise<ReportDefinition> {
  * 3. Retrieve the Results 
  * @param reportParams - The parameters that the report should be run with
 */
-async function executeReport(reportParams: ReportParameters): Promise<ReportExecution> {
+async function executeReport(reportParams: DefinedReportParameters): Promise<ReportExecution> {
 
 	const payload = await performRequest({ url: EXECUTE_REPORT, method: 'post', data: reportParams }) as ReportExecution;
 	return payload;
@@ -62,7 +75,6 @@ async function pollForReportStatus(id: number): Promise<ReportRun> {
  * @param type - The format the results should be returned in 
  */
 async function retrieveReportResults(id: number, type: "json"): Promise<ReportJSON>;
-
 /** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
  * @param id - The id for the report instance to retrieve the results for
  * @param type - The format the results should be returned in 
@@ -73,13 +85,21 @@ async function retrieveReportResults(id: number, type: "csv"): Promise<string>;
  * @param id - The id for the report instance to retrieve the results for
  * @param type - The format the results should be returned in 
  */
-async function retrieveReportResults(id: number, type: "json" | "csv") {
+async function retrieveReportResults(id: number, type: "json" | "csv"): Promise<ReportJSON | string> {
 
-	const url = `${EXECUTE_REPORT}/${id}/${type.toLocaleUpperCase()}`;
+	const url = `${EXECUTE_REPORT}/${type}/${id}`;
 
 	const payload = await performRequest({ url, method: 'get' });
 	return payload;
 }
 
+/** Executes an ad-hoc report (as in no prior definition for the report is required) and returns the JSON output of the results
+ * @param reportParams - The params with which to run the ad-hoc report 
+ */
+async function executeAdhocReport(reportParams: AdhocReportParameters): Promise<ReportJSON> {
 
-export { listReportDefinitions, getReportDefinition, executeReport, pollForReportStatus, retrieveReportResults };
+	const payload = await performRequest({ url: EXECUTE_ADHOC_REPORT, method: 'post', data: reportParams }) as ReportJSON;
+	return payload;
+}
+
+export { listReportDefinitions, getReportDefinition, executeReport, pollForReportStatus, retrieveReportResults, executeAdhocReport };
