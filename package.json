@@ -1,13 +1,13 @@
 {
   "name": "acme-ticketing-client",
-  "version": "1.0.91",
+  "version": "1.0.92",
   "description": "NodeJS client for the functionality provided by the ACME Ticketing platform.",
   "main": "dist/index.js",
   "scripts": {
     "test": "node ./dist/tests/test.js",
     "build": "tsc -p .",
-	"prepare": "npm run build",
-	"watch": "tsc -w -p ."
+    "prepare": "npm run build",
+    "watch": "tsc -w -p ."
   },
   "repository": {
     "type": "git",
