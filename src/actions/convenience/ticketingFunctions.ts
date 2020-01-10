@@ -1,4 +1,4 @@
-import { EventFunctions, MembershipCardFunctions, OrderFunctions, WillCallFunctions } from '../../../index';
+import { EventFunctions, ReportFunctions, OrderFunctions, WillCallFunctions } from '../../../index';
 import { OrderPayload } from '../../interfaces/acmeWillCallPayloads';
 import { Order } from '../../interfaces/acmeOrderPayloads';
 
@@ -47,6 +47,9 @@ const getTicketsForMembership = async (membershipId: string, startDate?: string,
 	const ordersForEventsForMember = (await Promise.all<Order[]>(ordersForEventsRequests)).filter((orders) => {
 		return orders.filter((order) => {
 			if (order.membershipId) { return order.membershipId.toString() === membershipId }
+			else {
+				return false;
+			}
 
 		}).length > 0;
 	});
@@ -67,4 +70,45 @@ const ordersListsFilter = async (oe: Order[][]) => {
 	return await Promise.all<OrderPayload>(orderPayloadRequests);
 }
 
-export { getTicketsForMembership }
+const getOrdersForMembershipDateRange = async (membershipId: string, startDate?: string, endDate?: string) => {
+
+	let startTime = startDate;
+	let endTime = endDate;
+
+	// If no provided start time
+	if (!startTime) {
+		// Get date for last midnight
+		const s = new Date();
+		s.setHours(0, 0, 0, 0);
+		startTime = s.toISOString();
+	}
+
+	// If no provided end time
+	if (!endTime) {
+		// Get date for this midnight
+		const e = new Date();
+		e.setHours(24, 0, 0, 0);
+		endTime = e.toISOString();
+	}
+
+	// Get the order id's for the orders belonging to this member within the date range
+	const report = await ReportFunctions.executeAdhocReport({
+		collectionName: 'Transactions',
+		findQueries: [{ fieldName: 'MembershipId', operator: 'equals', fieldValue: membershipId }],
+		findFields: [{ fieldName: 'OrderId', include: true }],
+		endDate, startDate, endDateTime: endDate, startDateTime: startDate,
+		dateRangeField: "EventStartTime"
+	});
+
+	const orderIdList = (report.resultFieldList.find((resultField) => {
+		return resultField.fieldName === 'OrderId';
+	})).values as string[];
+
+	const orderRequestPromises = orderIdList.map((orderId) => {
+		return WillCallFunctions.retrieveOrderInformation(orderId);
+	});
+
+	return await Promise.all(orderRequestPromises);
+}
+
+export { getTicketsForMembership, getOrdersForMembershipDateRange }
