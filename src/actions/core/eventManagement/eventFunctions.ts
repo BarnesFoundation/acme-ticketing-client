@@ -3,7 +3,7 @@ import { LIST_EVENTS, LIST_EVENT_SUMMARIES, GET_EVENT } from '../../../utils/acm
 import { ListEventSummariesPayload, Event, ListEventsPayload } from '../../../interfaces/acmeEventPayloads';
 
 /** Object for the Event input parameters to provide. Optional */
-interface EventParameters {
+export interface EventParameters {
 	/** ISO8601 date of events you want after this time (optional) */
 	startTime?: string,
 
@@ -30,7 +30,7 @@ async function listEvents(params?: EventParameters): Promise<ListEventsPayload> 
 }
 
 /** Object for the Event Summary input parameters to provide. Optional */
-interface EventSummaryParameters {
+export interface EventSummaryParameters {
 	/** ISO8601 date of events you want after this time (optional) */
 	startTime?: string,
 

@@ -2,7 +2,8 @@ import { performRequest } from '../../acmeRequestor';
 import { LIST_REPORTS, GET_REPORT, EXECUTE_REPORT, POLL_REPORT_STATUS, EXECUTE_ADHOC_REPORT } from '../../../utils/acmeEndpoints';
 import { ListReportDefinitionsPayload, ReportDefinition, QueryExpression, ReportExecution, ReportRun, ReportJSON, FindQuery, FindField, GroupField, SummaryField, CountField } from '../../../interfaces/acmeAnalyticsPayloads';
 
-interface ReportParameters {
+/** The base parameters needed for running any type of report */
+export interface ReportParameters {
 	endDate: string,
 	startDate: string,
 	endDateTime: string,
@@ -10,13 +11,15 @@ interface ReportParameters {
 	dateRangeField: string,
 }
 
-interface DefinedReportParameters extends ReportParameters {
+/** Parameters needed for running an already defined report. Extends ReportParameters interface. */
+export interface DefinedReportParameters extends ReportParameters {
 	/** Id of the report to be run */
 	reportUuid: string,
 	queryExpression: QueryExpression,
 }
 
-interface AdhocReportParameters extends ReportParameters {
+/** Parameters for running an ad-hoc report. Extends ReportParameters interface. */
+export interface AdhocReportParameters extends ReportParameters {
 	collectionName: string,
 	findQueries?: FindQuery[],
 	findFields?: FindField[],
