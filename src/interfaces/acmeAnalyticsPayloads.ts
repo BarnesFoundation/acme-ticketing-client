@@ -120,6 +120,6 @@ export interface ReportJSON {
 interface ResultField {
 	fieldName: string,
 	analyticsDataType: "STRING" | "DATE" | "INTEGER",
-	values: string | number []
+	values: string[] | number []
 
 }
