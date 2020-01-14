@@ -100,11 +100,15 @@ const getOrdersForMembershipDateRange = async (membershipId: string, startDate?:
 		dateRangeField: "EventStartTime"
 	});
 
-	const orderIdList = (report.resultFieldList.find((resultField) => {
+	// Extract the order id's
+	const orderIdsList = (report.resultFieldList.find((resultField) => {
 		return resultField.fieldName === 'OrderId';
 	})).values as string[];
 
-	const orderRequestPromises = orderIdList.map((orderId) => {
+	// Consolidate to unique order ids
+	const uniqueOrderIdList = Array.from(new Set(orderIdsList));
+
+	const orderRequestPromises = uniqueOrderIdList.map((orderId) => {
 		return WillCallFunctions.retrieveOrderInformation(orderId);
 	});
 
