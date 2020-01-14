@@ -96,7 +96,7 @@ const getOrdersForMembershipDateRange = async (membershipId: string, startDate?:
 		collectionName: 'Transactions',
 		findQueries: [{ fieldName: 'MembershipId', operator: 'equals', fieldValue: membershipId }],
 		findFields: [{ fieldName: 'OrderId', include: true }],
-		endDate, startDate, endDateTime: endDate, startDateTime: startDate,
+		endDate: endTime, startDate: startTime, endDateTime: endTime, startDateTime: startTime,
 		dateRangeField: "EventStartTime"
 	});
 

@@ -102,7 +102,10 @@ async function retrieveReportResults(id: number, type: "json" | "csv"): Promise<
  */
 async function executeAdhocReport(reportParams: AdhocReportParameters): Promise<ReportJSON> {
 
-	const payload = await performRequest({ url: EXECUTE_ADHOC_REPORT, method: 'post', data: reportParams }) as ReportJSON;
+	const { startDate, endDate, dateRangeField } = reportParams;
+	const params = { startDate, endDate, dateRangeField };
+
+	const payload = await performRequest({ url: EXECUTE_ADHOC_REPORT, method: 'post', data: reportParams, params }) as ReportJSON;
 	return payload;
 }
 

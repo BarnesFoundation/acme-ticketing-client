@@ -53,8 +53,9 @@ const definedReportFetchExample = async () => {
 
 const ordersForMembershipDateRangeExample = async (membershipId: string) => {
 
-	const orderPayloads = await tfc.getOrdersForMembershipDateRange(membershipId,"2020-01-02T05:00:00Z", "2020-01-11T04:59:59Z");
+	const orderPayloads = await tfc.getOrdersForMembershipDateRange(membershipId,"2020-01-15T00:00:00.000-05:00", "2020-01-16T00:00:00.000-05:00");
 	console.log(orderPayloads);
 }
 
 main(); 
+ordersForMembershipDateRangeExample("3103365");
