@@ -1,4 +1,4 @@
-import { ACMETicketingClient, EventFunctions, MembershipSummaryFunctions, OrderFunctions, MembershipCardFunctions, ReportFunctions } from '../index';
+import { ACMETicketingClient, EventFunctions, MembershipSummaryFunctions, ReportFunctions, EventTemplateFunctionsB2C } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
 
@@ -57,5 +57,12 @@ const ordersForMembershipDateRangeExample = async (membershipId: string) => {
 	console.log(JSON.stringify(orderPayloads));
 }
 
+const eventTemplateSummariesExample = async () => {
+
+	const payload = await EventTemplateFunctionsB2C.listEventTemplateSummaries({ saleChannel: 'online' });
+	console.log(`There are ${payload.length} event template summaries`);
+}
+
 main(); 
-ordersForMembershipDateRangeExample("3103365");
+ordersForMembershipDateRangeExample('3103365');
+eventTemplateSummariesExample();

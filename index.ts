@@ -21,7 +21,7 @@ export class ACMETicketingClient {
 // Import our core function modules
 import * as ReportFunctions from './src/actions/core/analytics/reportsFunctions';
 import * as EventFunctions from './src/actions/core/eventManagement/eventFunctions';
-import * as EventTemplateFunctions from './src/actions/core/eventManagement/eventTemplateFunctions';
+import * as EventTemplateFunctions from './src/actions/core/eventManagement/eventTemplateFunctions';import * as EventTemplateFunctionsB2C from './src/actions/core/checkoutManagement/eventTemplateB2CFunctions';
 import * as OrderFunctions from './src/actions/core/ordersManagement/orderFunctions';
 import * as MembershipCardFunctions from './src/actions/core/membership/membershipCardFunctions';
 import * as MembershipSummaryFunctions from './src/actions/core/membership/membershipSummaryFunctions';
@@ -30,7 +30,7 @@ import * as WillCallFunctions from './src/actions/core/willCallFunctions';
 import * as SessionFunctions from './src/actions/core/authentication/sessionFunctions';
 
 // Export the core function modules
-export { ReportFunctions, EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions, MembershipFunctions, OrderFunctions, WillCallFunctions, SessionFunctions, EventTemplateFunctions };
+export { ReportFunctions, EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions, MembershipFunctions, OrderFunctions, WillCallFunctions, SessionFunctions, EventTemplateFunctions, EventTemplateFunctionsB2C };
 
 // Export our core payload types
 export * from './src/interfaces/acmeEventPayloads';
