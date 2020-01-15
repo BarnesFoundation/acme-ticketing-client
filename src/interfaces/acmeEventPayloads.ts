@@ -180,18 +180,11 @@ export interface EventTemplateSummary {
 	name: string,
 	description: string,
 	shortDescription: string,
-	primaryImage: {
-		id: string,
-		primary: boolean,
-		thumbnail: string,
-		highRes: string,
-		screen: string,
-		preview: string
-	},
+	primaryImage: Images,
 	admissionType: 'generalAdmission' | 'standard',
 	startTime: string,
 	endTime: string,
-	priceLists: { id: string, name: string, description: string, prices: PriceList['prices'], startTime: string}[],
+	priceLists: { id: string, name: string, description: string, prices: PriceList['prices'], startTime: string }[],
 	reviewState: 'draft' | 'published',
 	soldQuantity: number,
 	ticketDetails: TicketDetails,
@@ -209,4 +202,13 @@ interface Pagination {
 		sortField: string,
 		count: number
 	}
+}
+
+export interface Images {
+	id: string,
+	primary: boolean,
+	thumbnail: string,
+	highRes: string,
+	screen: string,
+	preview: string
 }

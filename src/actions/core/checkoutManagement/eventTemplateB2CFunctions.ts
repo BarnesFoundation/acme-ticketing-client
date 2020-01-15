@@ -1,5 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
-import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE } from '../../../utils/acmeEndpoints';
+import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE, LIST_EVENT_TEMPLATES_SUMMARIES_B2C } from '../../../utils/acmeEndpoints';
+import { EventTemplateSummaryB2C } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Templates input parameters to provide. Optional */
 export interface EventTemplateParameters {
@@ -20,6 +21,16 @@ export interface EventTemplateParameters {
 	membershipCategoryId?: string | number
 }
 
-async function listEventTemplates() {
+/** Object for the Event Template Summaries input parameters to provide. Optional */
+export interface EventTemplateSummariesParameters extends EventTemplateParameters {
 
+	/** Limits results to only templates with schedules or items available to a certain sale channel  */
+	saleChanne: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry'
+}
+
+export async function listEventTemplateSummaries(params?: EventTemplateSummariesParameters): Promise<EventTemplateSummaryB2C[]> {
+
+	const payload = await performRequest({ url: LIST_EVENT_TEMPLATES_SUMMARIES_B2C, method: 'get', params }) as EventTemplateSummaryB2C[];
+
+	return payload;
 }
