@@ -12,7 +12,14 @@ export interface GetMembershipPayload {
 
 	cardholders: Cardholder[],
 
-	entitlements: any[],
+	entitlements: {
+		id: number
+		importId: string
+		benefit: string
+		memberId: number
+		count: number,
+		comment: string
+	}[],
 	membershipCategory: string,
 	categoryId: string,
 	orgImportId: string,
