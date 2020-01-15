@@ -12,7 +12,7 @@ export interface Event {
 	startTime: string,
 	endTime: string,
 	resources: Resource[],
-	priceList: { prices: Price[], priceListId: string },
+	priceList: PriceList,
 	resourceDetails: any[],
 	scheduleId: string,
 	salesRestrictions: string[],
@@ -102,6 +102,11 @@ interface TicketDetails {
 	hideEventDate: boolean
 }
 
+interface PriceList {
+	prices: Price[],
+	priceListId: string
+}
+
 interface Price {
 	personType: {
 		id: string,
@@ -163,4 +168,45 @@ export interface EventSummary {
 
 	offSchedule: boolean,
 	colorCategory: { backgroundColor: string, textColor: string }
+}
+
+export interface EventTemplateSummariesPayload {
+	list: EventTemplateSummary[],
+	pagination: Pagination
+}
+
+export interface EventTemplateSummary {
+	id: string,
+	name: string,
+	description: string,
+	shortDescription: string,
+	primaryImage: {
+		id: string,
+		primary: boolean,
+		thumbnail: string,
+		highRes: string,
+		screen: string,
+		preview: string
+	},
+	admissionType: 'generalAdmission' | 'standard',
+	startTime: string,
+	endTime: string,
+	priceLists: { id: string, name: string, description: string, prices: PriceList['prices'], startTime: string}[],
+	reviewState: 'draft' | 'published',
+	soldQuantity: number,
+	ticketDetails: TicketDetails,
+	customFields: { name: string, value: string }[],
+	colorCategory: { backgroundColor: string, textColor: string },
+	ratings: number,
+	stars: number
+}
+
+interface Pagination {
+	pagination: {
+		page: number,
+		pageSize: number,
+		sortDirection: 'asc' | 'desc',
+		sortField: string,
+		count: number
+	}
 }
