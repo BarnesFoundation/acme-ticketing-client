@@ -34,6 +34,7 @@ export { ReportFunctions, EventFunctions, MembershipSummaryFunctions, Membership
 
 // Export our core payload types
 export * from './src/interfaces/acmeEventPayloads';
+export * from './src/interfaces/acmeCheckoutManagementPayloads';
 export * from './src/interfaces/acmeMembershipCardPayloads';
 export * from './src/interfaces/acmeMembershipPayloads';
 export * from './src/interfaces/acmeMembershipSummariesPayloads';
