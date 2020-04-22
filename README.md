@@ -20,3 +20,5 @@ const allMyEvents = await EventFunctions.listEvents();
 
 As you can tell from the above, you can import only the modules you need, which makes accessing functions via these modules much easier. 
 
+100% of modules have included [TSDoc](https://github.com/microsoft/tsdoc) so you can easily see method signatures, giving you helpful information like what params a method accepts, it's purpose, what it returns, etc.
+
