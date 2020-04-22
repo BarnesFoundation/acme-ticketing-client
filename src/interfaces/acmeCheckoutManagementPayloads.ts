@@ -1,4 +1,4 @@
-import { Images } from './acmeEventPayloads';
+import { Images, Event } from './acmeEventPayloads';
 
 export interface EventTemplateSummaryB2C {
 	id: string,
@@ -55,4 +55,14 @@ interface Discounts {
 			value: string
 		}[]
 	}
+}
+
+export interface EventTimeObject {
+	id: string,
+	date: string,
+	time: string,
+	availableSeats: number,
+	startTime: string,
+	addOns: any,
+	event: Event
 }

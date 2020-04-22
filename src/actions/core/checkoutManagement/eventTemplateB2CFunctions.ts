@@ -1,6 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
 import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE, LIST_EVENT_TEMPLATES_SUMMARIES_B2C } from '../../../utils/acmeEndpoints';
-import { EventTemplateSummaryB2C } from '../../../interfaces/acmeCheckoutManagementPayloads';
+import { EventTemplateSummaryB2C, EventTimeObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Templates input parameters to provide. Optional */
 export interface EventTemplateParameters {
@@ -67,8 +67,8 @@ export interface TemplateTimesParameters {
 /** Returns a list of times for events of a specified event template
  * @params paramrs - Input params event template summaries should match (optional)
  */
-export async function listTemplateTimes(params?: TemplateTimesParameters): Promise<any[]> {
+export async function listTemplateTimes(params?: TemplateTimesParameters): Promise<EventTimeObject[]> {
 
-	const payload = await performRequest({ url: LIST_TEMPLATE_TIMES(params.id), method: 'get', params });
+	const payload = await performRequest({ url: LIST_TEMPLATE_TIMES(params.id), method: 'get', params }) as EventTimeObject[];
 	return payload;
 }
