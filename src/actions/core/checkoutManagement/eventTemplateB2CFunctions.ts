@@ -132,10 +132,10 @@ export async function getEventTemplate(params?: GetEventTemplateParams): Promise
 export interface ListTemplateTimesParams {
 
 	/** ISO8601 time string, the time you want the events to be after. Defaults to now (optional) */
-	startTime: string,
+	startTime?: string,
 
 	/** ISO8601 time string, the time you want the events to be befire. Defaults to 2 days (optional) */
-	endTime: string
+	endTime?: string
 
 	/** the sale channel you are listing the times for.. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
 	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry',
