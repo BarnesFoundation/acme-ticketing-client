@@ -121,8 +121,8 @@ export interface GetEventTemplateParams {
 /** Returns the requested event template
  * @params params - Input params for the event template to be retrieved
  */
-export async function getEventTemplate(params?: GetEventTemplateParams): Promise<EventTemplateB2C[]> {
+export async function getEventTemplate(params?: GetEventTemplateParams): Promise<EventTemplateB2C> {
 
-	const payload = await performRequest({ url: GET_EVENT_TEMPLATE_B2C(params.id), method: 'get', params }) as EventTemplateB2C[];
+	const payload = await performRequest({ url: GET_EVENT_TEMPLATE_B2C(params.id), method: 'get', params }) as EventTemplateB2C;
 	return payload;
 }
