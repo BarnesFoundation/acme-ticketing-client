@@ -69,7 +69,13 @@ const eventActivityCalendarsExample = async (params) => {
 	console.log(payload);
 }
 
+const eventTemplateB2CExample = async (params) => {
+	const payload = await EventTemplateFunctionsB2C.getEventTemplate(params);
+	console.log(payload);
+}
+
 main();
 ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
 eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
+eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });

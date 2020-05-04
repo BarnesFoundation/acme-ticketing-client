@@ -1,6 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
-import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE } from '../../../utils/acmeEndpoints';
-import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar } from '../../../interfaces/acmeCheckoutManagementPayloads';
+import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C } from '../../../utils/acmeEndpoints';
+import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Templates input parameters to provide. Optional */
 export interface EventTemplateParameters {
@@ -97,5 +97,32 @@ export interface ActivityCalendarParameters {
 export async function getActivityCalendarForTemplate(params: ActivityCalendarParameters): Promise<EventTemplateActivityCalendar> {
 
 	const payload = await performRequest({ url: GET_ACTIVITY_CALENDAR_FOR_TEMPLATE(params.id), method: 'get', params }) as EventTemplateActivityCalendar;
+	return payload;
+}
+
+
+/** Object for the Event Template Activity Calendar input parameters to provide. */
+export interface GetEventTemplateParams {
+
+	/** The id of the template. Required */
+	id: string,
+
+	/** The sale channel of the template. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry',
+
+	/** The current user's membership id. 
+	 *  This allows for event templates that are only accessible to memberships to be returned, also allows for price list of the event to include membership discounts.*/
+	membershipId?: string,
+
+	/** This allows for event templates that are only accessible to memberships to be returned, also allows for price list of the event to include membership discounts.*/
+	membershipCategoryId?: string
+}
+
+/** Returns the requested event template
+ * @params params - Input params for the event template to be retrieved
+ */
+export async function getEventTemplate(params?: GetEventTemplateParams): Promise<EventTemplateB2C[]> {
+
+	const payload = await performRequest({ url: GET_EVENT_TEMPLATE_B2C(params.id), method: 'get', params }) as EventTemplateB2C[];
 	return payload;
 }

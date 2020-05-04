@@ -1,4 +1,4 @@
-import { Images, Event } from './acmeEventPayloads';
+import { Images, Event, } from './acmeEventPayloads';
 
 export interface EventTemplateSummaryB2C {
 	id: string,
@@ -73,4 +73,54 @@ export interface EventTemplateActivityCalendar {
 		name: string,
 		active: boolean
 	}[]
+}
+
+export interface EventTemplateB2C {
+	id: string,
+	type: string,
+	admissionType: string,
+	name: string,
+	description: string,
+	shortDescription: string,
+	emailConfirmationMessage: string,
+	startTime: string,
+	endTime: string,
+	priceList: Event["priceList"],
+	images: Event["images"]
+	reviewState: string,
+	ticketDetails: Event["ticketDetails"]
+	addOns: any,
+	soldQuantity: number,
+	membership: {
+        restrictions: any[],
+        discounts: any[]
+	},
+	rebookingFee: string,
+	customFields: Event["customFields"],
+	thirdPartyEvent: boolean,
+	thirdPartyPercentage: string,
+	emailCancellationMessage: string,
+	ruleSets: {
+        associated: boolean,
+        ruleSetIds:  string[]
+	},
+	colorCategory: Event["colorCategory"],
+    entitlementConfiguration: {
+        id: string,
+        eventTemplateId: string,
+        salesRuleSetId: string,
+        name: string,
+        entitlementConfig: any[],
+        salesRuleConfig: any[]
+	},
+	memberOnlyEvent: boolean,
+    allMembersCanPurchase: boolean,
+    displayOrder: number,
+    stars: number,
+    ratings: number,
+    lastPublished: string,
+	lastUpdated: string,
+	scheuldes: any[],
+	available: boolean,
+    discountAvailable: boolean
 }
