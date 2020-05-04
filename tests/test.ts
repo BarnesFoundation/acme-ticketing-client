@@ -53,7 +53,7 @@ const definedReportFetchExample = async () => {
 
 const ordersForMembershipDateRangeExample = async (membershipId: string) => {
 
-	const orderPayloads = await tfc.getOrdersForMembershipDateRange(membershipId,"2020-01-15T00:00:00.000-05:00", "2020-01-16T00:00:00.000-05:00");
+	const orderPayloads = await tfc.getOrdersForMembershipDateRange(membershipId, "2020-01-15T00:00:00.000-05:00", "2020-01-16T00:00:00.000-05:00");
 	console.log(JSON.stringify(orderPayloads));
 }
 
@@ -63,6 +63,13 @@ const eventTemplateSummariesExample = async () => {
 	console.log(`There are ${payload.length} event template summaries`);
 }
 
-main(); 
+const eventActivityCalendarsExample = async (params) => {
+
+	const payload = await EventTemplateFunctionsB2C.getActivityCalendarForTemplate(params);
+	console.log(payload);
+}
+
+main();
 ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
+eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
