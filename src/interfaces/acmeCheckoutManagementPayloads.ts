@@ -49,7 +49,7 @@ interface Discounts {
 				name: string,
 				description: string,
 				active: boolean,
-				displayOrder:number
+				displayOrder: number
 			},
 			discountType: string,
 			value: string
@@ -65,4 +65,12 @@ export interface EventTimeObject {
 	startTime: string,
 	addOns: any,
 	event: Event
+}
+
+export interface EventTemplateActivityCalendar {
+	days: {
+		date: string,
+		name: string,
+		active: boolean
+	}[]
 }
