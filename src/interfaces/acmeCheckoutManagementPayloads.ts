@@ -57,6 +57,11 @@ interface Discounts {
 	}
 }
 
+export interface BucketedEventTimeObject {
+	eventTemplateId: string,
+	times: EventTimeObject[]
+}
+
 export interface EventTimeObject {
 	id: string,
 	date: string,

@@ -1,6 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
 import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C } from '../../../utils/acmeEndpoints';
-import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C } from '../../../interfaces/acmeCheckoutManagementPayloads';
+import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C, BucketedEventTimeObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Templates input parameters to provide. Optional */
 export interface EventTemplateParameters {
@@ -124,5 +124,62 @@ export interface GetEventTemplateParams {
 export async function getEventTemplate(params?: GetEventTemplateParams): Promise<EventTemplateB2C> {
 
 	const payload = await performRequest({ url: GET_EVENT_TEMPLATE_B2C(params.id), method: 'get', params }) as EventTemplateB2C;
+	return payload;
+}
+
+
+/** Object for the Event Template Times input parameters to provide. */
+export interface ListTemplateTimesParams {
+
+	/** ISO8601 time string, the time you want the events to be after. Defaults to now (optional) */
+	startTime: string,
+
+	/** ISO8601 time string, the time you want the events to be befire. Defaults to 2 days (optional) */
+	endTime: string
+
+	/** the sale channel you are listing the times for.. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry',
+
+	/** One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional) */
+	type?: 'private' | 'standard' | 'all',
+
+	/** The current user's membership id. 
+	 *  This allows for times for schedules that are only accessible to memberships to be returned. (optional) */
+	membershipId?: string,
+
+	/** The current user's membership category.  This allows for times for schedules that are only accessible to memberships to be returned. (optional) */
+	membershipCategoryId?: string
+}
+
+/** List the times for events for the matching event template(s)
+ * @params params - Input params for the event templates times to be retrieved (optional)
+ */
+export async function listTemplateTimes(params?: ListTemplateTimesParams): Promise<BucketedEventTimeObject[]> {
+
+	const url = LIST_TEMPLATE_TIMES();
+
+	const payload = await performRequest({ url, method: 'get', params }) as BucketedEventTimeObject[];
+	return payload;
+}
+
+
+/** Object for the Specific Event Tempate Times input parameters to provide. */
+export interface GetTemplateTimesParams extends ListTemplateTimesParams {
+
+	/** The id of the template you want to list times for. If ommitted, times for events for all templates will be returned. (required) */
+	id: string,
+
+	/** The combo template Id contains a list of templates. (optional) */
+	comboTemplateId?: string,
+}
+
+/** Get the times for events of a specified event template
+ * @params params - Input params for the event template to be retrieved (optional)
+ */
+export async function getTemplateTimes(params: GetTemplateTimesParams): Promise<EventTimeObject[]> {
+
+	const url = LIST_TEMPLATE_TIMES(params.id);
+
+	const payload = await performRequest({ url, method: 'get', params }) as EventTimeObject[];
 	return payload;
 }
