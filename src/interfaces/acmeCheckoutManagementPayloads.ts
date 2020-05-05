@@ -7,8 +7,8 @@ export interface EventTemplateSummaryB2C {
 	shortDescription: string,
 	/** Compare with lowercase if using */
 	admissionType: 'generalAdmission' | 'standard'
-	startTime: number,
-	endTime: number,
+	startTime: string,
+	endTime: string,
 	priceLists: any,
 	soldQuantity: number,
 	ratings: number,

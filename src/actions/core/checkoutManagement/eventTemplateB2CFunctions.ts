@@ -1,5 +1,5 @@
 import { performRequest } from '../../acmeRequestor';
-import { LIST_EVENT_TEMPLATES, LIST_TEMPLATE_TIMES, GET_EVENT_TEMPLATE, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C } from '../../../utils/acmeEndpoints';
+import { LIST_TEMPLATE_TIMES, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C } from '../../../utils/acmeEndpoints';
 import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C, BucketedEventTimeObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Templates input parameters to provide. Optional */
@@ -24,8 +24,8 @@ export interface EventTemplateParameters {
 /** Object for the Event Template Summaries input parameters to provide. Optional */
 export interface EventTemplateSummariesParameters extends EventTemplateParameters {
 
-	/** Limits results to only templates with schedules or items available to a certain sale channel  */
-	saleChannel: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry'
+	/** Limits results to only templates with schedules or items available to a certain sale channel (optional) */
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry'
 }
 
 /** Returns the event template summaries matching the specified input params
