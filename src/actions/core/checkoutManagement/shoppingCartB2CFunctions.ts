@@ -1,10 +1,14 @@
 import { performRequest } from '../../acmeRequestor';
-import { B2C_SHOPPING_CART } from '../../../utils/acmeEndpoints';
+import { B2C_SHOPPING_CART, ENTITLEMENTS_VALIDATE } from '../../../utils/acmeEndpoints';
+import { EntitlementValidationPayload } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Template Summaries input parameters to provide. Optional */
 export interface ShoppingCartObject {
 	id?: string,
 	tempVisitorId?: string,
+	tenantId?: string,
+	membershipId?: number,
+	membershipIds?: number[],
 	items?: any[],
 	forms?: any[],
 	comboItems?: any[],
@@ -54,5 +58,19 @@ export async function deleteExistingShoppingCart(id: string): Promise<ShoppingCa
 	const url = `${B2C_SHOPPING_CART}/${id}`;
 
 	const payload = await performRequest({ url, method: 'delete' }) as ShoppingCartObject;
+	return payload;
+};
+
+/** Appears to validate the entitlement rules against an existing shopping cart. It seems you can pass in either an object containing the id of an existing cart or a new Shopping Cart Object itself (no id required within it)
+ * 
+ * You can provide the membershipId(s) within the shopping cart object to validate entitlements against a membership.
+ * 
+ * Returns results of the validation
+ * 
+ * @params object - An object that holds the id of the shopping cart to be validated in the form of { "id": "myExistingShoppingCartId" } or an on-the-fly Shopping Cart Object (no id needs to be specified)
+ */
+
+export async function validateShoppingCart(data: { id: string } | ShoppingCartObject): Promise<EntitlementValidationPayload> {
+	const payload = await performRequest({ url: ENTITLEMENTS_VALIDATE, method: 'post', data }) as EntitlementValidationPayload;
 	return payload;
 };

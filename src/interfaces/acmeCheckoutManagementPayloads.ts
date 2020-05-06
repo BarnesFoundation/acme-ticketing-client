@@ -97,8 +97,8 @@ export interface EventTemplateB2C {
 	addOns: any,
 	soldQuantity: number,
 	membership: {
-        restrictions: any[],
-        discounts: any[]
+		restrictions: any[],
+		discounts: any[]
 	},
 	rebookingFee: string,
 	customFields: Event["customFields"],
@@ -106,26 +106,68 @@ export interface EventTemplateB2C {
 	thirdPartyPercentage: string,
 	emailCancellationMessage: string,
 	ruleSets: {
-        associated: boolean,
-        ruleSetIds:  string[]
+		associated: boolean,
+		ruleSetIds: string[]
 	},
 	colorCategory: Event["colorCategory"],
-    entitlementConfiguration: {
-        id: string,
-        eventTemplateId: string,
-        salesRuleSetId: string,
-        name: string,
-        entitlementConfig: any[],
-        salesRuleConfig: any[]
+	entitlementConfiguration: {
+		id: string,
+		eventTemplateId: string,
+		salesRuleSetId: string,
+		name: string,
+		entitlementConfig: any[],
+		salesRuleConfig: any[]
 	},
 	memberOnlyEvent: boolean,
-    allMembersCanPurchase: boolean,
-    displayOrder: number,
-    stars: number,
-    ratings: number,
-    lastPublished: string,
+	allMembersCanPurchase: boolean,
+	displayOrder: number,
+	stars: number,
+	ratings: number,
+	lastPublished: string,
 	lastUpdated: string,
 	scheuldes: any[],
 	available: boolean,
-    discountAvailable: boolean
+	discountAvailable: boolean
+}
+
+export interface EntitlementValidationPayload {
+	valid: boolean,
+	messages: string[],
+	results: {
+		allowedQuantity: number,
+		purchasedQuantity: number,
+		requestedQuantity: number,
+		valid: boolean,
+		ruleSetId: string,
+		rulesApplied: {
+			id: string,
+			valid: boolean,
+			message: string,
+			messageCode: string
+		}[],
+		items: any[],
+		membershipId: number,
+		membershipLevelId: string,
+		timeFrame: string,
+		pricepointIds: string[],
+		ruleType: string,
+		validatedPricePointIds: any[],
+		reason: string
+	}[
+	],
+	violations: {
+		eventId: string,
+		pricePointId: string,
+		allowedQuantity: number,
+		purchasedQuantity: number,
+		requestedQuantity: number,
+		timeFrame: string,
+		pricePoints: string[],
+		ruleType: string,
+		validatedPricePointIds: string[],
+		validatedPricePoints: string[],
+		reason: string,
+		pricePointIds: string[]
+	}[],
+	passed: any[]
 }

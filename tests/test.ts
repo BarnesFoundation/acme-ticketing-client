@@ -108,20 +108,23 @@ const shoppingCartB2CExample = async () => {
 		]
 	};
 
-	const createdShoppingCartId = await ShoppingCartFunctionsB2C.createNewShoppingCart(populatedShoppingCart);
+	/* const createdShoppingCartId = await ShoppingCartFunctionsB2C.createNewShoppingCart(populatedShoppingCart);
 	console.log(`The id of the created shopping cart is ${createdShoppingCartId}`);
 
 	const retrievedShoppingCart = await ShoppingCartFunctionsB2C.getExistingShoppingCart(createdShoppingCartId);
-	console.log(`The shopping cart belonging to ${createdShoppingCartId} is`, retrievedShoppingCart);
+	console.log(`The shopping cart belonging to ${createdShoppingCartId} is`, retrievedShoppingCart); */
 
-	const deletedShoppingCart = await ShoppingCartFunctionsB2C.deleteExistingShoppingCart(createdShoppingCartId);
-	console.log(`The shopping cart with id ${createdShoppingCartId} was deleted and the response was`, deletedShoppingCart);
+	const shoppingCartValidation = await ShoppingCartFunctionsB2C.validateShoppingCart(populatedShoppingCart);
+	console.log(`The validation of the on-the-fly shopping cart was`, shoppingCartValidation);
+
+	/* const deletedShoppingCart = await ShoppingCartFunctionsB2C.deleteExistingShoppingCart(createdShoppingCartId);
+	console.log(`The shopping cart with id ${createdShoppingCartId} was deleted and the response was`, deletedShoppingCart); */
 }
 
 main();
-ordersForMembershipDateRangeExample('3103365');
+/* ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
 eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
 eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
-eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' });
+eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' }); */
 shoppingCartB2CExample();
