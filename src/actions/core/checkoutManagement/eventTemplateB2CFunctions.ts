@@ -25,7 +25,7 @@ export interface EventTemplateParameters {
 export interface EventTemplateSummariesParameters extends EventTemplateParameters {
 
 	/** Limits results to only templates with schedules or items available to a certain sale channel (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry'
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk'
 }
 
 /** Returns the event template summaries matching the specified input params
