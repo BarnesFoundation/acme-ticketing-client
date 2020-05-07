@@ -6,9 +6,9 @@ import { EntitlementValidationPayload } from '../../../interfaces/acmeCheckoutMa
 export interface ShoppingCartObject {
 	id?: string,
 	tempVisitorId?: string,
-	tenantId?: string,
-	membershipId?: number,
-	membershipIds?: number[],
+	tenantId?: string | number,
+	membershipId?: number | string,
+	membershipIds?: number[] | string[],
 	items?: any[],
 	forms?: any[],
 	comboItems?: any[],
