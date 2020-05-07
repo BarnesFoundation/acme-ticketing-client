@@ -116,15 +116,15 @@ interface Price {
 		type: string,
 		displayOrder: number
 	},
-	price: string,
+	price: number,
 	salesChannels: {
 		name: string,
 		channel: string,
 		enabled: boolean
 	}[],
 	displayOrder: number,
-	discountedPrice: string,
-	discount: string
+	discountedPrice: number,
+	discount: number
 }
 
 interface Resource {
