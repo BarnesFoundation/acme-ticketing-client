@@ -76,7 +76,7 @@ export interface ActivityCalendarParameters {
 	endTime?: string,
 
 	/** The sale channel you are listing the times for. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry',
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk',
 
 	/** One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional) */
 	type?: 'private' | 'standard' | 'all',
@@ -108,7 +108,7 @@ export interface GetEventTemplateParams {
 	id: string,
 
 	/** The sale channel of the template. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry',
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk',
 
 	/** The current user's membership id. 
 	 *  This allows for event templates that are only accessible to memberships to be returned, also allows for price list of the event to include membership discounts.*/
@@ -138,7 +138,7 @@ export interface ListTemplateTimesParams {
 	endTime?: string
 
 	/** the sale channel you are listing the times for.. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry',
+	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk',
 
 	/** One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional) */
 	type?: 'private' | 'standard' | 'all',
