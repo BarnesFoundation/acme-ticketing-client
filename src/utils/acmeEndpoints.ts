@@ -52,3 +52,6 @@ export const B2C_CHECKOUT = "/v2/b2c/checkout";
 // Checkout Management - Shopping Cart B2C endpoints
 export const B2C_SHOPPING_CART = "/v2/b2c/carts";
 export const ENTITLEMENTS_VALIDATE = "/v2/b2c/entitlements/validate";
+
+// Checkout Management - B2B Checkout
+export const B2B_CHECKOUT = "/v2/b2b/checkout";
