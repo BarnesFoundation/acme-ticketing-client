@@ -1,20 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
 import { B2C_SHOPPING_CART, ENTITLEMENTS_VALIDATE } from '../../../utils/acmeEndpoints';
-import { EntitlementValidationPayload } from '../../../interfaces/acmeCheckoutManagementPayloads';
-
-/** Object for the Event Template Summaries input parameters to provide. Optional */
-export interface ShoppingCartObject {
-	id?: string,
-	tempVisitorId?: string,
-	tenantId?: string | number,
-	membershipId?: number | string,
-	membershipIds?: number[] | string[],
-	items?: any[],
-	forms?: any[],
-	comboItems?: any[],
-	verifyEntitlements?: boolean,
-	reservationId?: string
-}
+import { EntitlementValidationPayload, ShoppingCartObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Creates a new shopping cart. 
  * 
@@ -22,7 +8,6 @@ export interface ShoppingCartObject {
  * @params cart - Create an empty cart by passing in "{}" as the object or a populated shopping cart by passing in a Shopping Cart Object.
  */
 export async function createNewShoppingCart(cart: {} | ShoppingCartObject): Promise<string> {
-	console.log(cart);
 	const payload = await performRequest({ url: B2C_SHOPPING_CART, method: 'post', data: cart }) as string;
 	return payload;
 };

@@ -171,3 +171,69 @@ export interface EntitlementValidationPayload {
 	}[],
 	passed: any[]
 }
+
+export interface ShoppingCartObject {
+	id?: string,
+	tempVisitorId?: string,
+	tenantId?: string | number,
+	membershipId?: number | string,
+	membershipIds?: number[] | string[],
+	items?: any[],
+	forms?: any[],
+	comboItems?: any[],
+	verifyEntitlements?: boolean,
+	reservationId?: string
+}
+
+export interface CheckoutInputObject {
+	shoppingCart: ShoppingCartObject,
+	/** Email address of the customer.	 */
+	contactEmail: string,
+	/** Phone number of the customer. */
+	phoneNumber?: string,
+	/** First name of the customer. */
+	contactFirstName: string,
+	/** Last name of the customer. */
+	contactLastName: string,
+	address1?: string,
+	address2?: string,
+	city?: string,
+	state?: string,
+	country?: string,
+	/** Zip code of the customer. */
+	zipCode?: string
+	/** Last four digits of the credit card */
+	ccLastFourDigits?: string
+	/** Type of credit card. One of Visa, MasterCard, AmericanExpress, Discover or Jcb */
+	creditCardBrand?: 'Visa' | 'MasterCard' | 'AmericanExpress' | 'Discover' | 'Jcb',
+	/** The credit card number as a string	 */
+	manualEntryCardNumber?: string,
+	/** The credit card cvc number as a string */
+	cvc?: string,
+	/** MMyy format of the expiration date of the credit card */
+	expDate?: string,
+	/** Id of the payment such as Check # or Voucher # */
+	paymentId?: string,
+	/** Notes about the order */
+	notes?: string
+	billingFirstName?: string
+	billingLastName?: string,
+	billingEmail?: string,
+	billingPhoneNumber?: string,
+	billingAddress1?: string,
+	billingAddress2?: string,
+	billingCountry?: string,
+	billingCity?: string,
+	billingZipCode?: string,
+	billingState?: string,
+	memberships?: {
+		/** Type of membership operation such as MembershipPurchase, MembershipRenewal, MembershipUpgrade, MembershipDowngrade, MembershipCancel, MembershipPostTermRenewal, MembershipRejoin, MembershipRenewalUpgrade, MembershipPostTermRenewalUpgrade, MembershipRejoinUpgrade, MembershipPostTermRenewalDowngrade MembershipRejoinDowngrade, MembershipRenewalDowngrade, MembershipPurchaseConversion, MembershipReplacement */
+		itemType: string,
+		/** Membership Info object */
+		membershipInfo?: any
+	}[],
+	/** The coupon code used for this order. */
+	couponCode?: string,
+	paymentMethod?: 'Cash' | 'Credit Card' | 'Voucher' | 'Check',
+	chargeAmount?: string
+}
