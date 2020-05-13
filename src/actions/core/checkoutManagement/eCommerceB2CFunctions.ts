@@ -1,5 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
 import { B2C_CHECKOUT } from '../../../utils/acmeEndpoints';
+import { CheckoutInputObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 export interface CheckoutParams {
 	shoppingCart: string | ShoppingCart,
@@ -19,7 +20,7 @@ export interface CheckoutParams {
 	ccLastFourDigits?: string,
 	cvc?: string,
 	acmeToken?: string,
-	reservationId: string
+	reservationId?: string
 }
 
 export interface ShoppingCart {
@@ -35,7 +36,14 @@ export interface ShoppingCart {
 	}[]
 }
 
-export async function performCheckout(params) {
-	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: params }) as any;
+/** Performs a Checkout request against the B2C endpoint
+ * 
+ * Returns an Order object
+ * @params checkoutInput - Checkout object containing items to be purchased and billing information.
+ * @params uuid - Unique uuid for this transaction to prevent duplicate transactions from taking place. Gets included into the "x-acme-request-uuid" header key
+ */
+export async function performCheckout(checkoutInput: CheckoutInputObject, uuid: string) {
+	const additionalHeaders = { "x-acme-request-uuid": uuid };
+	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders }) as any;
 	return payload;
 }
