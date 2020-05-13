@@ -47,7 +47,7 @@ export const GET_EVENT_TEMPLATE_B2C = (id: string | number) => { return `/v2/b2c
 export const GET_ACTIVITY_CALENDAR_FOR_TEMPLATE = (id: string | number) => { return `/v2/b2c/event/templates/${id}/calendar`; }
 
 // Checkout Management - E-Commerce B2C Check endpoints
-export const B2C_CHECKOUT = "/v2/b2c/checkout";
+export const B2C_CHECKOUT = "/v2/b2c/checkout/";
 
 // Checkout Management - Shopping Cart B2C endpoints
 export const B2C_SHOPPING_CART = "/v2/b2c/carts";
