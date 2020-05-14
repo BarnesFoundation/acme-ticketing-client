@@ -1,6 +1,8 @@
 import { performRequest } from '../../acmeRequestor';
 import { B2C_CHECKOUT } from '../../../utils/acmeEndpoints';
 import { CheckoutInputObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
+import { Order } from '../../../interfaces/acmeOrderPayloads';
+
 
 export interface CheckoutParams {
 	shoppingCart: string | ShoppingCart,
@@ -44,6 +46,6 @@ export interface ShoppingCart {
  */
 export async function performCheckout(checkoutInput: CheckoutInputObject, uuid: string) {
 	const additionalHeaders = { "x-acme-request-uuid": uuid };
-	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders }) as any;
+	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders }) as Order;
 	return payload;
 }
