@@ -1,5 +1,5 @@
 import { performRequest } from '../../acmeRequestor';
-import { LIST_TEMPLATE_TIMES, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C } from '../../../utils/acmeEndpoints';
+import { LIST_TEMPLATE_TIMES, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C, LIST_EVENT_TEMPLATES_B2C } from '../../../utils/acmeEndpoints';
 import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C, BucketedEventTimeObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 /** Object for the Event Templates input parameters to provide. Optional */
@@ -182,4 +182,13 @@ export async function getTemplateTimes(params: GetTemplateTimesParams): Promise<
 
 	const payload = await performRequest({ url, method: 'get', params }) as EventTimeObject[];
 	return payload;
-}
+};
+
+
+export async function listEventTemplates(params: EventTemplateParameters): Promise<EventTemplateB2C[]> {
+
+	const url = LIST_EVENT_TEMPLATES_B2C;
+
+	const payload = await performRequest({ url, method: 'get', params }) as EventTemplateB2C[];
+	return payload;
+};
