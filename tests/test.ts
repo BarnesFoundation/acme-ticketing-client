@@ -121,6 +121,13 @@ const shoppingCartB2CExample = async () => {
 	console.log(`The shopping cart with id ${createdShoppingCartId} was deleted and the response was`, deletedShoppingCart);
 }
 
+const listEventTemplatesB2CExample = async () => {
+
+	// Get event templates starting since beginning of year
+	const eventTemplates = await EventTemplateFunctionsB2C.listEventTemplates({ startTime: '2020-01-01T05:00:00.000Z' });
+	console.log(eventTemplates);
+};
+
 main();
 ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
@@ -128,3 +135,4 @@ eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020
 eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
 eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' });
 shoppingCartB2CExample();
+listEventTemplatesB2CExample();
