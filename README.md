@@ -18,7 +18,8 @@ new ACMETicketingClient({ b2cTenantId, apiKey, apiRootUrl });
 const allMyEvents = await EventFunctions.listEvents();
 ```
 
-As you can tell from the above, you can import only the modules you need, which makes accessing functions via these modules much easier. 
+As you can tell from the above, you're able to import only the modules you need, which makes accessing functions via these modules much easier, straightforward, and simple for encapsulating logic in your applications. 
 
-100% of modules have included [TSDoc](https://github.com/microsoft/tsdoc) so you can easily see method signatures, giving you helpful information like what params a method accepts, it's purpose, what it returns, etc.
+100% of modules have included [TSDoc](https://github.com/microsoft/tsdoc) so you can easily see method signatures, giving you helpful information like what parameters a method accepts, it's purpose, what it returns, etc.
 
+You can see example usage of several of the modules over in the testing file [test.ts](https://github.com/BarnesFoundation/acme-ticketing-client/blob/master/tests/test.ts).
