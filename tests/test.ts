@@ -1,4 +1,4 @@
-import { ACMETicketingClient, ReportFunctions, EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C } from '../index';
+import { ACMETicketingClient, ReportFunctions, EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C, CheckoutFunctionsB2B } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
 
@@ -128,7 +128,22 @@ const listEventTemplatesB2CExample = async () => {
 	console.log(eventTemplates);
 };
 
+const sendOrderEmailExample = async () => {
+
+	const orderNumber = '100430719';
+	const emailInput = {
+		email: 'myemail@someEmail.org',
+		sendEmail: true
+	};
+
+	const orderResponse = await CheckoutFunctionsB2B.sendOrderEmail(orderNumber, emailInput);
+	console.log(`Sent order email for Order ID ${orderResponse.id}`);
+};
+
+
 main();
+
+/** Some example functions - comment out any you don't need to test */
 ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
 eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
@@ -136,3 +151,4 @@ eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
 eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' });
 shoppingCartB2CExample();
 listEventTemplatesB2CExample();
+sendOrderEmailExample();
