@@ -2,6 +2,8 @@ import { performRequest } from '../../acmeRequestor';
 import { LIST_TEMPLATE_TIMES, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C, LIST_EVENT_TEMPLATES_B2C } from '../../../utils/acmeEndpoints';
 import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C, BucketedEventTimeObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
+type SaleChannels = 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk';
+
 /** Object for the Event Templates input parameters to provide. Optional */
 export interface EventTemplateParameters {
 
@@ -19,13 +21,21 @@ export interface EventTemplateParameters {
 
 	/** The current user's membership category.  This allows for event templates that are only accessible to memberships to be returned, also allows for price list of the event to include membership discounts */
 	membershipCategoryId?: string | number
+
+	/** Determines if the event templates should be retrieved via the /v2/b2c/event/templates/slim endpoint rather than default /v2/b2c/event/templates. 
+	 * This will quickly get you a list of all Events for sale on B2C - similar to what you'd see on your ACME Ticketing landing page
+	*/
+	slim?: boolean,
+
+	/** Limits results to only templates available to a certain sale channel (optional) */
+	salesChannel?: SaleChannels
 }
 
 /** Object for the Event Template Summaries input parameters to provide. Optional */
 export interface EventTemplateSummariesParameters extends EventTemplateParameters {
 
 	/** Limits results to only templates with schedules or items available to a certain sale channel (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk'
+	saleChannel?: SaleChannels
 }
 
 /** Returns the event template summaries matching the specified input params
@@ -76,7 +86,7 @@ export interface ActivityCalendarParameters {
 	endTime?: string,
 
 	/** The sale channel you are listing the times for. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk',
+	saleChannel?: SaleChannels,
 
 	/** One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional) */
 	type?: 'private' | 'standard' | 'all',
@@ -108,7 +118,7 @@ export interface GetEventTemplateParams {
 	id: string,
 
 	/** The sale channel of the template. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk',
+	saleChannel?: SaleChannels,
 
 	/** The current user's membership id. 
 	 *  This allows for event templates that are only accessible to memberships to be returned, also allows for price list of the event to include membership discounts.*/
@@ -138,7 +148,7 @@ export interface ListTemplateTimesParams {
 	endTime?: string
 
 	/** the sale channel you are listing the times for.. Any one of online, customerRep, pointOfSale and manualEntry (optional) */
-	saleChannel?: 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk',
+	saleChannel?: SaleChannels,
 
 	/** One of private, standard or all.  If left off or standard then will not return events that were made for private event templates (optional) */
 	type?: 'private' | 'standard' | 'all',
@@ -185,9 +195,9 @@ export async function getTemplateTimes(params: GetTemplateTimesParams): Promise<
 };
 
 
-export async function listEventTemplates(params: EventTemplateParameters): Promise<EventTemplateB2C[]> {
+export async function listEventTemplates(params?: EventTemplateParameters): Promise<EventTemplateB2C[]> {
 
-	const url = LIST_EVENT_TEMPLATES_B2C;
+	const url = (params && params.slim) ? `${LIST_EVENT_TEMPLATES_B2C}/slim` : LIST_EVENT_TEMPLATES_B2C;
 
 	const payload = await performRequest({ url, method: 'get', params }) as EventTemplateB2C[];
 	return payload;
