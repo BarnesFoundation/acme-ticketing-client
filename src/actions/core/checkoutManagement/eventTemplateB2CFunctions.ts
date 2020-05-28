@@ -28,7 +28,7 @@ export interface EventTemplateParameters {
 	slim?: boolean,
 
 	/** Limits results to only templates available to a certain sale channel (optional) */
-	salesChannel?: SaleChannels
+	saleChannel?: SaleChannels
 }
 
 /** Object for the Event Template Summaries input parameters to provide. Optional */

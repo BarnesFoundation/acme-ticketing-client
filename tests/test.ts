@@ -124,7 +124,7 @@ const shoppingCartB2CExample = async () => {
 const listEventTemplatesB2CExample = async () => {
 
 	// Get event templates starting since beginning of year
-	const eventTemplates = await EventTemplateFunctionsB2C.listEventTemplates({ slim: true, salesChannel: 'online' });
+	const eventTemplates = await EventTemplateFunctionsB2C.listEventTemplates({ slim: true, saleChannel: 'online' });
 
 	eventTemplates.forEach((et) => console.log(et.name));
 };
