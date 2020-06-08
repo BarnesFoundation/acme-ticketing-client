@@ -13,6 +13,9 @@ export const LIST_EVENT_TEMPLATES = "/v2/b2b/event/templates";
 export const LIST_EVENT_TEMPLATES_SUMMARIES = "/v2/b2b/event/templates/summaries";
 export const GET_EVENT_TEMPLATE = (id: string | number) => { return `/v2/b2b/event/template/${id}`; };
 
+// Event Management - Event Images endpoints
+export const READ_EVENT_TEMPLATE_IMAGE = (templateId: string, size: string) => ( `/v2/b2b/photos/program/${templateId}/${size}`);
+
 // Membership endpoints
 export const GET_MEMBERSHIP = "/v2/b2b/memberships";
 
