@@ -1,5 +1,6 @@
 import { performRequest } from '../../acmeRequestor';
 import { LIST_MEMBERSHIP_LEVELS, GET_MEMBERSHIP_LEVEL } from '../../../utils/acmeEndpoints';
+import { MembershipLevelsList, MembershipLevelObject } from '../../../interfaces/acmeMembershipLevelsPayloads';
 
 export interface ListMembershipLevelsInput {
 
@@ -52,10 +53,10 @@ export interface ListMembershipLevelsInput {
 /** Lists the membership levels
  * @params input - Object containing the input parameters for the membership levels to be retrieved
  */
-export const listMembershipLevels = async (params: ListMembershipLevelsInput) => {
+export const listMembershipLevels = async (params: ListMembershipLevelsInput): Promise<MembershipLevelsList> => {
 
 	const url = LIST_MEMBERSHIP_LEVELS;
-	const payload = await performRequest({ url, method: 'get', params });
+	const payload = await performRequest({ url, method: 'get', params }) as MembershipLevelsList;
 
 	return payload;
 };
@@ -63,10 +64,10 @@ export const listMembershipLevels = async (params: ListMembershipLevelsInput) =>
 /** Retrieves a specified membership level by id
  * @params id - The id of the membership level you want to get.
  */
-export const getMembershipLevel = async (id: string) => {
+export const getMembershipLevel = async (id: string): Promise<MembershipLevelObject> => {
 
 	const url = GET_MEMBERSHIP_LEVEL(id);
-	const payload = await performRequest({ url, method: 'get' });
+	const payload = await performRequest({ url, method: 'get' }) as MembershipLevelObject;
 
 	return payload;
 };
