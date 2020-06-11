@@ -17,7 +17,7 @@ export interface ReadTemplateProfileImageParams {
 }
 
 /** Retrieves a template's profile image in binary format 
- * @params - Object containing the input parameters for the event template image to be received
+ * @params params - Object containing the input parameters for the event template image to be received
 */
 export const readTemplateProfileImage = async (params: ReadTemplateProfileImageParams) => {
 
