@@ -14,7 +14,7 @@ export const LIST_EVENT_TEMPLATES_SUMMARIES = "/v2/b2b/event/templates/summaries
 export const GET_EVENT_TEMPLATE = (id: string | number) => { return `/v2/b2b/event/template/${id}`; };
 
 // Event Management - Event Images endpoints
-export const READ_EVENT_TEMPLATE_IMAGE = (templateId: string, size: string) => ( `/v2/b2b/photos/program/${templateId}/${size}`);
+export const READ_EVENT_TEMPLATE_IMAGE = (templateId: string, size: string) => (`/v2/b2b/photos/program/${templateId}/${size}`);
 
 // Membership endpoints
 export const GET_MEMBERSHIP = "/v2/b2b/memberships";
@@ -24,6 +24,10 @@ export const LIST_MEMBERSHIP_CARDS = "/v2/b2b/membership/cards";
 
 // Membership Summary endpoints
 export const GET_MEMBERSHIP_SUMMARIES = "/v2/b2b/membership/summaries";
+
+// Membership Levels endpoints
+export const LIST_MEMBERSHIP_LEVELS = "/v2/b2b/membership/levels";
+export const GET_MEMBERSHIP_LEVEL = (id: string) => `/v2/b2b/membership/levels/${id}`;
 
 // Orders Management - Orders endpoints
 export const GET_ORDER = "/v2/b2c/orders";
