@@ -33,12 +33,14 @@ import * as ShoppingCartFunctionsB2C from './src/actions/core/checkoutManagement
 import * as ECommerceFunctionsB2C from './src/actions/core/checkoutManagement/eCommerceB2CFunctions';
 import * as CheckoutFunctionsB2B from './src/actions/core/checkoutManagement/b2bCheckoutFunctions';
 import * as EventImagesFunctions from './src/actions/core/eventManagement/eventImagesFunctions';
+import * as MembershipLevelsFunctions from './src/actions/core/membership/membershipLevelsFunctions';
 
 // Export the core function modules
 export {
 	ECommerceFunctionsB2C, ReportFunctions, EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions,
 	MembershipFunctions, OrderFunctions, WillCallFunctions, SessionFunctions, EventTemplateFunctions,
-	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C, CheckoutFunctionsB2B, EventImagesFunctions
+	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C, CheckoutFunctionsB2B, EventImagesFunctions,
+	MembershipLevelsFunctions
 };
 
 // Export our core payload types

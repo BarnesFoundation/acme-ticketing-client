@@ -1,7 +1,8 @@
 import {
 	ACMETicketingClient, ReportFunctions,
 	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C,
-	CheckoutFunctionsB2B, EventImagesFunctions
+	CheckoutFunctionsB2B, EventImagesFunctions,
+	MembershipLevelsFunctions
 } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
@@ -156,16 +157,27 @@ const readEventTemplateImageExample = async () => {
 	console.log(imageResponse);
 };
 
+const membershipLevelsExample = async () => {
+
+	// List all of the available membership levels per my filters
+	const filteredMembershipLevels = await MembershipLevelsFunctions.listMembershipLevels({ isPublished: true, salesChannels: 'pointOfSale', summarize: true });
+	console.log(filteredMembershipLevels);
+
+	// Get a specific membership level, by id
+	const specificLevel = await MembershipLevelsFunctions.getMembershipLevel('58b0a65c969c6d3155d6fe87');
+	console.log(specificLevel);
+};
 
 main();
 
 /** Some example functions - comment out any you don't need to test */
-/* ordersForMembershipDateRangeExample('3103365');
+ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
 eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
 eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
 eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' });
 shoppingCartB2CExample();
 listEventTemplatesB2CExample();
-sendOrderEmailExample(); */
+sendOrderEmailExample();
 readEventTemplateImageExample();
+membershipLevelsExample();
