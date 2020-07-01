@@ -1,6 +1,6 @@
 {
   "name": "acme-ticketing-client",
-  "version": "1.0.714",
+  "version": "1.0.715",
   "description": "NodeJS client for the functionality provided by the ACME Ticketing platform.",
   "main": "dist/index.js",
   "scripts": {
