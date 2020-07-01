@@ -2,7 +2,8 @@ import {
 	ACMETicketingClient, ReportFunctions,
 	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C,
 	CheckoutFunctionsB2B, EventImagesFunctions,
-	MembershipLevelsFunctions
+	MembershipLevelsFunctions,
+	OrderFunctions
 } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
@@ -168,6 +169,18 @@ const membershipLevelsExample = async () => {
 	console.log(specificLevel);
 };
 
+const searchOrdersExample = async () => {
+
+	const ordersSearchResponse = await OrderFunctions.searchOrders({ 
+		sortField: 'createdOn', 
+		sortDirection: 'desc',
+		email: 'xxxx@yyy.org',
+		pageSize: 200,
+	});
+
+	console.log(ordersSearchResponse.list[188]);
+};
+
 main();
 
 /** Some example functions - comment out any you don't need to test */
@@ -181,3 +194,4 @@ listEventTemplatesB2CExample();
 sendOrderEmailExample();
 readEventTemplateImageExample();
 membershipLevelsExample();
+searchOrdersExample();
