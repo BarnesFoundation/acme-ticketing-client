@@ -31,6 +31,7 @@ export const GET_MEMBERSHIP_LEVEL = (id: string) => `/v2/b2b/membership/levels/$
 
 // Orders Management - Orders endpoints
 export const GET_ORDER = "/v2/b2c/orders";
+export const SEARCH_ORDERS ="/v2/b2c/orders/search";
 export const GET_ORDERS_FOR_EVENT = "/v2/b2c/orders/event";
 
 // Session endpoints
