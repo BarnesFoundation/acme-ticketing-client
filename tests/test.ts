@@ -3,7 +3,7 @@ import {
 	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C,
 	CheckoutFunctionsB2B, EventImagesFunctions,
 	MembershipLevelsFunctions,
-	OrderFunctions
+	OrderFunctions, MembershipFunctions
 } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
@@ -181,6 +181,18 @@ const searchOrdersExample = async () => {
 	console.log(ordersSearchResponse.list[188]);
 };
 
+const listMembershipsExample = async () => {
+	
+	const memberships = await MembershipFunctions.listMemberships({
+		updatedStartTime: '2020-10-11T00:00:00-05:00',
+		updatedEndTime: '2020-10-11T23:59:59-05:00',
+		pageSize: 10,
+		page: 1
+	});
+
+	console.log(memberships);
+};
+
 main();
 
 /** Some example functions - comment out any you don't need to test */
@@ -195,3 +207,4 @@ sendOrderEmailExample();
 readEventTemplateImageExample();
 membershipLevelsExample();
 searchOrdersExample();
+listMembershipsExample();
