@@ -45,8 +45,8 @@ export interface QueryExpression {
 
 export interface FindQuery {
 	fieldName: string,
-	fieldValue: string,
-	operator: "equals" | "less than" | "greater than" | "contains",
+	fieldValue?: string,
+	operator: "equals" | "less than" | "greater than" | "contains" | "exists" | "does not exist"
 }
 
 export interface FindField {
