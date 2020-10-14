@@ -207,7 +207,7 @@ const listEventTemplateInstancesExample = async () => {
 main();
 
 /** Some example functions - comment out any you don't need to test */
-/* ordersForMembershipDateRangeExample('3103365');
+ordersForMembershipDateRangeExample('3103365');
 eventTemplateSummariesExample();
 eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
 eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
@@ -218,5 +218,5 @@ sendOrderEmailExample();
 readEventTemplateImageExample();
 membershipLevelsExample();
 searchOrdersExample();
-listMembershipsExample(); */
+listMembershipsExample();
 listEventTemplateInstancesExample();
