@@ -1,5 +1,5 @@
 import { performRequest } from '../../acmeRequestor';
-import { LIST_TEMPLATE_TIMES, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C, LIST_EVENT_TEMPLATES_B2C } from '../../../utils/acmeEndpoints';
+import { LIST_TEMPLATE_TIMES, LIST_EVENT_TEMPLATES_SUMMARIES_B2C, GET_ACTIVITY_CALENDAR_FOR_TEMPLATE, GET_EVENT_TEMPLATE_B2C, LIST_EVENT_TEMPLATES_B2C, LIST_EVENT_TEMPLATE_INSTANCES_B2C } from '../../../utils/acmeEndpoints';
 import { EventTemplateSummaryB2C, EventTimeObject, EventTemplateActivityCalendar, EventTemplateB2C, BucketedEventTimeObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 
 type SaleChannels = 'online' | 'customerRep' | 'pointOfSale' | 'manualEntry' | 'kiosk';
@@ -200,5 +200,26 @@ export async function listEventTemplates(params?: EventTemplateParameters): Prom
 	const url = (params && params.slim) ? `${LIST_EVENT_TEMPLATES_B2C}/slim` : LIST_EVENT_TEMPLATES_B2C;
 
 	const payload = await performRequest({ url, method: 'get', params }) as EventTemplateB2C[];
+	return payload;
+};
+
+export interface ListEventTemplateInstances {
+
+	/** The id of the event template you wish to list the instances for */
+	id: string
+
+	/** The start time the event instances should be after. Optional */
+	startTime?: string,
+
+	/** The end time the event instances should be before. Optional */
+	endTime?: string
+};
+
+/** Get the event instances of a specified event template that meets the provided criteria, if provided. Not a documented API in the ACME documentation */
+export async function listEventTemplateInstances(params: ListEventTemplateInstances) {
+
+	const url = LIST_EVENT_TEMPLATE_INSTANCES_B2C(params.id);
+
+	const payload = await performRequest({ url, method: 'get', params });
 	return payload;
 };

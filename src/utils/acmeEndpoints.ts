@@ -46,6 +46,7 @@ export const EXECUTE_ADHOC_REPORT = "/v2/b2b/analytics/report/execute";
 
 // Checkout Management - Event Template B2C endpoints
 export const LIST_EVENT_TEMPLATES_B2C = "/v2/b2c/event/templates";
+export const LIST_EVENT_TEMPLATE_INSTANCES_B2C = (eventTemplateId: string) => `v2/b2c/event/templates/${eventTemplateId}/instances`;
 export const LIST_EVENT_TEMPLATES_SUMMARIES_B2C = "/v2/b2c/event/templates/summaries";
 export const LIST_TEMPLATE_TIMES = (id?: string | number) => {
 	if (id) return `/v2/b2c/event/templates/${id}/times`;
