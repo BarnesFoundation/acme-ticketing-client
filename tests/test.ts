@@ -197,8 +197,10 @@ const listEventTemplateInstancesExample = async () => {
 
 	const eventTemplateInstances = await EventTemplateFunctionsB2C.listEventTemplateInstances({
 		id: '58b2fbdc58ccc44b172675f2',
+		startTime: '2020-10-14T17:30:00+00:00',
+		endTime: '2020-10-15T17:30:00+00:00'
 	});
-	
+
 	console.log(eventTemplateInstances);
 };
 
