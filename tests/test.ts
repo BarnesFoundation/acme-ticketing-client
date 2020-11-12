@@ -246,7 +246,7 @@ const placeAnOrder = async () => {
 			"expDate": "0923"
 		};
 
-		const purchase = await ECommerceFunctionsB2C.performCheckout(billingInformationAndCart, uuid, true);
+		const purchase = await ECommerceFunctionsB2C.performCheckout(billingInformationAndCart, uuid, { throwRaw: true });
 
 		console.log(purchase);
 	} catch (e) {
