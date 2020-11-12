@@ -8,6 +8,7 @@ interface RequestConfig {
 	additionalHeaders?: {},
 	data?: any,
 	params?: {},
+	throwRaw?: boolean,
 }
 
 export const performRequest = async (config: RequestConfig): Promise<any> => {
@@ -19,7 +20,14 @@ export const performRequest = async (config: RequestConfig): Promise<any> => {
 	let headers = { ...defaultHeaders };
 
 	// Grab the params from the config and cast Method
-	const { url, method: providedMethod, additionalHeaders, data, params } = config;
+	const {
+		url,
+		method: providedMethod,
+		additionalHeaders,
+		data,
+		params,
+		throwRaw = false,
+	} = config;
 	const method = providedMethod as Method;
 
 	// If additional headers were provided, merge them
@@ -34,6 +42,14 @@ export const performRequest = async (config: RequestConfig): Promise<any> => {
 	}
 
 	catch (error) {
-		throw `An error occurred sending a ${method} request to endpoint ${url}. Error was: ${error}`;
+		// If we are throwing the raw error, just throw the error object.
+		if (throwRaw) {
+			throw error;
+		}
+		// Otherwise, throw string.
+		else {
+			throw `An error occurred sending a ${method} request to endpoint ${url}. Error was: ${error}`;
+		}
+		
 	}
 }

@@ -43,9 +43,16 @@ export interface ShoppingCart {
  * Returns an Order object
  * @params checkoutInput - Checkout object containing items to be purchased and billing information.
  * @params uuid - Unique uuid for this transaction to prevent duplicate transactions from taking place. Gets included into the "x-acme-request-uuid" header key
+ * @params options - option bag parameter.
  */
-export async function performCheckout(checkoutInput: CheckoutInputObject, uuid: string) {
+export async function performCheckout(
+	checkoutInput: CheckoutInputObject,
+	uuid: string,
+	{
+		throwRaw = false // If raw error should be thrown, defaults to false.
+	}
+) {
 	const additionalHeaders = { "x-acme-request-uuid": uuid };
-	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders }) as Order;
+	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders, throwRaw }) as Order;
 	return payload;
 }

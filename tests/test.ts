@@ -3,10 +3,13 @@ import {
 	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C,
 	CheckoutFunctionsB2B, EventImagesFunctions,
 	MembershipLevelsFunctions,
-	OrderFunctions, MembershipFunctions
+	OrderFunctions, MembershipFunctions,
+	ECommerceFunctionsB2C
 } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
+import { v4 as uuidV4 } from 'uuid';
+import { CheckoutInputObject } from '../src/interfaces/acmeCheckoutManagementPayloads';
 
 dotenv.config();
 
@@ -204,6 +207,99 @@ const listEventTemplateInstancesExample = async () => {
 	console.log(eventTemplateInstances);
 };
 
+const placeAnOrder = async () => {
+	try {
+		const uuid = uuidV4();
+		const billingInformationAndCart: CheckoutInputObject = {
+			"billingFirstName": "Bill",
+			"billingLastName": "Billiams",
+			"billingEmail": "bill@bill.edu",
+			"contactFirstName": "Bill",
+			"contactLastName": "Billiams",
+			"contactEmail": "bill@bill.edu",
+			"country": "United States",
+			"phoneNumber": "7776665555",
+			"shoppingCart": {
+				"items": [
+				{
+					"eventId": "5f77388c22149012b75f2860",
+					"eventName": "Admission",
+					"eventTime": "2020-11-13T11:15:00-05:00",
+					"itemType": "Event",
+					"ignoreEntitlements": false,
+					"ticketingTypeName": "Adult",
+					"ticketingTypeId": "58b0b704554bd44b356edeea",
+					"quantity": 2,
+					"unitPrice": "25.00"
+				}
+				]
+			},
+			"zipCode": "90210",
+			"city": "Billadelphia",
+			"address1": "123 Bill St.",
+			"billingAddress1": "123 Bill St.",
+			"notes": "#MemberPortal",
+			"creditCardBrand": "Visa",
+			"manualEntryCardNumber": "4242424242424242",
+			"cvc": "123",
+			"ccLastFourDigits": "4242",
+			"expDate": "0923"
+		};
+
+		const purchase = await ECommerceFunctionsB2C.performCheckout(billingInformationAndCart, uuid, true);
+
+		console.log(purchase);
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+const placeAnOrderAndThrowError = async () => {
+	try {
+		const uuid = uuidV4();
+		const billingInformationAndCart: CheckoutInputObject = {
+			"billingFirstName": "Bill",
+			"billingLastName": "Billiams",
+			"billingEmail": "bill@bill.edu",
+			"contactFirstName": "Bill",
+			"contactLastName": "Billiams",
+			"contactEmail": "bill@bill.edu",
+			"country": "United States",
+			"phoneNumber": "7776665555",
+			"shoppingCart": {
+				"items": [
+				{
+					"eventId": "5f77388c22149012b75f2860",
+					"eventName": "Admission",
+					"eventTime": "2020-11-13T11:15:00-05:00",
+					"itemType": "Event",
+					"ignoreEntitlements": false,
+					"ticketingTypeName": "Adult",
+					"ticketingTypeId": "58b0b704554bd44b356edeea",
+					"quantity": 2,
+					"unitPrice": "25.00"
+				}
+				]
+			},
+			"zipCode": "90210",
+			"city": "Billadelphia",
+			"address1": "123 Bill St.",
+			"billingAddress1": "123 Bill St.",
+			"notes": "#MemberPortal",
+			"creditCardBrand": "Visa",
+			"manualEntryCardNumber": "4242424242424241", // <= this will trigger an error.
+			"cvc": "123",
+			"ccLastFourDigits": "4242",
+			"expDate": "0923"
+		};
+
+		// This will throw as 4242424242424241 is not a valid cc#.
+		await ECommerceFunctionsB2C.performCheckout(billingInformationAndCart, uuid, { throwRaw: true });
+	} catch (e) {
+		console.log(e);
+	}
+}
+
 main();
 
 /** Some example functions - comment out any you don't need to test */
@@ -220,3 +316,5 @@ membershipLevelsExample();
 searchOrdersExample();
 listMembershipsExample();
 listEventTemplateInstancesExample();
+placeAnOrder();
+placeAnOrderAndThrowError();
