@@ -48,10 +48,11 @@ export interface ShoppingCart {
 export async function performCheckout(
 	checkoutInput: CheckoutInputObject,
 	uuid: string,
-	{
-		throwRaw = false // If raw error should be thrown, defaults to false.
-	}
+	options: { throwRaw?: boolean } = {},
 ) {
+	// Destructure optional parameters
+	const { throwRaw = false } = options;
+
 	const additionalHeaders = { "x-acme-request-uuid": uuid };
 	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders, throwRaw }) as Order;
 	return payload;
