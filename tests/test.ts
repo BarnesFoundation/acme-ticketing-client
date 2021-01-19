@@ -4,7 +4,8 @@ import {
 	CheckoutFunctionsB2B, EventImagesFunctions,
 	MembershipLevelsFunctions,
 	OrderFunctions, MembershipFunctions,
-	ECommerceFunctionsB2C
+	ECommerceFunctionsB2C,
+	EventFunctions
 } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
@@ -44,7 +45,7 @@ const definedReportFetchExample = async () => {
 				if (status !== 'Completed') {
 					[{ status } = (await ReportFunctions.pollForReportStatus(id))];
 					console.log(`New status: ${status}`);
-					resolve()
+					resolve(null)
 				}
 				else {
 					console.log(`Report status is ${status}. Ending polling`);
@@ -221,17 +222,17 @@ const placeAnOrder = async () => {
 			"phoneNumber": "7776665555",
 			"shoppingCart": {
 				"items": [
-				{
-					"eventId": "5f77388c22149012b75f2860",
-					"eventName": "Admission",
-					"eventTime": "2020-11-13T11:15:00-05:00",
-					"itemType": "Event",
-					"ignoreEntitlements": false,
-					"ticketingTypeName": "Adult",
-					"ticketingTypeId": "58b0b704554bd44b356edeea",
-					"quantity": 2,
-					"unitPrice": "25.00"
-				}
+					{
+						"eventId": "5f77388c22149012b75f2860",
+						"eventName": "Admission",
+						"eventTime": "2020-11-13T11:15:00-05:00",
+						"itemType": "Event",
+						"ignoreEntitlements": false,
+						"ticketingTypeName": "Adult",
+						"ticketingTypeId": "58b0b704554bd44b356edeea",
+						"quantity": 2,
+						"unitPrice": "25.00"
+					}
 				]
 			},
 			"zipCode": "90210",
@@ -268,17 +269,17 @@ const placeAnOrderAndThrowError = async () => {
 			"phoneNumber": "7776665555",
 			"shoppingCart": {
 				"items": [
-				{
-					"eventId": "5f77388c22149012b75f2860",
-					"eventName": "Admission",
-					"eventTime": "2020-11-13T11:15:00-05:00",
-					"itemType": "Event",
-					"ignoreEntitlements": false,
-					"ticketingTypeName": "Adult",
-					"ticketingTypeId": "58b0b704554bd44b356edeea",
-					"quantity": 2,
-					"unitPrice": "25.00"
-				}
+					{
+						"eventId": "5f77388c22149012b75f2860",
+						"eventName": "Admission",
+						"eventTime": "2020-11-13T11:15:00-05:00",
+						"itemType": "Event",
+						"ignoreEntitlements": false,
+						"ticketingTypeName": "Adult",
+						"ticketingTypeId": "58b0b704554bd44b356edeea",
+						"quantity": 2,
+						"unitPrice": "25.00"
+					}
 				]
 			},
 			"zipCode": "90210",
@@ -300,6 +301,18 @@ const placeAnOrderAndThrowError = async () => {
 	}
 }
 
+const updateEventCapacity = async () => {
+	
+	// Fetch the event definition from the API and make a change to the capacity
+	const fetchedEvent = await EventFunctions.getEvent('600602634791d654027aa6d3');
+	fetchedEvent.capacity = 37;
+
+	// Update the event and ensure the capacity matches
+	const updatedEvent = await EventFunctions.updateEvent(fetchedEvent);
+
+	console.log(`Both events now have event capacity of 37: ${updatedEvent.capacity === fetchedEvent.capacity}`);
+}
+
 main();
 
 /** Some example functions - comment out any you don't need to test */
@@ -318,3 +331,4 @@ listMembershipsExample();
 listEventTemplateInstancesExample();
 placeAnOrder();
 placeAnOrderAndThrowError();
+updateEventCapacity();

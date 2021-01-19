@@ -64,4 +64,13 @@ async function getEvent(eventId: string): Promise<Event> {
 	return payload;
 }
 
-export { getEvent, listEvents, listEventSummaries };
+/** Allows for updating the definition of an existing event 
+ *  @param event - The event object containing the fields to write to the existing event
+ **/
+async function updateEvent(eventPayload: Event) {
+	
+	const payload = await performRequest({ url: GET_EVENT, data: eventPayload, method: 'post' }) as Event;
+	return payload;
+};
+
+export { getEvent, listEvents, listEventSummaries, updateEvent };
