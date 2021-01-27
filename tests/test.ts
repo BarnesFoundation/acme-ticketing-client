@@ -5,7 +5,8 @@ import {
 	MembershipLevelsFunctions,
 	OrderFunctions, MembershipFunctions,
 	ECommerceFunctionsB2C,
-	EventFunctions
+	EventFunctions,
+	AddOnFunctions
 } from '../index';
 import { TicketingFunctions as tfc } from '../convenience';
 import * as dotenv from 'dotenv';
@@ -313,6 +314,13 @@ const updateEventCapacity = async () => {
 	console.log(`Both events now have event capacity of 37: ${updatedEvent.capacity === fetchedEvent.capacity}`);
 }
 
+const getAddOn = async () => {
+
+	// Fetch this add-on
+	const fetchedAddOn = await AddOnFunctions.getAddOn(3982);
+	console.log(fetchedAddOn);
+}
+
 main();
 
 /** Some example functions - comment out any you don't need to test */
@@ -332,3 +340,4 @@ listEventTemplateInstancesExample();
 placeAnOrder();
 placeAnOrderAndThrowError();
 updateEventCapacity();
+getAddOn();

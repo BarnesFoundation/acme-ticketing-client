@@ -65,3 +65,6 @@ export const ENTITLEMENTS_VALIDATE = "/v2/b2c/entitlements/validate";
 // Checkout Management - B2B Checkout
 export const B2B_CHECKOUT = "/v2/b2b/checkout";
 export const B2B_SEND_ORDER_EMAIL = (orderNumber: string) => { return `/v2/b2b/orders/${orderNumber}/email`; };
+
+// Platform APIs - Add-Ons
+export const GET_ADD_ONS = "/v2/b2b/addons";

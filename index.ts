@@ -34,13 +34,14 @@ import * as ECommerceFunctionsB2C from './src/actions/core/checkoutManagement/eC
 import * as CheckoutFunctionsB2B from './src/actions/core/checkoutManagement/b2bCheckoutFunctions';
 import * as EventImagesFunctions from './src/actions/core/eventManagement/eventImagesFunctions';
 import * as MembershipLevelsFunctions from './src/actions/core/membership/membershipLevelsFunctions';
+import * as AddOnFunctions from './src/actions/core/platform/addOnFunctions';
 
 // Export the core function modules
 export {
 	ECommerceFunctionsB2C, ReportFunctions, EventFunctions, MembershipSummaryFunctions, MembershipCardFunctions,
 	MembershipFunctions, OrderFunctions, WillCallFunctions, SessionFunctions, EventTemplateFunctions,
 	EventTemplateFunctionsB2C, ShoppingCartFunctionsB2C, CheckoutFunctionsB2B, EventImagesFunctions,
-	MembershipLevelsFunctions
+	MembershipLevelsFunctions, AddOnFunctions
 };
 
 // Export our core payload types
@@ -52,4 +53,5 @@ export * from './src/interfaces/acmeMembershipSummariesPayloads';
 export * from './src/interfaces/acmeOrderPayloads';
 export * from './src/interfaces/acmeWillCallPayloads';
 export * from './src/interfaces/acmeAnalyticsPayloads'
+export * from './src/interfaces/acmePlatformPayloads';
 export * from './src/interfaces/interfaces';
