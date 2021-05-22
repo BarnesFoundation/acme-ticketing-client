@@ -48,6 +48,7 @@ export const performRequest = async (config: RequestConfig): Promise<any> => {
 		}
 		// Otherwise, throw string.
 		else {
+			console.log(error);
 			throw `An error occurred sending a ${method} request to endpoint ${url}. Error was: ${error}`;
 		}
 		
