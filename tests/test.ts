@@ -8,7 +8,7 @@ import {
 	EventFunctions,
 	AddOnFunctions
 } from '../index';
-import { TicketingFunctions as tfc } from '../convenience';
+import { TicketingFunctions as tfc, MembershipSaleFunctions, } from '../convenience';
 import * as dotenv from 'dotenv';
 import { v4 as uuidV4 } from 'uuid';
 import { CheckoutInputObject } from '../src/interfaces/acmeCheckoutManagementPayloads';
@@ -303,7 +303,7 @@ const placeAnOrderAndThrowError = async () => {
 }
 
 const updateEventCapacity = async () => {
-	
+
 	// Fetch the event definition from the API and make a change to the capacity
 	const fetchedEvent = await EventFunctions.getEvent('600602634791d654027aa6d3');
 	fetchedEvent.capacity = 37;
@@ -321,23 +321,58 @@ const getAddOn = async () => {
 	console.log(fetchedAddOn);
 }
 
+const performMembershipPurchase = async () => {
+
+	const membershipPurchaseInput = {
+		membershipCategoryId: "58b0768879e71d16ee72f64a",
+		membershipOfferingId: "d9c15537d85e4872b0a198d0f9bd7124",
+		pricePointId: "59038138554bd416f6f2de92",
+
+		isGift: false,
+	};
+
+	const memberDetails = {
+		city: 'Philadelphia',
+		country: 'USA',
+		email: 'cjativa@barnesfoundation.org',
+		firstName: 'Alan',
+		lastName: 'Jativa',
+		phoneNumber: '2152787000',
+		state: 'PA',
+		streetAddress1: '2025 Benjamin Franklin Pkwy,',
+		zipCode: '19130',
+	};
+
+	const paymentDetails: MembershipSaleFunctions.IPaymentDetails = {
+		creditCardBrand: "Visa",
+		manualEntryCardNumber: '4242424242424242',
+		cvc: '123',
+		ccLastFourDigits: '4242',
+		expDate: '0923',
+	};
+
+	const newMembershipOrder = await MembershipSaleFunctions.purchaseNewMembership(membershipPurchaseInput, memberDetails, paymentDetails, uuidV4());
+	console.log(newMembershipOrder);
+};
+
 main();
 
-/** Some example functions - comment out any you don't need to test */
-ordersForMembershipDateRangeExample('3103365');
-eventTemplateSummariesExample();
-eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
-eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
-eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' });
-shoppingCartB2CExample();
-listEventTemplatesB2CExample();
-sendOrderEmailExample();
-readEventTemplateImageExample();
-membershipLevelsExample();
-searchOrdersExample();
-listMembershipsExample();
-listEventTemplateInstancesExample();
-placeAnOrder();
-placeAnOrderAndThrowError();
-updateEventCapacity();
-getAddOn();
+/** Some example functions - uncomment any you want to test */
+// ordersForMembershipDateRangeExample('3103365');
+// eventTemplateSummariesExample();
+// eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
+// eventTemplateB2CExample({ id: '59288c7aca6afe2b653a4757' });
+// eventTemplateTimesExample({ id: '59288c7aca6afe2b653a4757' });
+// shoppingCartB2CExample();
+// listEventTemplatesB2CExample();
+// sendOrderEmailExample();
+// readEventTemplateImageExample();
+// membershipLevelsExample();
+// searchOrdersExample();
+// listMembershipsExample();
+// listEventTemplateInstancesExample();
+// placeAnOrder();
+// placeAnOrderAndThrowError();
+// updateEventCapacity();
+// getAddOn();
+// performMembershipPurchase();
