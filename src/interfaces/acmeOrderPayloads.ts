@@ -7,7 +7,7 @@ export interface SearchOrdersPayload {
 		sortField: string,
 		count: number
 	}
-}
+};
 
 export interface Order {
 	id: string,
@@ -55,7 +55,7 @@ export interface Order {
 	notes?: string,
 	ticketDelivery?: string
 
-}
+};
 
 interface OrderItem {
 	parentItemId: string,
@@ -82,4 +82,45 @@ interface OrderItem {
 	conversionStatus: string,
 	itemId: string,
 	displayName: string
-}
+};
+
+export interface IRefundResponse {
+
+	/** A unique id representing this refund transaction. */
+	incidentNumber: string | number,
+
+	/** The amount that was refunded. */
+	refundAmount: string,
+
+	/** The resulting Order JSON Object after the refund. */
+	order: Order,
+
+	/** A list of events refunded. */
+	refundedEvents: {
+
+		/** The date that the event was to occur. */
+		startDate: string,
+
+		/** The start time of the event. */
+		startTime: string,
+
+		/** The name of the event. */
+		eventName: string,
+		
+		/** The list of items being refunded for this event. */
+		refundedItems: {
+
+			/** The name of the ticket type being refunded. */
+			ticketType: string,
+
+			/** The price per ticket. */
+			pricePerTicket: string,
+
+			/** The number of tickets refunded. */
+			refundedCount: number,
+
+			/** The total amount refunded for this event, ticket type combination. */
+			totalRefunded: string,
+		}[],
+	}[],
+};
