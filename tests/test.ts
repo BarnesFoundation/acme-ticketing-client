@@ -324,9 +324,9 @@ const getAddOn = async () => {
 const performMembershipPurchase = async () => {
 
 	const membershipPurchaseInput = {
-		membershipCategoryId: "58b0768879e71d16ee72f64a",
-		membershipOfferingId: "d9c15537d85e4872b0a198d0f9bd7124",
-		pricePointId: "59038138554bd416f6f2de92",
+		membershipCategoryId: '58b0768879e71d16ee72f64a',
+		membershipOfferingId: 'd9c15537d85e4872b0a198d0f9bd7124',
+		pricePointId: '59038138554bd416f6f2de92',
 
 		isGift: false,
 	};
@@ -334,12 +334,12 @@ const performMembershipPurchase = async () => {
 	const memberDetails = {
 		city: 'Philadelphia',
 		country: 'USA',
-		email: 'cjativa@barnesfoundation.org',
-		firstName: 'Alan',
-		lastName: 'Jativa',
-		phoneNumber: '2152787000',
+		email: 'Bill@bill.edu',
+		firstName: 'Bill',
+		lastName: 'Billington',
+		phoneNumber: '5555555555',
 		state: 'PA',
-		streetAddress1: '2025 Benjamin Franklin Pkwy,',
+		streetAddress1: '123 Bill Street,',
 		zipCode: '19130',
 	};
 
@@ -351,13 +351,45 @@ const performMembershipPurchase = async () => {
 		expDate: '0923',
 	};
 
-	const newMembershipOrder = await MembershipSaleFunctions.purchaseNewMembership(membershipPurchaseInput, memberDetails, paymentDetails, uuidV4());
+	const newMembershipOrder = await MembershipSaleFunctions.purchaseNewMembership(membershipPurchaseInput, memberDetails, paymentDetails);
 	console.log(newMembershipOrder);
+};
+
+const renewMembership = async () => {
+
+	const membershipActionResponse = await MembershipSaleFunctions.processMembershipAction({
+		membershipId: '4501396',
+		membershipAction: 'MembershipUpgrade',
+
+		membershipCategoryId: '58b0c6eb79e71d16ee72ffb5',
+		membershipOfferingId: '483c9434e2bd4a90a03337cbe12c3283',
+		pricePointId: '58adfa2668d6097a9ca7b275',
+	},
+		{
+			creditCardBrand: "Visa",
+			manualEntryCardNumber: '4242424242424242',
+			cvc: '123',
+			ccLastFourDigits: '4242',
+			expDate: '0923',
+
+			city: 'Philadelphia',
+			country: 'USA',
+			email: 'bill@bill.edu',
+			firstName: 'Bill',
+			lastName: 'Billington',
+			phoneNumber: '5555555555',
+			state: 'PA',
+			streetAddress1: '123 Bill Street,',
+			zipCode: '19130',
+		}, true);
+	
+		console.log(membershipActionResponse);
 };
 
 main();
 
 /** Some example functions - uncomment any you want to test */
+
 // ordersForMembershipDateRangeExample('3103365');
 // eventTemplateSummariesExample();
 // eventActivityCalendarsExample({ id: '59288c7aca6afe2b653a4757', startTime: '2020-05-04T06:59:00-04:00', endTime: '2020-11-05T06:59:00-04:00' });
@@ -376,3 +408,4 @@ main();
 // updateEventCapacity();
 // getAddOn();
 // performMembershipPurchase();
+// renewMembership();
