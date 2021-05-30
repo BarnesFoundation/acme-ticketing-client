@@ -34,9 +34,8 @@ export const VALIDATE_MEMBERSHIP_CHECKOUT = "/v2/b2b/memberships/checkout/valida
 export const GET_ORDER = "/v2/b2c/orders";
 export const SEARCH_ORDERS ="/v2/b2c/orders/search";
 export const GET_ORDERS_FOR_EVENT = "/v2/b2c/orders/event";
-
-// Orders Management - Refunds
 export const REFUND_ORDER = "/v2/b2b/orders/refunds";
+export const UPDATE_ORDER = "/v2/b2b/orders/update";
 
 // Session endpoints
 export const CREATE_SESSION = "/v2/b2b/customer/session";

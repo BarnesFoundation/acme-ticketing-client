@@ -1,5 +1,5 @@
 import { performRequest } from '../../acmeRequestor';
-import { GET_ORDER, SEARCH_ORDERS, GET_ORDERS_FOR_EVENT, REFUND_ORDER } from '../../../utils/acmeEndpoints';
+import { GET_ORDER, SEARCH_ORDERS, GET_ORDERS_FOR_EVENT, REFUND_ORDER, UPDATE_ORDER } from '../../../utils/acmeEndpoints';
 import { Order, SearchOrdersPayload, IRefundResponse } from '../../../interfaces/acmeOrderPayloads';
 
 /** Returns an order object for the specified order id 
@@ -104,15 +104,55 @@ export interface IOrderRefundParams {
  * 
  * Returns the response for the refund
  * 
- * @param params - Object containing the input parameters the order should match
+ * @param params - Object containing the input parameters for the refund
  */
 export async function refundOrder(params: IOrderRefundParams): Promise<IRefundResponse> {
 
 	const payload = await performRequest({
 		url: REFUND_ORDER,
 		method: 'post',
-		params
+		data: params
 	}) as IRefundResponse;
+
+	return payload;
+};
+
+/** These are the basic order update parameters accepted by the endpoint. 
+ * See here https://developers.acmeticketing.com/support/solutions/articles/33000253334-order-update
+ * 
+ * This endpoint seems to accept an input very similar to the `Order` payload, but we haven't typed that out yet.
+ * This should be enough for now, in terms of doing basic updates, refund, and cancellation.
+ * */
+export interface IOrderUpdateParams {
+	orderId: string,
+	orderItems: {
+		orderItemId: string,
+		quantity: number
+	}[],
+};
+
+
+/** Performs an update for the order using the provided input.
+ * 
+ * Refund:
+ * - You can perform a refund by sending a request with the order item(s) to refund to a quantity less than the actual ordered quantity. 
+ *   This will result in a refund
+ * 
+ * Cancellation:
+ * - You can perform a cancellation by sending a request with the order item(s) to a quantity of 0.
+ *   This will result in an order cancellation
+ * 
+ * Returns the response for the refund
+ * 
+ * @param params - Object containing the input parameters for the order update
+ */
+export async function updateOrder(params: IOrderUpdateParams): Promise<Order> {
+
+	const payload = await performRequest({
+		url: UPDATE_ORDER,
+		method: 'post',
+		data: params
+	}) as Order;
 
 	return payload;
 };
