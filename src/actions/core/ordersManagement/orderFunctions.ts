@@ -121,6 +121,7 @@ export async function refundOrder(params: IOrderRefundParams): Promise<IRefundRe
  * See here https://developers.acmeticketing.com/support/solutions/articles/33000253334-order-update
  * 
  * This endpoint seems to accept an input very similar to the `Order` payload, but we haven't typed that out yet.
+ * 
  * This should be enough for now, in terms of doing basic updates, refund, and cancellation.
  * */
 export interface IOrderUpdateParams {
