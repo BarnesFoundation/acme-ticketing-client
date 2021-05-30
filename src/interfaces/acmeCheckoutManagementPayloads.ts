@@ -186,7 +186,10 @@ export interface ShoppingCartObject {
 }
 
 export interface CheckoutInputObject {
-	shoppingCart: ShoppingCartObject,
+	/** Id of the shopping cart. Provide this or `shoppingCart`. Do not provide both */
+	shoppingCartId?: string,
+
+	shoppingCart?: ShoppingCartObject,
 	/** Email address of the customer.	 */
 	contactEmail: string,
 	/** Phone number of the customer. */
