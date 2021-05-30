@@ -28,6 +28,7 @@ export const GET_MEMBERSHIP_SUMMARIES = "/v2/b2b/membership/summaries";
 // Membership Levels endpoints
 export const LIST_MEMBERSHIP_LEVELS = "/v2/b2b/membership/levels";
 export const GET_MEMBERSHIP_LEVEL = (id: string) => `/v2/b2b/membership/levels/${id}`;
+export const VALIDATE_MEMBERSHIP_CHECKOUT = "/v2/b2b/memberships/checkout/validate";
 
 // Orders Management - Orders endpoints
 export const GET_ORDER = "/v2/b2c/orders";
