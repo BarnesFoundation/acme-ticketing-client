@@ -388,45 +388,12 @@ const renewMembership = async () => {
 
 const checkoutOrderAndRefund = async () => {
 
-	// First let's place the order
-	const orderPayload = await ECommerceFunctionsB2C.performCheckout({
-		"billingFirstName": "Bill",
-		"billingLastName": "Billiams",
-		"billingEmail": "bill@bill.edu",
-		"contactFirstName": "Bill",
-		"contactLastName": "Billiams",
-		"contactEmail": "bill@bill.edu",
-		"country": "United States",
-		"phoneNumber": "7776665555",
-		"shoppingCart": {
-			"items": [
-				{
-					"eventId": "6065f72a4791d6362eda1a45",
-					"eventName": "Admission",
-					"eventTime": "2021-05-30T11:00:00-04:00",
-					"itemType": "Event",
-					"ignoreEntitlements": false,
-					"ticketingTypeName": "Adult",
-					"ticketingTypeId": "58b0b704554bd44b356edeea",
-					"quantity": 2,
-					"unitPrice": "25.00"
-				}
-			]
-		},
-		"zipCode": "90210",
-		"city": "Billadelphia",
-		"address1": "123 Bill St.",
-		"billingAddress1": "123 Bill St.",
-		"creditCardBrand": "Visa",
-		"manualEntryCardNumber": "4242424242424242",
-		"cvc": "123",
-		"ccLastFourDigits": "4242",
-		"expDate": "0923"
-	}, uuidV4());
+	// Order id of a successfully placed order
+	const orderId = '29564806';
 
 	// Now we'll refund it in its entirety
 	const refundResponse = await OrderFunctions.refundOrder({
-		orderId: orderPayload.id,
+		orderId: orderId,
 		incidentReasonCode: 'Miscellaneous',
 	});
 
@@ -510,3 +477,4 @@ main();
 // renewMembership();
 // checkoutOrderAndRefund();
 // checkoutOrderAndUpdate();
+// definedReportFetchExample();
