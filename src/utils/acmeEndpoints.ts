@@ -36,6 +36,7 @@ export const SEARCH_ORDERS ="/v2/b2c/orders/search";
 export const GET_ORDERS_FOR_EVENT = "/v2/b2c/orders/event";
 export const REFUND_ORDER = "/v1/b2b/b2b/refunds";
 export const UPDATE_ORDER = "/v2/b2b/orders/update";
+export const REBOOK_ORDER = "/v1/b2b/rebook/orders";
 
 // Session endpoints
 export const CREATE_SESSION = "/v2/b2b/customer/session";

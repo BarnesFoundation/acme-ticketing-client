@@ -1,6 +1,18 @@
 import { performRequest } from '../../acmeRequestor';
-import { GET_ORDER, SEARCH_ORDERS, GET_ORDERS_FOR_EVENT, REFUND_ORDER, UPDATE_ORDER } from '../../../utils/acmeEndpoints';
-import { Order, SearchOrdersPayload, IRefundResponse } from '../../../interfaces/acmeOrderPayloads';
+import {
+	GET_ORDER,
+	SEARCH_ORDERS,
+	GET_ORDERS_FOR_EVENT,
+	REFUND_ORDER,
+	UPDATE_ORDER,
+	REBOOK_ORDER,
+} from '../../../utils/acmeEndpoints';
+import {
+	Order,
+	SearchOrdersPayload,
+	IRefundResponse,
+	IRebookResponse,
+} from '../../../interfaces/acmeOrderPayloads';
 
 /** Returns an order object for the specified order id 
  * @param orderId - The id of the order to retrieve
@@ -154,6 +166,40 @@ export async function updateOrder(params: IOrderUpdateParams): Promise<Order> {
 		method: 'post',
 		data: params
 	}) as Order;
+
+	return payload;
+};
+
+export interface IOrderRebookParams {
+	orderId: string,
+	incidentReasonCode: ReasonCodes,
+	notes?: string,
+	noEmail?: boolean,
+	rebookItems: {
+		orderItemId: string,
+
+		itemType: 'Event' | 'Inventory' | 'Combo' | 'ComboInventory' | string,
+		itemTypeId: string,
+		itemTypeName: string,
+
+		rebookQuantity: number,
+		incidentReasonCode?: ReasonCodes,
+		rebookToEventId: string,
+	}[],
+};
+
+/** Performs an rebook order using the provided input.
+ * Returns the response for the rebook.
+ * 
+ * @param params - Object containing the input parameters for the order rebook
+ */
+export async function rebookOrder(params: IOrderRebookParams): Promise<IRebookResponse> {
+
+	const payload = await performRequest({
+		url: REBOOK_ORDER,
+		method: 'post',
+		data: params,
+	}) as IRebookResponse;
 
 	return payload;
 };
