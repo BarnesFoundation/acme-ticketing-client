@@ -79,6 +79,8 @@ interface OrderItem {
 	checkInDate: string,
 	checkInQuantity: number,
 	itemType: string,
+	itemTypeId: string,
+	itemTypeName: string,
 	conversionStatus: string,
 	itemId: string,
 	displayName: string
@@ -106,7 +108,7 @@ export interface IRefundResponse {
 
 		/** The name of the event. */
 		eventName: string,
-		
+
 		/** The list of items being refunded for this event. */
 		refundedItems: {
 
@@ -123,4 +125,13 @@ export interface IRefundResponse {
 			totalRefunded: string,
 		}[],
 	}[],
+};
+
+export interface IRebookResponse {
+
+	/** A unique string to identify this rebooking. */
+	incidentNumber: string,
+
+	/** A complete order JSON object. */
+	order: Order,
 };
