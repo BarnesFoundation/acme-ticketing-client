@@ -452,6 +452,71 @@ const checkoutOrderAndUpdate = async () => {
 	console.log(orderUpdate);
 };
 
+const checkoutAndRebook = async () => {
+
+	// Let's place the order that we'll be rebooking
+	const orderPayload = await ECommerceFunctionsB2C.performCheckout({
+		"billingFirstName": "Bill",
+		"billingLastName": "Billiams",
+		"billingEmail": "bill@bill.edu",
+		"contactFirstName": "Bill",
+		"contactLastName": "Billiams",
+		"contactEmail": "bill@bill.edu",
+		"country": "United States",
+		"phoneNumber": "7776665555",
+		"shoppingCart": {
+			"items": [
+				{
+					"eventId": "60d1f15cd6dbeb69de07e525",
+					"eventName": "Admission",
+					"eventTime": "2021-07-29T10:30:00-04:00",
+					"itemType": "Event",
+					"ignoreEntitlements": false,
+					"ticketingTypeName": "Adult",
+					"ticketingTypeId": "58b0b704554bd44b356edeea",
+					"quantity": 2,
+					"unitPrice": "25.00"
+				}
+			]
+		},
+		"zipCode": "90210",
+		"city": "Billadelphia",
+		"address1": "123 Bill St.",
+		"billingAddress1": "123 Bill St.",
+		"creditCardBrand": "Visa",
+		"manualEntryCardNumber": "4242424242424242",
+		"cvc": "123",
+		"ccLastFourDigits": "4242",
+		"expDate": "0923"
+	}, uuidV4());
+
+
+	// Get information for the event to rebook into
+	const event = await EventFunctions.getEvent('60d1f15cd6dbeb69de07e53c');
+	const ticketPriceInfo = event.priceList.prices.find((ticket) => {
+		return ticket.personType.name === 'Adult';
+	});
+
+	// Rebook our purchase to the different event
+	const rebookResponse = await OrderFunctions.rebookOrder({
+		orderId: orderPayload.id,
+		incidentReasonCode: 'Miscellaneous',
+		rebookItems: [
+			{
+				orderItemId: orderPayload.orderItems[0].itemId,
+				itemType:orderPayload.orderItems[0].itemType,
+
+				itemTypeName: ticketPriceInfo.personType.name,
+				itemTypeId: ticketPriceInfo.personType.id,
+
+				incidentReasonCode: 'Miscellaneous',
+				rebookQuantity: 2,
+				rebookToEventId: '60d1f15cd6dbeb69de07e53c'
+			},
+		]
+	});
+};
+
 main();
 
 /** Some example functions - uncomment any you want to test */
@@ -478,3 +543,4 @@ main();
 // checkoutOrderAndRefund();
 // checkoutOrderAndUpdate();
 // definedReportFetchExample();
+checkoutAndRebook();
