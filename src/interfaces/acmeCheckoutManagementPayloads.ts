@@ -185,6 +185,8 @@ export interface ShoppingCartObject {
 	reservationId?: string
 }
 
+type PaymentMethod = 'Cash' | 'Credit Card' | 'Voucher' | 'Check';
+
 export interface CheckoutInputObject {
 	/** Id of the shopping cart. Provide this or `shoppingCart`. Do not provide both */
 	shoppingCartId?: string,
@@ -237,6 +239,31 @@ export interface CheckoutInputObject {
 	}[],
 	/** The coupon code used for this order. */
 	couponCode?: string,
-	paymentMethod?: 'Cash' | 'Credit Card' | 'Voucher' | 'Check',
+	paymentMethod?: PaymentMethod,
 	chargeAmount?: string
 }
+
+/** Seems to differ a bit from the stand Checkout Input. In the future, this may be consolidated with CheckoutInputObject
+ * See https://developers.acmeticketing.com/support/solutions/articles/33000250715-kiosk-checkout
+ */
+export interface KioskCheckoutInputObject {
+	email: string;
+	contactFirstName: string;
+	contactLastName: string;
+	phoneNumber: string;
+	zipCode: string;
+	subscribeToNewsletter: boolean;
+	shoppingCart: {
+	  items: {
+		ticketingTypeId: string;
+		eventName: string,
+		eventId: string,
+		quantity: number,
+		itemType: string,
+	}[];
+	  verifyEntitlements: boolean;
+	};
+  
+	terminalId: string;
+	chargeAmount: string;
+};
