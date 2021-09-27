@@ -1,63 +1,90 @@
-import { performRequest } from '../../acmeRequestor';
-import { LIST_REPORTS, GET_REPORT, EXECUTE_REPORT, POLL_REPORT_STATUS, EXECUTE_ADHOC_REPORT } from '../../../utils/acmeEndpoints';
-import { ListReportDefinitionsPayload, ReportDefinition, QueryExpression, ReportExecution, ReportRun, ReportJSON, FindQuery, FindField, GroupField, SummaryField, CountField } from '../../../interfaces/acmeAnalyticsPayloads';
+import { performRequest } from "../../acmeRequestor";
+import {
+    LIST_REPORTS,
+    GET_REPORT,
+    EXECUTE_REPORT,
+    POLL_REPORT_STATUS,
+    EXECUTE_ADHOC_REPORT,
+} from "../../../utils/acmeEndpoints";
+import {
+    ListReportDefinitionsPayload,
+    ReportDefinition,
+    QueryExpression,
+    ReportExecution,
+    ReportRun,
+    ReportJSON,
+    FindQuery,
+    FindField,
+    GroupField,
+    SummaryField,
+    CountField,
+} from "../../../interfaces/acmeAnalyticsPayloads";
 
 /** The base parameters needed for running any type of report */
 export interface ReportParameters {
-	endDate: string,
-	startDate: string,
-	endDateTime: string,
-	startDateTime: string,
-	dateRangeField: string,
+    endDate: string;
+    startDate: string;
+    endDateTime: string;
+    startDateTime: string;
+    dateRangeField: string;
 }
 
 /** Parameters needed for running an already defined report. Extends ReportParameters interface. */
 export interface DefinedReportParameters extends ReportParameters {
-	/** Id of the report to be run */
-	reportUuid: string,
-	queryExpression: QueryExpression,
+    /** Id of the report to be run */
+    reportUuid: string;
+    queryExpression: QueryExpression;
 }
 
 /** Parameters for running an ad-hoc report. Extends ReportParameters interface. */
 export interface AdhocReportParameters extends ReportParameters {
-	collectionName: string,
-	findQueries?: FindQuery[],
-	findFields?: FindField[],
-	groupFields?: GroupField[],
-	summaryFields?: SummaryField[],
-	countFields?: CountField[],
-	limit?: number
+    collectionName: string;
+    findQueries?: FindQuery[];
+    findFields?: FindField[];
+    groupFields?: GroupField[];
+    summaryFields?: SummaryField[];
+    countFields?: CountField[];
+    limit?: number;
 }
 
 /** Returns a list of all report JSON objects for this user */
 async function listReportDefinitions(): Promise<ListReportDefinitionsPayload> {
-
-	const payload = await performRequest({ url: LIST_REPORTS, method: 'get' }) as ListReportDefinitionsPayload;
-	return payload;
+    const payload = (await performRequest({
+        url: LIST_REPORTS,
+        method: "get",
+    })) as ListReportDefinitionsPayload;
+    return payload;
 }
 
 /** Returns the report JSON object for the specified id
  * @param id - The id of the report to retrieve
  */
 async function getReportDefinition(id: string): Promise<ReportDefinition> {
+    const url = `${GET_REPORT}/${id}`;
 
-	const url = `${GET_REPORT}/${id}`;
-
-	const payload = await performRequest({ url, method: 'get' }) as ReportDefinition;
-	return payload;
+    const payload = (await performRequest({
+        url,
+        method: "get",
+    })) as ReportDefinition;
+    return payload;
 }
 
 /** Executes a report with the specified input parameters
  *  All ACME reports are run asynchronously and results are posted once the server has retrieved all of the data requested in the report. The process for running a predefined report follows these steps
  * 1. Execute the Report
  * 2. Poll for Report Instance Status
- * 3. Retrieve the Results 
+ * 3. Retrieve the Results
  * @param reportParams - The parameters that the report should be run with
-*/
-async function executeReport(reportParams: DefinedReportParameters): Promise<ReportExecution> {
-
-	const payload = await performRequest({ url: EXECUTE_REPORT, method: 'post', data: reportParams }) as ReportExecution;
-	return payload;
+ */
+async function executeReport(
+    reportParams: DefinedReportParameters
+): Promise<ReportExecution> {
+    const payload = (await performRequest({
+        url: EXECUTE_REPORT,
+        method: "post",
+        data: reportParams,
+    })) as ReportExecution;
+    return payload;
 }
 
 /** Should be called after a report execution. Returns the status of the report.
@@ -66,47 +93,67 @@ async function executeReport(reportParams: DefinedReportParameters): Promise<Rep
  *  @param id - The id for the report instance to check the status of. This id is from the ReportExecution response
  */
 async function pollForReportStatus(id: number): Promise<ReportRun> {
+    const url = `${POLL_REPORT_STATUS}/${id}`;
 
-	const url = `${POLL_REPORT_STATUS}/${id}`;
-
-	const payload = await performRequest({ url, method: 'get', }) as ReportRun;
-	return payload;
+    const payload = (await performRequest({ url, method: "get" })) as ReportRun;
+    return payload;
 }
 
 /** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
  * @param id - The id for the report instance to retrieve the results for
- * @param type - The format the results should be returned in 
+ * @param type - The format the results should be returned in
  */
-async function retrieveReportResults(id: number, type: "json"): Promise<ReportJSON>;
+async function retrieveReportResults(
+    id: number,
+    type: "json"
+): Promise<ReportJSON>;
 /** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
  * @param id - The id for the report instance to retrieve the results for
- * @param type - The format the results should be returned in 
+ * @param type - The format the results should be returned in
  */
 async function retrieveReportResults(id: number, type: "csv"): Promise<string>;
 
 /** Should be called once a report instance run's status is complete. The results can be retrieved in either JSON or CSV format
  * @param id - The id for the report instance to retrieve the results for
- * @param type - The format the results should be returned in 
+ * @param type - The format the results should be returned in
  */
-async function retrieveReportResults(id: number, type: "json" | "csv"): Promise<ReportJSON | string> {
+async function retrieveReportResults(
+    id: number,
+    type: "json" | "csv"
+): Promise<ReportJSON | string> {
+    const url = `${EXECUTE_REPORT}/${type}/${id}`;
 
-	const url = `${EXECUTE_REPORT}/${type}/${id}`;
-
-	const payload = await performRequest({ url, method: 'get' });
-	return payload;
+    const payload = await performRequest<ReportJSON | string>({
+        url,
+        method: "get",
+    });
+    return payload;
 }
 
 /** Executes an ad-hoc report (as in no prior definition for the report is required) and returns the JSON output of the results.
- * Not a publicy documented endpoint, and report doesn't have to be polled for. 
- * @param reportParams - The params with which to run the ad-hoc report 
+ * Not a publicy documented endpoint, and report doesn't have to be polled for.
+ * @param reportParams - The params with which to run the ad-hoc report
  */
-async function executeAdhocReport(reportParams: AdhocReportParameters): Promise<ReportJSON> {
+async function executeAdhocReport(
+    reportParams: AdhocReportParameters
+): Promise<ReportJSON> {
+    const { startDate, endDate, dateRangeField } = reportParams;
+    const params = { startDate, endDate, dateRangeField };
 
-	const { startDate, endDate, dateRangeField } = reportParams;
-	const params = { startDate, endDate, dateRangeField };
-
-	const payload = await performRequest({ url: EXECUTE_ADHOC_REPORT, method: 'post', data: reportParams, params }) as ReportJSON;
-	return payload;
+    const payload = (await performRequest({
+        url: EXECUTE_ADHOC_REPORT,
+        method: "post",
+        data: reportParams,
+        params,
+    })) as ReportJSON;
+    return payload;
 }
 
-export { listReportDefinitions, getReportDefinition, executeReport, pollForReportStatus, retrieveReportResults, executeAdhocReport };
+export {
+    listReportDefinitions,
+    getReportDefinition,
+    executeReport,
+    pollForReportStatus,
+    retrieveReportResults,
+    executeAdhocReport,
+};
