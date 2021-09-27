@@ -12,3 +12,8 @@ export interface IPaginationRequestSettings {
     sortDirection?: "asc" | "desc";
     sortField?: string;
 }
+
+export interface IPaginatedResponse<T> {
+    list: Array<T>;
+    pagination: IPaginationResponseSettings;
+}
