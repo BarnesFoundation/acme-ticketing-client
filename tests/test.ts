@@ -613,6 +613,47 @@ const doFormFunctions = async () => {
     console.log(listOfFormResponses);
 };
 
+const createAndUpdateShoppingCart = async () => {
+    const emptyShoppingCartId =
+        await ShoppingCartFunctionsB2C.createNewShoppingCart({});
+    console.log(emptyShoppingCartId);
+
+    const updatedShoppingCart =
+        await ShoppingCartFunctionsB2C.updateExistingShoppingCart(
+            emptyShoppingCartId,
+            {
+                items: [
+                    {
+                        quantity: 1,
+                        itemType: "MembershipRenewal",
+                        membershipInfo: {
+                            membershipId: "4538556",
+                            membershipCategoryId: "58b07f2af71d1a1aaf917818",
+                            membershipOfferingId: "58b07f2af71d1a1aaf917818",
+                            pricePointId: "47f2be0e53604a5ebf495231c88492e7",
+                            membershipCards: [
+                                {
+                                    cardType: "primary",
+                                    city: "San Jose",
+                                    country: "United States",
+                                    email: "support@blah.com",
+                                    firstName: "Pascal",
+                                    lastName: "de Belleville",
+                                    phoneNumber: "1234567890",
+                                    state: "CA",
+                                    streetAddress1: "1 Almaden Blvd",
+                                    streetAddress2: "Suite 310",
+                                    zipCode: "00000",
+                                },
+                            ],
+                            isGift: false,
+                        },
+                    },
+                ],
+            }
+        );
+};
+
 main();
 
 /** Some example functions - uncomment any you want to test */
@@ -641,3 +682,4 @@ main();
 // definedReportFetchExample();
 // checkoutAndRebook();
 // doFormFunctions();
+// createAndUpdateShoppingCart();
