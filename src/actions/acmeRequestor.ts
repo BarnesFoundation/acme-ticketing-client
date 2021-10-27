@@ -55,7 +55,7 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
         // Otherwise, throw string.
         else {
             // If there's a data message for the error, it's more useful than the whole error stack
-            const errorMessage = error.response.data
+            const errorMessage = error.response?.data
                 ? JSON.stringify(error.response.data)
                 : error;
 
