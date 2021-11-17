@@ -23,7 +23,7 @@ interface MembershipParameters {
 	barcode?: string,
 
 	/** Only return membership summaries that have membership ids that begin with this text. Useful for auto complete. May correspond to the external membership id (optional) */
-	membershipId?: number,
+	membershipId?: number | string,
 
 	/** Only return membership summaries that have first names that begin with this text. Useful for auto complete (optional) */
 	firstName?: string,
