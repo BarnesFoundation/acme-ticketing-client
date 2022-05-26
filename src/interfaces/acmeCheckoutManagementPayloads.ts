@@ -182,7 +182,8 @@ export interface ShoppingCartObject {
 	forms?: any[],
 	comboItems?: any[],
 	verifyEntitlements?: boolean,
-	reservationId?: string
+	reservationId?: string,
+	salesChannel?: 'online' | 'pointOfSale' | 'insideSalesIndividual' | 'customerRep'
 }
 
 type PaymentMethod = 'Cash' | 'Credit Card' | 'Voucher' | 'Check';
