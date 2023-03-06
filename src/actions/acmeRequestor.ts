@@ -1,5 +1,6 @@
 import axios, { Method } from "axios";
 import { clientConfig } from "../../index";
+import { getUserIpAddress } from "../utils/ipAddressUtil";
 
 interface RequestConfig {
     url: string;
@@ -29,11 +30,13 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
     }
 
     // If the request is to a b2c endpoint
-    // we'll add the tenant id
+    // we'll add the tenant id and user ip address
     if (config.url.includes("/b2c/")) {
+        const ip = getUserIpAddress();
         headers = {
             ...headers,
             "x-b2c-tenant-id": clientConfig.b2cTenantId,
+            "x-acme-browser-ip": ip,
         };
     }
 
