@@ -73,6 +73,9 @@ export interface IPaymentDetails {
 
 	/** Uuid is optional. Provide your own to have yours used during the checkout instead */
 	uuid?: string,
+
+	/** IP address of the browser making the request */
+	ipAddress?: string
 };
 
 /** Performs the actions necessary for completing the purchase of a new membership. 
@@ -138,7 +141,7 @@ export const purchaseNewMembership = async (membershipSelection: IMembershipSele
 		ccLastFourDigits: paymentDetails.ccLastFourDigits,
 		expDate: paymentDetails.expDate,
 
-	}, paymentDetails.uuid || uuidV4());
+	}, paymentDetails.uuid || uuidV4(), undefined, paymentDetails.ipAddress);
 
 	return orderResponse;
 };
@@ -245,7 +248,7 @@ export const processMembershipAction = async (membershipSelection: IMembershipSe
 		ccLastFourDigits: paymentDetails.ccLastFourDigits,
 		expDate: paymentDetails.expDate,
 
-	}, paymentDetails.uuid || uuidV4());
+	}, paymentDetails.uuid || uuidV4(), undefined, paymentDetails.ipAddress);
 
 	return orderResponse;
 };
