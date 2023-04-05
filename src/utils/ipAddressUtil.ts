@@ -6,7 +6,7 @@ import axios from "axios";
 export const getUserIpAddress = async () => {
   try {
     const resp = await axios("https://www.cloudflare.com/cdn-cgi/trace");
-    const data = resp.data();
+    const data = resp.data;
     const result = data.trim().split("\n").reduce((obj, pair) => {
       const [key, value] = pair.split("=");
       obj[key] = value;
@@ -15,7 +15,7 @@ export const getUserIpAddress = async () => {
 
     return result.ip || null;
   } catch (e) {
-    console.log("Error getting user IP address:", e);
+    console.log("Error getting server IP address:", e);
     return null;
   }
 }
