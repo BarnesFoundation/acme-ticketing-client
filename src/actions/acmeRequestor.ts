@@ -1,26 +1,22 @@
-import axios, { Method } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { clientConfig } from "../../index";
+import { getUserIpAddress } from "../utils/ipAddressUtil";
 
-interface RequestConfig {
-    url: string;
-    method: string;
+interface RequestConfig extends AxiosRequestConfig {
+	/** Additional headers to be merged in the default heads sent in the ACME API request */
     additionalHeaders?: {};
-    data?: any;
-    params?: {};
+
+	/** Whether or not the API request should throw the raw error from the request */
     throwRaw?: boolean;
 }
 
 export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
-    // Setup request
-    const baseURL = clientConfig.apiRootUrl;
     let headers: {} = {
         "x-acme-api-key": clientConfig.apiKey,
     };
 
-    // Grab the params from the config and cast Method
-    const { additionalHeaders, throwRaw = false } = config;
-
     // If additional headers were provided, merge them
+	const { additionalHeaders, throwRaw = false } = config;
     if (additionalHeaders) {
         headers = {
             ...headers,
@@ -28,8 +24,7 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
         };
     }
 
-    // If the request is to a b2c endpoint
-    // we'll add the tenant id
+    // If the request is to a B2C endpoint, we'll add the ACME Tenant ID
     if (config.url.includes("/b2c/")) {
         headers = {
             ...headers,
@@ -39,9 +34,9 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
 
     try {
         const response = await axios({
-            baseURL,
+            baseURL: clientConfig.apiRootUrl,
             headers,
-            method: config.method as Method,
+            method: config.method,
             url: config.url,
             data: config.data,
             params: config.params,
@@ -59,8 +54,8 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
                 ? JSON.stringify(error.response.data)
                 : error;
 
-            throw `An error occurred sending a ${config.method} request to endpoint ${config.url}. 
-				   Error was: ${errorMessage}`;
+            throw new Error(`An error occurred sending a ${config.method} request to endpoint ${config.url}. 
+				   Error was: ${errorMessage}`);
         }
     }
 };
