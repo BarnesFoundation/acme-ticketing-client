@@ -22,7 +22,7 @@
   "author": "Christopher D Jativa",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
