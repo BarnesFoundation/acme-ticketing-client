@@ -4,6 +4,7 @@ import { IAddOn } from '../../../interfaces/acmePlatformPayloads';
 
 /** Returns an add-on object for the specified add-on id
  * @param addOnId - The id of the add-on to retrieve
+ * @returns {Promise<IAddOn>}
  */
 async function getAddOn(addOnId: string | number): Promise<IAddOn> {
 
@@ -13,4 +14,16 @@ async function getAddOn(addOnId: string | number): Promise<IAddOn> {
 	return payload;
 }
 
-export { getAddOn };
+/** Returns an array of add on objects for the specified query string
+ * @param {string} query
+ * @returns {Promise<{ list: IAddOn[] }>}
+ */
+async function queryAddOns(query: string): Promise<{ list: IAddon[]}> {
+
+	const url = `${GET_ADD_ONS}?${query}`;
+
+	const payload = await performRequest({ url, method: 'get' }) as {list: IAddOn[]};
+	return payload;
+}
+
+export { getAddOn, queryAddOns };
