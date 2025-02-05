@@ -49,6 +49,7 @@ export interface ShoppingCart {
 export async function performCheckout(
 	checkoutInput: CheckoutInputObject,
 	uuid: string,
+	token: string,
 	options: { throwRaw?: boolean } = {},
 	browserIpAddress?: string,
 ) {
@@ -58,6 +59,7 @@ export async function performCheckout(
 	const additionalHeaders = { 
 		"x-acme-request-uuid": uuid, 
 		"x-acme-browser-ip": browserIpAddress || await getUserIpAddress(),
+		"x-acme-captcha-token": token,
 	};
 
 	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders, throwRaw }) as Order;
