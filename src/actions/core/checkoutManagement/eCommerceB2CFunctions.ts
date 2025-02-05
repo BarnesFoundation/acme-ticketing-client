@@ -49,6 +49,33 @@ export interface ShoppingCart {
 export async function performCheckout(
 	checkoutInput: CheckoutInputObject,
 	uuid: string,
+	options: { throwRaw?: boolean } = {},
+	browserIpAddress?: string,
+) {
+	// Destructure optional parameters
+	const { throwRaw = false } = options;
+
+	const additionalHeaders = { 
+		"x-acme-request-uuid": uuid, 
+		"x-acme-browser-ip": browserIpAddress || await getUserIpAddress(),
+	};
+
+	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders, throwRaw }) as Order;
+	return payload;
+}
+
+/** Performs a Checkout request against the B2C endpoint with Recaptcha headers
+ * 
+ * Returns an Order object
+ * @params checkoutInput - Checkout object containing items to be purchased and billing information.
+ * @params uuid - Unique uuid for this transaction to prevent duplicate transactions from taking place. Gets included into the "x-acme-request-uuid" header key
+ * @params token - Recaptcha token from the client side
+ * @params options - option bag parameter.
+ * @params browserIpAddress - IP address of the requesting browser for the checkout action. 
+ */
+export async function performRecaptchaCheckout(
+	checkoutInput: CheckoutInputObject,
+	uuid: string,
 	token: string,
 	options: { throwRaw?: boolean } = {},
 	browserIpAddress?: string,
