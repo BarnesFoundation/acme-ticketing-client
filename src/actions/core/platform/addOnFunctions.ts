@@ -18,7 +18,7 @@ async function getAddOn(addOnId: string | number): Promise<IAddOn> {
  * @param {string} query
  * @returns {Promise<{ list: IAddOn[] }>}
  */
-async function queryAddOns(query: string): Promise<{ list: IAddon[]}> {
+async function queryAddOns(query: string): Promise<{ list: IAddOn[]}> {
 
 	const url = `${GET_ADD_ONS}?${query}`;
 
