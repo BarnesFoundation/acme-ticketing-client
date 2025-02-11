@@ -116,7 +116,7 @@ interface PriceList {
     priceListId: string;
 }
 
-interface Price {
+export interface Price {
     personType: {
         id: string;
         name: string;

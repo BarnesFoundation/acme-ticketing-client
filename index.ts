@@ -37,6 +37,7 @@ import * as MembershipLevelsFunctions from "./src/actions/core/membership/member
 import * as AddOnFunctions from "./src/actions/core/platform/addOnFunctions";
 import * as PreCheckoutFunctions from "./src/actions/core/membership/preCheckoutFunctions";
 import * as FormFunctions from "./src/actions/core/platform/formFunctions";
+import * as DiscountFunctions from "./src/actions/core/discounts/discountFunctions";
 
 // Export the core function modules
 export {
@@ -58,6 +59,7 @@ export {
     AddOnFunctions,
     PreCheckoutFunctions,
     FormFunctions,
+    DiscountFunctions,
 };
 
 // Export our core payload types
@@ -72,3 +74,4 @@ export * from "./src/interfaces/acmeAnalyticsPayloads";
 export * from "./src/interfaces/acmePlatformPayloads";
 export * from "./src/interfaces/acmePreCheckoutPayloads";
 export * from "./src/interfaces/interfaces";
+export * from "./src/interfaces/acmeDiscountsPayloads";
