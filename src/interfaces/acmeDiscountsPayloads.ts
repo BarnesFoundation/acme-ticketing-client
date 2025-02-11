@@ -1,29 +1,39 @@
+import { Price } from "./acmeEventPayloads";
 import { IPaginationResponseSettings } from "./pagination";
 
-export interface DiscountObject {
+export interface Discount {
   id: string;
   code: string;
   name: string;
   description: string;
-  values: {
-    personTypeId: string;
-    personType: {
-      name: string;
-      description: string;
-      type: string;
-      active: boolean;
-      displayOrder: number;
-      children: {
-        personTypeId: string;
-        quantity: number;
-      }[];
-    }
-    discountType: string;
-    value: number;
-  }[]
 }
 
 export interface ListDiscounts {
-  list: DiscountObject[];
+  list: Discount[];
   pagination: IPaginationResponseSettings;
+}
+
+export interface DiscountValue {
+  personTypeId: string;
+  personType: {
+    name: string;
+    description: string;
+    type: string;
+    active: boolean;
+    displayOrder: number;
+    children: {
+      personTypeId: string;
+      quantity: number;
+    }[];
+  }
+  discountType: string;
+  value: number;
+}
+
+export interface DiscountObject extends Discount {
+  value: DiscountValue;
+}
+
+export interface DiscountPriceList {
+  prices: Price[];
 }

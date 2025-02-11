@@ -91,3 +91,9 @@ export const GET_FORMS_RESPONSES = "/v2/b2c/forms/responses";
 
 // Discounts
 export const LIST_DISCOUNTS = "/v2/b2b/discounts";
+export const GET_DISCOUNT = (discountId: string | number) => {
+    return `/v2/b2b/discounts/${discountId}`;
+};
+export const GET_DISCOUNT_PRICE_LIST = (discountId: string | number, priceListId: string | number) => {
+    return `/v2/b2b/discounts/${discountId}/price/list/${priceListId}`
+};
