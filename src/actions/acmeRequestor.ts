@@ -41,7 +41,7 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
             data: config.data,
             params: config.params,
         });
-        return response.data;
+        return response.data as unknown as T;
     } catch (error) {
         // If we are throwing the raw error, just throw the error object.
         if (throwRaw) {

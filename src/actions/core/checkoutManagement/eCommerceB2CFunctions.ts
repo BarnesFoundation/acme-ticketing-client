@@ -60,7 +60,10 @@ export async function performCheckout(
 		"x-acme-browser-ip": browserIpAddress || await getUserIpAddress(),
 	};
 
-	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders, throwRaw }) as Order;
+	// Ensure that both contactEmail and email are included to maintain backwards compatibility
+	const data = { ...checkoutInput, email: checkoutInput.email || checkoutInput.contactEmail, contactEmail: checkoutInput.contactEmail || checkoutInput.email }
+
+	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data, additionalHeaders, throwRaw }) as Order;
 	return payload;
 }
 
