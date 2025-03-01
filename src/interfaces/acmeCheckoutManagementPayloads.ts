@@ -194,7 +194,8 @@ export interface CheckoutInputObject {
 
 	shoppingCart?: ShoppingCartObject,
 	/** Email address of the customer.	 */
-	contactEmail: string,
+	contactEmail?: string,
+	email?: string,
 	/** Phone number of the customer. */
 	phoneNumber?: string,
 	/** First name of the customer. */
