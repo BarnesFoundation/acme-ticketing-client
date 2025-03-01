@@ -7,7 +7,7 @@ export const getUserIpAddress = async () => {
   try {
     const resp = await axios("https://www.cloudflare.com/cdn-cgi/trace");
     const data = resp.data;
-    const result = data.trim().split("\n").reduce((obj, pair) => {
+    const result: { ip?: string } = (data as unknown as string).trim().split("\n").reduce((obj, pair) => {
       const [key, value] = pair.split("=");
       obj[key] = value;
       return obj;

@@ -10,9 +10,19 @@
 		"skipLibCheck": true,
 		"declaration": true,
 		"sourceMap": true,
+		"types": []
 	},
 	"include": [
-		"src", "tests", "tests", "convenience.ts", "index.ts"
+		"src",
+		"tests",
+		"tests",
+		"convenience.ts",
+		"index.ts"
 	],
-	"exclude": ["node_modules"]
+	"exclude": [
+		"node_modules",
+		"./node_modules",
+		"./node_modules/*",
+		"node_modules/axios/index.d.ts",
+	]
 }
