@@ -172,17 +172,23 @@ export interface EntitlementValidationPayload {
 	passed: any[]
 }
 
+/** ACME Shopping Cart Object Documentation:
+ * https://developers.acmeticketing.com/support/solutions/articles/33000277328-shopping-cart-shopping-cart-items-objects#Shopping-Cart-Object
+ */
 export interface ShoppingCartObject {
 	id?: string,
 	tempVisitorId?: string,
 	tenantId?: string | number,
 	membershipId?: number | string,
 	membershipIds?: number[] | string[],
+	membershipCategoryId?: string,
 	items?: any[],
 	forms?: any[],
 	comboItems?: any[],
+	couponCodes?: string[],
 	verifyEntitlements?: boolean,
 	reservationId?: string,
+	customerId?: string,
 	salesChannel?: 'online' | 'pointOfSale' | 'insideSalesIndividual' | 'customerRep'
 }
 
