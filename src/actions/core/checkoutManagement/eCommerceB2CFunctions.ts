@@ -41,10 +41,14 @@ export interface ShoppingCart {
 /** Performs a Checkout request against the B2C endpoint
  * 
  * Returns an Order object
- * @params checkoutInput - Checkout object containing items to be purchased and billing information.
- * @params uuid - Unique uuid for this transaction to prevent duplicate transactions from taking place. Gets included into the "x-acme-request-uuid" header key
- * @params options - option bag parameter.
- * @params browserIpAddress - IP address of the requesting browser for the checkout action. 
+ * @param {CheckoutInputObject} checkoutInput - Checkout object containing items to be purchased and billing information.
+ * @param {string} uuid - Unique uuid for this transaction to prevent duplicate transactions from taking place. Gets included into the "x-acme-request-uuid" header key
+ * @param {{ throwRaw?: boolean }} options - option bag parameter.
+ * @param {string} browserIpAddress - IP address of the requesting browser for the checkout action. 
+ * @returns {Promise<Order>} An Order object
+ * 
+ * ACME B2C Checkout Documentation:
+ * https://developers.acmeticketing.com/support/solutions/articles/33000250712-b2c-checkout-ecommerce-
  */
 export async function performCheckout(
 	checkoutInput: CheckoutInputObject,
