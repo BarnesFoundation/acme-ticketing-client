@@ -97,3 +97,7 @@ export const GET_DISCOUNT = (discountId: string | number) => {
 export const GET_DISCOUNT_PRICE_LIST = (discountId: string | number, priceListId: string | number) => {
     return `/v2/b2b/discounts/${discountId}/price/list/${priceListId}`
 };
+
+// Reservations
+export const CREATE_RESERVATION = "/v2/b2b/reservations";
+export const UPDATE_RESERVATION = "/v2/b2b/reservations";
