@@ -34,13 +34,15 @@ export async function checkout(input: CheckoutInputObject): Promise<string> {
  */
 export async function checkoutKiosk(
     input: KioskCheckoutInputObject,
-    uuid?: string
+    uuid: string,
+    throwRaw = false,
 ): Promise<Order> {
     const payload = (await performRequest({
         url: B2B_CHECKOUT_KIOSK,
         method: "post",
-        additionalHeaders: { "x-acme-request-uuid": uuid || uuidV4() },
+        additionalHeaders: { "x-acme-request-uuid": uuid },
         data: input,
+        throwRaw,
     })) as Order;
     return payload;
 }
