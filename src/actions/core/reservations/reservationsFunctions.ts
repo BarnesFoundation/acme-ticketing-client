@@ -7,8 +7,8 @@ import { performRequest } from "../../acmeRequestor";
  * ACME documentation: https://developers.acmeticketing.com/support/solutions/articles/33000250677-reservations
  * @returns {Promise<ReservationObject>}
  */
-export async function createReservation(): Promise<ReservationObject> {
-  const payload = await performRequest({ url: CREATE_RESERVATION, method: "post", data: { reservationItems: [] } }) as ReservationObject;
+export async function createReservation(throwRaw = false): Promise<ReservationObject> {
+  const payload = await performRequest({ url: CREATE_RESERVATION, method: "post", data: { reservationItems: [] }, throwRaw }) as ReservationObject;
 
   return payload;
 }
@@ -25,6 +25,7 @@ export async function updateReservation(
   reservationId: number,
   eventId: string,
   quantity: number,
+  throwRaw = false,
 ): Promise<ReservationObject> {
   const payload = await performRequest({
     url: UPDATE_RESERVATION,
@@ -32,7 +33,8 @@ export async function updateReservation(
     data: {
       id: reservationId,
       reservationItems: [{ reservationId, eventId, quantity }]
-    }
+    },
+    throwRaw,
   }
   ) as ReservationObject;
 

@@ -16,7 +16,7 @@ export const performRequest = async <T>(config: RequestConfig): Promise<T> => {
     };
 
     // If additional headers were provided, merge them
-	const { additionalHeaders, throwRaw = false } = config;
+    const { additionalHeaders, throwRaw = false } = config;
     if (additionalHeaders) {
         headers = {
             ...headers,
