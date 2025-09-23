@@ -1,5 +1,5 @@
 import { performRequest } from '../../acmeRequestor';
-import { B2C_CHECKOUT } from '../../../utils/acmeEndpoints';
+import { B2C_CHECKOUT, B2C_GET_ORDER } from '../../../utils/acmeEndpoints';
 import { CheckoutInputObject } from '../../../interfaces/acmeCheckoutManagementPayloads';
 import { Order } from '../../../interfaces/acmeOrderPayloads';
 import { getUserIpAddress } from '../../../utils/ipAddressUtil';
@@ -97,5 +97,19 @@ export async function performRecaptchaCheckout(
 	};
 
 	const payload = await performRequest({ url: B2C_CHECKOUT, method: 'post', data: checkoutInput, additionalHeaders, throwRaw }) as Order;
+	return payload;
+}
+
+/** Gets an order given an order id
+ * 
+ * @param {string} orderId - ID for the order, can be found in the URL for the order in ACME Backoffice
+ * @param {boolean} throwRaw - Whether or not to include the raw error logs from ACME API. Defaults to false.
+ * @returns {Order} Details for the fetched order
+ * 
+ * ACME B2C Orders Documentation:
+ * https://developers.acmeticketing.com/support/solutions/articles/33000250659-b2c-orders#get-an-order
+ */
+export async function getOrder(orderId: string, throwRaw = false) {
+	const payload = await performRequest({ url: B2C_GET_ORDER(orderId), method: "get", throwRaw }) as Order;
 	return payload;
 }

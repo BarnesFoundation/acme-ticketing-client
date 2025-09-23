@@ -263,12 +263,12 @@ export interface KioskCheckoutInputObject {
 	subscribeToNewsletter: boolean;
 	shoppingCart: {
 	  items: {
-		ticketingTypeId: string;
-		eventName: string,
-		eventId: string,
-		quantity: number,
-		itemType: string,
-	}[];
+			ticketingTypeId: string;
+			eventName: string,
+			eventId: string,
+			quantity: number,
+			itemType: string,
+		}[];
 	  verifyEntitlements: boolean;
 	};
   
