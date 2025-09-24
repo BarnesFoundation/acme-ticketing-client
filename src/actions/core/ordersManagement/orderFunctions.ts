@@ -188,17 +188,22 @@ export interface IOrderRebookParams {
 	}[],
 };
 
-/** Performs an rebook order using the provided input.
- * Returns the response for the rebook.
+/** Rebooks an order using the provided input.
  * 
- * @param params - Object containing the input parameters for the order rebook
+ * @param {IOrderRebookParams} params - Object containing the input parameters for the order rebook
+ * @param {boolean} throwRaw - Whether or not to include the raw error logs from ACME API. Defaults to false.
+ * @returns {IRebookResponse} Details including updated order and rebooking incident number
+ * 
+ * ACME B2B Order Rebooking Documentation:
+ * https://developers.acmeticketing.com/support/solutions/articles/33000250660-order-rebooking
  */
-export async function rebookOrder(params: IOrderRebookParams): Promise<IRebookResponse> {
+export async function rebookOrder(params: IOrderRebookParams, throwRaw = false): Promise<IRebookResponse> {
 
 	const payload = await performRequest({
 		url: REBOOK_ORDER,
 		method: 'post',
 		data: params,
+		throwRaw,
 	}) as IRebookResponse;
 
 	return payload;
