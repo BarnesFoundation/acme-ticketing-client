@@ -170,22 +170,54 @@ export async function updateOrder(params: IOrderUpdateParams): Promise<Order> {
 	return payload;
 };
 
+type RebookReasonCodes = "Payment" | "Cancelled Event" | "Rebook Event" | "Miscellaneous";
+
 export interface IOrderRebookParams {
 	orderId: string,
-	incidentReasonCode: ReasonCodes,
+	incidentReasonCode?: RebookReasonCodes,
 	notes?: string,
 	noEmail?: boolean,
 	rebookItems: {
 		orderItemId: string,
-
-		itemType: 'Event' | 'Inventory' | 'Combo' | 'ComboInventory' | string,
+		itemType?: 'Event' | 'Inventory' | 'Combo' | 'ComboInventory' | string,
 		itemTypeId: string,
-		itemTypeName: string,
-
+		itemTypeName?: string,
 		rebookQuantity: number,
-		incidentReasonCode?: ReasonCodes,
+		incidentReasonCode?: RebookReasonCodes,
 		rebookToEventId: string,
 	}[],
+	payment?: {
+		type?: string;
+		/** The credit card number as a string	 */
+		manualEntryCardNumber?: string,
+		/** The credit card cvc number as a string */
+		cvc?: string,
+		/** MMyy format of the expiration date of the credit card */
+		expDate?: string,
+		address?: {
+			streetAddress1?: string,
+			streetAddress2?: string,
+			city?: string,
+			state?: string,
+			zipCode?: string,
+			country?: string,
+		}
+		contactEmail?: string,
+		contactFirstName?: string,
+		contactLastname?: string,
+	}[],
+	billingAddress1?: string,
+	billingAddress2?: string,
+	billingCity?: string,
+	billingState?: string,
+	billingCountry?: string,
+	billingZip?: string,
+	email: string,
+	eventRebookFeeCounts?: {
+		eventId: string,
+		count: number,
+	}[],
+	sendEmailToAll?: boolean,
 };
 
 /** Rebooks an order using the provided input.
@@ -196,6 +228,7 @@ export interface IOrderRebookParams {
  * 
  * ACME B2B Order Rebooking Documentation:
  * https://developers.acmeticketing.com/support/solutions/articles/33000250660-order-rebooking
+ * @endpoint /v1/b2b/rebook/orders
  */
 export async function rebookOrder(params: IOrderRebookParams, throwRaw = false): Promise<IRebookResponse> {
 
