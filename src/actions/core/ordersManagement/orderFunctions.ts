@@ -212,7 +212,7 @@ export interface IOrderRebookParams {
 	billingState?: string,
 	billingCountry?: string,
 	billingZip?: string,
-	email: string,
+	email?: string,
 	eventRebookFeeCounts?: {
 		eventId: string,
 		count: number,
