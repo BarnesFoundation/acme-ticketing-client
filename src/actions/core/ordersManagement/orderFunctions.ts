@@ -205,7 +205,7 @@ export interface IOrderRebookParams {
 		contactEmail?: string,
 		contactFirstName?: string,
 		contactLastname?: string,
-	}[],
+	},
 	billingAddress1?: string,
 	billingAddress2?: string,
 	billingCity?: string,
