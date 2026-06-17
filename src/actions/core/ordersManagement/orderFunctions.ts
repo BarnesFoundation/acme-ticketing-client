@@ -62,37 +62,60 @@ export interface SearchOrdersParams extends OrderParameters {
  * https://developers.acmeticketing.com/support/solutions/articles/33000250660-order-rebooking
  */
 export interface IOrderRebookParams {
+	/** The id of the order being rebooked. */
 	orderId: string,
+	/** The reason that the rebook is happening. One of (Payment, Cancelled Event, Rebook Event, Miscellaneous). */
 	incidentReasonCode?: RebookReasonCodes,
+	/** Any notes about the rebooking. */
 	notes?: string,
+	/** Set to true if you don't want to email the customer about the rebooking. Default is true. */
 	noEmail?: boolean,
+	/** List of items being rebooked. */
 	rebookItems: {
+		/** The id of the item being rebooked. */
 		orderItemId: string,
+		/** The type of item being rebooked, one of (Event, Inventory, Combo, ComboInventory). */
 		itemType?: 'Event' | 'Inventory' | 'Combo' | 'ComboInventory' | string,
+		/** The id of the item being rebooked. */
 		itemTypeId: string,
+		/** The name of the item being rebooked. */
 		itemTypeName?: string,
+		/** The number of items being rebooked. */
 		rebookQuantity: number,
+		/** The reason that the rebook is happening for this item. One of (Payment, Cancelled Event, Rebook Event, Miscellaneous). */
 		incidentReasonCode?: RebookReasonCodes,
+		/** The id of the event you are moving these tickets to. */
 		rebookToEventId: string,
 	}[],
+	/** Payment details if payment is due. */
 	payment?: {
+		/** Type of payment (e.g. CreditCard). Required if payment is due. */
 		type?: string;
-		/** The credit card number as a string	 */
+		/** Credit card number. Required for CC payment. */
 		manualEntryCardNumber?: string,
-		/** The credit card cvc number as a string */
-		cvc?: string,
-		/** MMyy format of the expiration date of the credit card */
+		/** Expiration date of the credit card. Required for CC payment. */
 		expDate?: string,
+		/** CVC of the credit card. Required for CC payment. */
+		cvc?: string,
 		address?: {
+			/** Street Address 1 for the billing contact. */
 			streetAddress1?: string,
+			/** Street Address 2 for the billing contact. */
 			streetAddress2?: string,
+			/** City for the billing contact. */
 			city?: string,
+			/** State for the billing contact. See Country and State List APIs for valid values. */
 			state?: string,
+			/** ZIP / Postal Code for the billing contact. */
 			zipCode?: string,
+			/** Country for the billing contact (e.g. United States). See Country and State List APIs for valid values. */
 			country?: string,
 		}
+		/** Email of the billing contact. Required if sending an email confirmation. */
 		contactEmail?: string,
+		/** First name of the billing contact. */
 		contactFirstName?: string,
+		/** Last name of the billing contact. */
 		contactLastname?: string,
 	},
 	billingAddress1?: string,
@@ -153,18 +176,152 @@ export interface IOrderUpdateParams {
 	}[],
 };
 
+/** B2B Order Conversion request body
+ * 
+ * https://developers.acmeticketing.com/support/solutions/articles/33000314763-convert-tickets-to-membership#Request-Body
+ */
+export interface ConvertMembershipReqBody {
+	/** ID of the existing order containing the tickets to convert. */
+	orderId: number,
+	/** The ticket order items being converted. */
+	orderItems: {
+		/** ID of the existing order item (ticket line) being converted. */
+		orderItemId: number,
+		/** Number of tickets to convert. Must not exceed the available quantity on the order item. */
+		quantity: number,
+		/** The UUIDs of the specific tickets being converted. Must belong to the specified order item. */
+		ticketUUIDs: string[],
+	}[],
+	/** Payment information for any balance due after the ticket credit is applied. */
+	payment: {
+		/** Payment method type. Supported values: CREDIT_CARD, POSCreditCard, CASH, CHECK, VOUCHER, OTHER. */
+		type: 'CREDIT_CARD' | 'POSCreditCard' | 'CASH' | 'CHECK' | 'VOUCHER' | 'OTHER' | string,
+		/** Tokenized card from the ACME payment SDK. Required for CREDIT_CARD. */
+		acmeToken?: string,
+		/** Token from the payment processor. Required for CREDIT_CARD if acmeToken is not provided. */
+		paymentProcessorToken?: string,
+		/** Last 4 digits of the card. Required for CREDIT_CARD. */
+		ccLastFourDigits?: string,
+		/** Card brand. Required for CREDIT_CARD. Supported values: VISA, MASTERCARD, AMEX, DISCOVER, DINERS, JCB, UNIONPAY. */
+		creditCardBrand?: 'VISA' | 'MASTERCARD' | 'AMEX' | 'DISCOVER' | 'DINERS' | 'JCB' | 'UNIONPAY' | string,
+		/** Amount to charge, e.g. {"amount": 5000, "currencyCode": "USD"}. Amount is in cents. */
+		chargeAmount?: { amount: number, currencyCode: string },
+		/** Cardholder/payer first name. */
+		firstName?: string,
+		/** Cardholder/payer last name. */
+		lastName?: string,
+		/** Payer email address. */
+		contactEmail?: string,
+		/** Payer phone number. */
+		phoneNumber?: string,
+		/** Check number. Required when type is CHECK. */
+		checkNumber?: string,
+		/** Check date. Required when type is CHECK. */
+		checkDate?: string,
+		/** Voucher number. Required when type is VOUCHER. */
+		voucherNumber?: string,
+		/** Gift card number. Required when type is GIFT_CARD. */
+		giftCardNumber?: string,
+		/** Encrypted track 1 data. Required for POS swipe/dip (POSCreditCard). */
+		encTrack1?: string,
+		/** Encrypted track 2 data. Required for POS swipe/dip (POSCreditCard). */
+		encTrack2?: string,
+		/** Key serial number for POS encryption. Required for POS swipe/dip. */
+		ksn?: string,
+	},
+	/** The target membership level, offering, price point, and cardholder details. */
+	membershipInfo: {
+		/** Membership level/category ID. */
+		membershipCategoryId: string,
+		/** Offering ID within the membership category. */
+		membershipOfferingId: string,
+		/** Price point (person type) ID. */
+		pricePointId: string,
+		/** Cardholder details. At least one card must have primaryCard: true. */
+		membershipCards: {
+			/** Full cardholder name. */
+			name: string,
+			/** First name. */
+			firstName: string,
+			/** Last name. */
+			lastName: string,
+			/** Email address. */
+			email: string,
+			/** Set to true for the primary cardholder. Exactly one card in the array must be primary. */
+			primaryCard: boolean,
+			/** If sent, the card will be tied to that existing customer. If any other customer details differ from the original, the original customer will be updated. */
+			constituentImportId?: string,
+			/** Phone number. */
+			phoneNumber?: string,
+			/** Address line 1. */
+			streetAddress1?: string,
+			/** Address line 2. */
+			streetAddress2?: string,
+			/** City. */
+			city?: string,
+			/** State or province. */
+			state?: string,
+			/** Postal code. */
+			zipCode?: string,
+			/** Country code. */
+			country?: string,
+			/** Supported values: PRIMARY or SECONDARY. */
+			cardType?: 'PRIMARY' | 'SECONDARY',
+			/** Barcode value. */
+			barcode?: string,
+			/** Card validity start date (ISO 8601). */
+			startDate?: string,
+			/** Card expiration date (ISO 8601). */
+			expirationDate?: string,
+		}[],
+		/** Display name of the membership category. */
+		membershipCategoryName?: string,
+		/** Display name of the membership offering. */
+		membershipOfferingName?: string,
+		/** Display name of the price point. */
+		pricePointName?: string,
+		/** Existing membership ID. Leave null for new membership conversions. */
+		membershipId?: string | null,
+		/** Waive member benefits. Default: false. */
+		waiveBenefits?: boolean,
+		/** Set to true for a gift membership. Default: false. */
+		isGift?: boolean,
+		/** Gift giver information. Required when isGift is true. */
+		gifterInfo?: unknown,
+		/** Notify the gift recipient by email. Default: false. */
+		notifyGiftRecipient?: boolean,
+		/** Custom gift message. */
+		giftMessage?: string,
+		/** Optional donation bundled with the membership, e.g. {"amount": 1000, "currencyCode": "USD"}. */
+		donationAmount?: { amount: number, currencyCode: string },
+		/** Mark the donation as anonymous. Default: false. */
+		markDonationAsAnonymous?: boolean,
+		/** Auto-renewal setting. Supported values: REQUIRED, OPTIONAL, NONE. */
+		autorenewalType?: 'REQUIRED' | 'OPTIONAL' | 'NONE',
+		/** Opt the member in to auto-renewal. Only valid when autorenewalType is not NONE. */
+		isAutorenew?: boolean,
+		/** External membership reference ID. */
+		externalMembershipId?: string,
+		/** External system reference ID. */
+		externalId?: string,
+	},
+	/** POS terminal ID. Falls back to payment.terminalId if not provided. */
+	terminalId?: string,
+	/** Responses to any checkout forms associated with the membership offering. */
+	checkoutForms?: unknown[],
+}
 /** Returns an order object for the specified order id 
  * @param orderId - The id of the order to retrieve
  * @returns An order object
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000250659-b2c-orders#Get-an-Order
- * @endpoint /v2/b2c/orders
+ * @route GET /v2/b2c/orders
  */
 export async function getOrder(orderId: string): Promise<Order> {
 
 	const url = `${GET_ORDER}/${orderId}`;
 
-	const payload = await performRequest({ url, method: 'get' }) as Order;
+	const payload = await performRequest<Order>({ url, method: 'get' });
 	return payload;
 }
 
@@ -173,11 +330,11 @@ export async function getOrder(orderId: string): Promise<Order> {
  * @returns List of orders
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000250659-b2c-orders#List-/-Search-Orders
- * @endpoint GET /v2/b2c/orders
+ * @route GET /v2/b2c/orders
  */
 export async function listOrders(params?: OrderParameters): Promise<Order[]> {
 
-	const payload = await performRequest({ url: GET_ORDER, method: 'get', params }) as Order[];
+	const payload = await performRequest<Order[]>({ url: GET_ORDER, method: 'get', params });
 	return payload;
 }
 
@@ -186,13 +343,13 @@ export async function listOrders(params?: OrderParameters): Promise<Order[]> {
  * @returns List of orders
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000250659-b2c-orders#List-Orders-for-an-Event
- * @endpoint GET /v2/b2c/orders/event/{eventId}
+ * @route GET /v2/b2c/orders/event/{eventId}
  */
 export async function listOrdersForEvent(eventId: string): Promise<Order[]> {
 
 	const url = `${GET_ORDERS_FOR_EVENT}/${eventId}`;
 
-	const payload = await performRequest({ url, method: 'get' }) as Order[];
+	const payload = await performRequest<Order[]>({ url, method: 'get' });
 	return payload;
 }
 
@@ -203,11 +360,11 @@ export async function listOrdersForEvent(eventId: string): Promise<Order[]> {
  * @returns Object with a list of Order Objects and pagination details
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000250659-b2c-orders#List-/-Search-Orders
- * @endpoint GET /v2/b2c/orders/search
+ * @route GET /v2/b2c/orders/search
  */
 export async function searchOrders(params: SearchOrdersParams): Promise<SearchOrdersPayload> {
 
-	const payload = await performRequest({ url: SEARCH_ORDERS, method: 'get', params }) as SearchOrdersPayload;
+	const payload = await performRequest<SearchOrdersPayload>({ url: SEARCH_ORDERS, method: 'get', params });
 	return payload;
 };
 
@@ -218,15 +375,15 @@ export async function searchOrders(params: SearchOrdersParams): Promise<SearchOr
  * @returns Response for the refund
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000250661-order-refund
- * @endpoint POST /v1/b2b/b2b/refunds
+ * @route POST /v1/b2b/b2b/refunds
  */
 export async function refundOrder(params: IOrderRefundParams): Promise<IRefundResponse> {
 
-	const payload = await performRequest({
+	const payload = await performRequest<IRefundResponse>({
 		url: REFUND_ORDER,
 		method: 'post',
 		data: params
-	}) as IRefundResponse;
+	});
 
 	return payload;
 };
@@ -245,15 +402,15 @@ export async function refundOrder(params: IOrderRefundParams): Promise<IRefundRe
  * @returns Updated order
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000253334-order-update
- * @endpoint POST /v2/orders/update
+ * @route POST /v2/orders/update
  */
 export async function updateOrder(params: IOrderUpdateParams): Promise<Order> {
 
-	const payload = await performRequest({
+	const payload = await performRequest<Order>({
 		url: UPDATE_ORDER,
 		method: 'post',
 		data: params
-	}) as Order;
+	});
 
 	return payload;
 };
@@ -266,16 +423,39 @@ export async function updateOrder(params: IOrderUpdateParams): Promise<Order> {
  * @returns Details including updated order and rebooking incident number
  * 
  * https://developers.acmeticketing.com/support/solutions/articles/33000250660-order-rebooking
- * @endpoint POST /v1/b2b/rebook/orders
+ * @route POST /v1/b2b/rebook/orders
  */
 export async function rebookOrder(params: IOrderRebookParams, throwRaw = false): Promise<IRebookResponse> {
 
-	const payload = await performRequest({
+	const payload = await performRequest<IRebookResponse>({
 		url: REBOOK_ORDER,
 		method: 'post',
 		data: params,
 		throwRaw,
-	}) as IRebookResponse;
+	});
 
 	return payload;
 };
+
+
+
+/** Converts existing event ticket order items into a new membership purchase.
+ * It allows customers to apply the monetary value of previously purchased tickets
+ * toward a new membership, charging only the difference via the provided payment method.
+ *
+ * @param body - Request body object with the original order details and new 
+ * membership selected
+ * @returns Updated order
+ * 
+ * https://developers.acmeticketing.com/support/solutions/articles/33000314763-convert-tickets-to-membership
+ * @route POST /v2/b2b/orders/membership/convert
+ */
+export async function convertToMembership(body: ConvertMembershipReqBody): Promise<Order> {
+	const payload = await performRequest<Order>({
+		url: "/v2/b2b/orders/membership/convert",
+		method: "post",
+		data: body
+	})
+
+	return payload;
+}
